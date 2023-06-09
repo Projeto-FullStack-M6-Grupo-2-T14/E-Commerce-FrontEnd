@@ -1,5 +1,7 @@
-const random = () => {
-    <h1>Olá, Mundo</h1>
+const HomePage = () => {
+    return (
+        <h1>Olá, Mundo</h1>
+    )
 }
 
-export default random
+export default HomePage
