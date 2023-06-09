@@ -1,11 +1,12 @@
-// import './App.css'
-import ButtonFilter from './components/home/components/ButtonFilter'
+import RoutesMain from "./routes"
+
+
 
 function App() {
-
   return (
     <>
-      <ButtonFilter title="Preço" />
+
+      <RoutesMain />
     </>
   )
 }
