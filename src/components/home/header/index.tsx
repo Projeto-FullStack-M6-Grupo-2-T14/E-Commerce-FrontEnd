@@ -23,14 +23,17 @@ export const Header = () => {
         <button className="button-big-text">Cadastrar</button>
       </div>
       <div
-        className={`mobile_menu_icon close_icon ${isMobileMenuOpen ? '' : 'hidden'}`}
+        className={`mobile_menu_icon close_icon`}
         onClick={handleMobileMenuClick}
       >
         {isMobileMenuOpen ? <AiOutlineCloseSquare /> : <VscMenu />}
       </div>
       <div className={`mobile_menu ${isMobileMenuOpen ? 'open' : ''}`}>
-        <a className="body-1-600">Fazer Login</a>
-        <button className="button-big-text">Cadastrar</button>
+        <button id="show-filters" >Filters</button>
+        <div>
+          <a className="body-1-600">Fazer Login</a>
+          <button className="button-big-text">Cadastrar</button>
+        </div>
       </div>
     </header>
   );

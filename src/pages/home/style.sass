@@ -1,0 +1,26 @@
+@use "../../styles/_colors.sass"
+
+.main
+    padding: 5rem 2rem
+    display: flex
+    justify-content: space-between
+    
+
+aside
+    display: flex
+    flex-direction: column
+    row-gap: 1.3rem
+
+    @media screen and (max-width: 560px)
+        display: none
+
+
+#show-filters
+    font-size: 1.6rem
+    font-weight: 600
+    color: colors.$white-fixed
+    background-color: colors.$brand-2
+
+
+.hidden
+    display: none
