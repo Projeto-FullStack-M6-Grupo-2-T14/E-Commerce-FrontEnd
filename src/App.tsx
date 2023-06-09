@@ -1,12 +1,9 @@
-import { BackgroundImage } from "./components/home/background_image";
-import { Header } from "./components/home/header";
+import RoutesMain from "./routes"
 
 function App() {
-
   return (
     <>
-    <Header/>
-    <BackgroundImage/>
+      <RoutesMain />
     </>
   )
 }
