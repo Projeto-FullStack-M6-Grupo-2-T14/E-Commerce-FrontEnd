@@ -38,7 +38,7 @@ const HomePage = () => {
                 <div className="cards-container">
                     {/* <Card /> */}
                 </div>
-                <button className="show-filters-button" onClick={toggleFilters}>Filters</button>
+                <button className="out-aside" onClick={toggleFilters}>Filters</button>
             </div>
             <Footer />
 
