@@ -1,11 +1,8 @@
 import RoutesMain from "./routes"
 
-
-
 function App() {
   return (
     <>
-
       <RoutesMain />
     </>
   )
