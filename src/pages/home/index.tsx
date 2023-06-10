@@ -1,16 +1,12 @@
 import { useState } from "react"
+import { AiOutlineCloseSquare } from "react-icons/ai"
 
-import { Header } from "../../components/home/Header"
-import { BackgroundImage } from "../../components/home/Background_image"
 import ListFilter from "../../components/home/ListFilter"
 import ButtonFilter from "src/components/home/ButtonFilter"
-import Card from "src/components/home/Card"
 import Footer from "src/components/home/Footer"
-
-
-
+import Header from "src/components/home/header"
+import BackgroundImage from "src/components/home/background_image"
 import "./style.sass"
-import { AiOutlineCloseSquare } from "react-icons/ai"
 
 const HomePage = () => {
     const [showFilters, setShowFilter] = useState(false);
@@ -19,12 +15,10 @@ const HomePage = () => {
         setShowFilter(!showFilters)
     }
 
-
-
     return (
         <>
-            <Header />
-            <BackgroundImage />
+            <Header/>
+            <BackgroundImage/>
             <div className="main">
                 <aside id="main-aside">
                     <ListFilter title="Marca" lista={["General Motors", "Fiat", "Honda", "Porsche", "Volswagen"]} />
