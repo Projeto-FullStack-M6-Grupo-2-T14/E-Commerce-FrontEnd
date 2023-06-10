@@ -29,7 +29,6 @@ export const Header = () => {
         {isMobileMenuOpen ? <AiOutlineCloseSquare /> : <VscMenu />}
       </div>
       <div className={`mobile_menu ${isMobileMenuOpen ? 'open' : ''}`}>
-        <button id="show-filters" >Filters</button>
         <div>
           <a className="body-1-600">Fazer Login</a>
           <button className="button-big-text">Cadastrar</button>
