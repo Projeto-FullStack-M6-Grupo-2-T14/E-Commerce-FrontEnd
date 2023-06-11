@@ -10,6 +10,8 @@ import "./style.sass"
 
 const HomePage = () => {
     const [showFilters, setShowFilter] = useState(false);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
 
     const toggleFilters = () => {
         setShowFilter(!showFilters)
@@ -17,8 +19,8 @@ const HomePage = () => {
 
     return (
         <>
-            <Header/>
-            <BackgroundImage/>
+            <Header isMobileMenuOpen={isMobileMenuOpen} setIsMobileMenuOpen={setIsMobileMenuOpen}/>
+            <BackgroundImage isMobileMenuOpen={isMobileMenuOpen}/>
             <div className="main">
                 <aside id="main-aside">
                     <ListFilter title="Marca" lista={["General Motors", "Fiat", "Honda", "Porsche", "Volswagen"]} />

@@ -40,18 +40,23 @@ svg
     background-color: colors.$grey-9
     cursor: pointer
 
+
 .mobile_menu
   display: flex
   justify-content: center
   position: absolute
   width: 100vw
-  top: -45px
+  height: 100px
+  top: -100px
   transition: 0.3s
+  background-color: colors.$white-fixed
+  z-index: 1
+
 
   div
     display: flex
     align-items: center
-    column-gap: 3rem
+    column-gap: 2rem
 
   a
     padding: 10px 15px
@@ -68,9 +73,7 @@ svg
     background-color: colors.$grey-9
 
   &.open
-    top: 625px
-    @media screen and (max-width: 315px)
-    top: 650px
+    top: 75px
 
 
 .mobile_menu_icon

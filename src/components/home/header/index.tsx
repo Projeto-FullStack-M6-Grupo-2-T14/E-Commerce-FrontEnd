@@ -1,10 +1,13 @@
-import { useState } from 'react';
 import { VscMenu } from 'react-icons/vsc';
 import { AiOutlineCloseSquare } from 'react-icons/ai';
 import "./header.sass"
 
-const Header = () => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+interface HeaderProps {
+  isMobileMenuOpen: boolean;
+  setIsMobileMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const Header = ({ isMobileMenuOpen, setIsMobileMenuOpen }: HeaderProps) => {
 
   const handleMobileMenuClick = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
