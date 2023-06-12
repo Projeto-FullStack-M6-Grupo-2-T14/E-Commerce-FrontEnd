@@ -1,0 +1,94 @@
+@use "../../../styles/_colors.sass"
+
+svg
+  font-size: 3rem !important
+
+#container
+  display: flex
+  justify-content: space-between
+  align-items: center
+  background-color: colors.$grey-10
+  padding: 2rem
+  border-bottom: 2px solid colors.$grey-6
+  position: relative
+
+.logo_container
+  display: flex
+  align-items: baseline
+  width: 17rem
+
+  h1
+    background: linear-gradient(90deg, #0B0D0D -1.61%, #4529E6 100.99%)
+    -webkit-background-clip: text
+    -webkit-text-fill-color: transparent
+
+.button_container
+  display: flex
+  align-items: center
+  justify-content: space-between
+  width: 250px
+
+  a
+    color: colors.$grey-2
+    cursor: pointer
+
+  button
+    padding: 12px 28px
+    border: 1.5px solid colors.$grey-4
+    border-radius: 4px
+    color: colors.$grey-0
+    background-color: colors.$grey-9
+    cursor: pointer
+
+
+.mobile_menu
+  display: flex
+  justify-content: center
+  position: absolute
+  width: 100vw
+  height: 100px
+  top: -100px
+  transition: 0.3s
+  background-color: colors.$white-fixed
+  z-index: 1
+
+
+  div
+    display: flex
+    align-items: center
+    column-gap: 2rem
+
+  a
+    padding: 10px 15px
+    border: 1.5px solid colors.$grey-4
+    border-radius: 4px
+    color: colors.$grey-2
+    background-color: colors.$grey-9
+
+  button
+    padding: 12px 28px
+    border: 1.5px solid colors.$grey-4
+    border-radius: 4px
+    color: colors.$grey-2
+    background-color: colors.$grey-9
+
+  &.open
+    top: 75px
+
+
+.mobile_menu_icon
+  display: none
+
+.hidden
+  display: none
+
+
+@media screen and (max-width: 560px)
+  .button_container
+    display: none
+
+  .mobile_menu_icon
+    display: block
+
+  .visible
+    display: block
