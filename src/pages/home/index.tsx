@@ -7,6 +7,7 @@ import Footer from "src/components/home/Footer"
 import Header from "src/components/home/header"
 import BackgroundImage from "src/components/home/background_image"
 import "./style.sass"
+import { Card } from "src/components/home/cardCar/card.component"
 
 const HomePage = () => {
     const [showFilters, setShowFilter] = useState(false);
@@ -32,7 +33,7 @@ const HomePage = () => {
                     <ButtonFilter title="Preço" />
                 </aside>
                 <div className="cards-container">
-                    {/* <Card /> */}
+                    <Card />
                 </div>
                 <button className="out-aside" onClick={toggleFilters}>Filters</button>
             </div>
