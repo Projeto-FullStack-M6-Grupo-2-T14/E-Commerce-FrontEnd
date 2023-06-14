@@ -1,12 +1,13 @@
 import { useState } from "react"
 import { AiOutlineCloseSquare } from "react-icons/ai"
-
 import ListFilter from "../../components/home/ListFilter"
 import ButtonFilter from "src/components/home/ButtonFilter"
 import Footer from "src/components/home/Footer"
-import Header from "src/components/home/header"
-import BackgroundImage from "src/components/home/background_image"
+import Header from "src/components/home/Header"
+import BackgroundImage from "src/components/home/BackgroundImage"
 import "./style.sass"
+import Card from "src/components/home/Card"
+import mock_car from "../../assets/images/card1.png"
 
 const HomePage = () => {
     const [showFilters, setShowFilter] = useState(false);
@@ -19,7 +20,7 @@ const HomePage = () => {
         <>
             <Header/>
             <BackgroundImage/>
-            <div className="main">
+            <main className="main">
                 <aside id="main-aside">
                     <ListFilter title="Marca" lista={["General Motors", "Fiat", "Honda", "Porsche", "Volswagen"]} />
                     <ListFilter title="Modelo" lista={["Civic", "Corolla", "Cruze", "Fiat", "Gol", "Ka", "Onix", "Pulse"]} />
@@ -29,11 +30,42 @@ const HomePage = () => {
                     <ButtonFilter title="Km" />
                     <ButtonFilter title="Preço" />
                 </aside>
-                <div className="cards-container">
-                    {/* <Card /> */}
-                </div>
+                <ul className="list-cards">
+                    <Card img={mock_car} 
+                        name="Ford Fiesta - 20" 
+                        description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem..."
+                        name_profile="Junior Santos"
+                        mileage="110"
+                        year="2021"
+                        price="90.000" 
+                    />
+                    <Card img={mock_car} 
+                        name="Ford Fiesta - 20" 
+                        description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem..."
+                        name_profile="Junior Santos"
+                        mileage="110"
+                        year="2021"
+                        price="90.000" 
+                    />
+                    <Card img={mock_car} 
+                        name="Ford Fiesta - 20" 
+                        description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem..."
+                        name_profile="Junior Santos"
+                        mileage="110"
+                        year="2021"
+                        price="90.000" 
+                    />
+                    <Card img={mock_car} 
+                        name="Ford Fiesta - 20" 
+                        description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem..."
+                        name_profile="Junior Santos"
+                        mileage="110"
+                        year="2021"
+                        price="90.000" 
+                    />
+                </ul>
                 <button className="out-aside" onClick={toggleFilters}>Filters</button>
-            </div>
+            </main>
             <Footer />
 
             <div id="show-filters" className={showFilters ? '' : 'hidden'}>
@@ -55,8 +87,6 @@ const HomePage = () => {
 
                 </aside>
             </div>
-
-
         </>
     )
 }
