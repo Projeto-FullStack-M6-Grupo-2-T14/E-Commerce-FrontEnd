@@ -1,5 +1,6 @@
 import { VscMenu } from 'react-icons/vsc';
 import { AiOutlineCloseSquare } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
 import "./header.sass"
 
 interface HeaderProps {
@@ -24,7 +25,7 @@ const Header = ({ isMobileMenuOpen, setIsMobileMenuOpen }: HeaderProps) => {
         </div>
         <div className="button_container">
           <a className="body-1-600">Fazer Login</a>
-          <button className="button-big-text">Cadastrar</button>
+          <Link to="/register" className="button-big-text">Cadastrar</Link>
         </div>
         <div
           className={`mobile_menu_icon close_icon`}
@@ -37,7 +38,7 @@ const Header = ({ isMobileMenuOpen, setIsMobileMenuOpen }: HeaderProps) => {
         <div className={`mobile_menu ${isMobileMenuOpen ? 'open' : ''}`}>
           <div>
             <a className="button-big-text">Fazer Login</a>
-            <button className="button-big-text">Cadastrar</button>
+            <Link to="/register" className="button-big-text">Cadastrar</Link>
           </div>
         </div>
       </div>
