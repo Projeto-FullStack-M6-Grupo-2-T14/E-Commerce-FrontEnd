@@ -24,7 +24,7 @@ const Header = ({ isMobileMenuOpen, setIsMobileMenuOpen }: HeaderProps) => {
           </h1>
         </div>
         <div className="button_container">
-          <a className="body-1-600">Fazer Login</a>
+          <Link to="/login" className="body-1-600">Fazer Login</Link>
           <Link to="/register" className="button-big-text">Cadastrar</Link>
         </div>
         <div
@@ -37,7 +37,7 @@ const Header = ({ isMobileMenuOpen, setIsMobileMenuOpen }: HeaderProps) => {
       <div className="mobile_menu_container">
         <div className={`mobile_menu ${isMobileMenuOpen ? 'open' : ''}`}>
           <div>
-            <a className="button-big-text">Fazer Login</a>
+            <Link to="/login" className="body-1-600">Fazer Login</Link>
             <Link to="/register" className="button-big-text">Cadastrar</Link>
           </div>
         </div>
