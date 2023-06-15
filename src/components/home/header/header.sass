@@ -28,9 +28,13 @@ svg
   justify-content: space-between
   width: 250px
 
-  a
-    color: colors.$grey-2
+  .body-1-600
+    color: colors.$brand-1
     cursor: pointer
+    transition: 0.3s
+    text-decoration: none
+    &:hover
+      color: colors.$brand-3
 
   .button-big-text
     padding: 12px 28px
@@ -40,6 +44,10 @@ svg
     background-color: colors.$grey-9
     cursor: pointer
     text-decoration: none
+    transition: 0.3s
+    &:hover
+      background-color: colors.$grey-1
+      color: colors.$white-fixed
 
 
 .mobile_menu
@@ -59,17 +67,18 @@ svg
     align-items: center
     column-gap: 2rem
 
-  a
+  .body-1-600
     padding: 10px 15px
     border: 1.5px solid colors.$grey-4
     border-radius: 4px
-    color: colors.$grey-2
-    background-color: colors.$grey-9
+    color: colors.$brand-1
+    text-decoration: none
 
   .button-big-text
     padding: 12px 28px
     border: 1.5px solid colors.$grey-4
     border-radius: 4px
+    text-decoration: none
     color: colors.$grey-2
     background-color: colors.$grey-9
 

@@ -5,7 +5,7 @@ export const registerFormSchema = z.object({
   email: z.string().nonempty("O e-mail é obrigatório").email("Forneça um e-mail válido"),
   cpf: z.string().nonempty("O CPF é obrigatório"),
   phone: z.string().max(14, "O telefone deve ter no máximo 14 caracteres").nonempty("O número do celular é obrigatório"),
-  birthdate: z.string().nonempty("Data de Nascimento é obrigatória"),
+  birthday: z.string().nonempty("Data de Nascimento é obrigatória"),
   description: z.string().nullable(),
   cep: z.string().nonempty("O CEP é obrigatório"),
   state: z.string().nonempty("O estado é obrigatório"),

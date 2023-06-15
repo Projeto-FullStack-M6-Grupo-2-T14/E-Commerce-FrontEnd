@@ -1,6 +1,7 @@
 import { createContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { TRegisterData } from "src/components/register/registerForm/registerFormSchema";
+import { TLoginData } from "src/components/forms/loginForm/loginFormSchema";
+import { TRegisterData } from "src/components/forms/registerForm/registerFormSchema";
 import Api from "src/services/Api";
 
 interface IUserProviderProps {
@@ -9,6 +10,7 @@ interface IUserProviderProps {
 
 interface IUserContext { 
     userRegister: (userData: TRegisterData) => Promise<void>
+    login: (loginData: TLoginData) => Promise<void>
  }
 
 interface IUser {
@@ -29,6 +31,11 @@ interface IUser {
     is_seller: boolean;
   }
 
+  interface ILoginResponse {
+    user: IUser
+    token: string;
+  }
+
   export const UserContext = createContext({} as IUserContext);
 
   const UserProvider = ({ children }: IUserProviderProps) => {
@@ -44,8 +51,19 @@ interface IUser {
         }
       };
 
+    const login =async (loginData:TLoginData): Promise<void> => {
+      try {
+        const response = await Api.post<ILoginResponse>("/login", loginData);
+        localStorage.setItem("@TOKEN", response.data.token);
+      } catch (error) {
+        console.log(error)
+      } finally {
+        navigate("/dashboard", { replace: true })
+      }
+    };
+
     return (
-        <UserContext.Provider value={{ userRegister }}>
+        <UserContext.Provider value={{ userRegister, login }}>
           {children}
         </UserContext.Provider>
       );
