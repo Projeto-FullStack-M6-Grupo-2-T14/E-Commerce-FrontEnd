@@ -20,22 +20,22 @@ const LoginForm = () => {
 
   return (
     <form onSubmit={handleSubmit(submit)}>
-      
+
       <h1 className="heading-5-500">Login</h1>
 
 
       <div className="input_box">
         <label htmlFor="email">Email</label>
         <input
-        type="text"
-        placeholder="Ex: samuel@kenzie.com.br"
-        id="email"
-        autoComplete="given-email"
-        {...register("email")}
-        data-tooltip-id="email-tooltip"
-        data-tooltip-content={errors.email ? errors.email.message : ""}
-        data-tooltip-place="top"
-        data-tooltip-float={true} 
+          type="text"
+          placeholder="Ex: samuel@kenzie.com.br"
+          id="email"
+          autoComplete="given-email"
+          {...register("email")}
+          data-tooltip-id="email-tooltip"
+          data-tooltip-content={errors.email ? errors.email.message : ""}
+          data-tooltip-place="top"
+          data-tooltip-float={true}
         />
         <Tooltip id="email-tooltip" />
       </div>
@@ -44,15 +44,15 @@ const LoginForm = () => {
       <div className="input_box">
         <label htmlFor="password">Senha</label>
         <input
-        type="text"
-        placeholder="Digitar senha"
-        id="password"
-        autoComplete="given-password"
-        {...register("password")}
-        data-tooltip-id="password-tooltip"
-        data-tooltip-content={errors.password ? errors.password.message : ""}
-        data-tooltip-place="top"
-        data-tooltip-float={true} 
+          type="text"
+          placeholder="Digitar senha"
+          id="password"
+          autoComplete="given-password"
+          {...register("password")}
+          data-tooltip-id="password-tooltip"
+          data-tooltip-content={errors.password ? errors.password.message : ""}
+          data-tooltip-place="top"
+          data-tooltip-float={true}
         />
         <Tooltip id="password-tooltip" />
         <span>Esqueci minha senha</span>
