@@ -1,11 +1,16 @@
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useContext, useState } from "react";
+import { ChangeEvent, useContext, useEffect, useState } from "react";
 import "./styles.sass"
 import { AiOutlineCloseSquare } from "react-icons/ai";
 import { TAnuncioData, anuncioFormSchema } from "./anuncioFormSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { UserContext } from "src/contexts/userContext";
 import { Tooltip } from "react-tooltip";
+import { ApiCars } from "../../services/api"
+
+interface IBrand {
+    name: string
+}
 
 const Anuncio = () => {
     const [showCreate, setShowFilter] = useState(true);
@@ -26,6 +31,44 @@ const Anuncio = () => {
         anuncio(anuncioData);
     };
 
+    // api
+    const [cars, setCars] = useState<any>({}),
+        [brands, setBrands] = useState<string[]>([]),
+        [brand, setBrand] = useState<string>(''),
+        [carModels, setCarModel] = useState([])
+
+
+
+    useEffect(() => {
+        async function getCars() {
+            try {
+                const response = await ApiCars.get('')
+
+                const carsData = response.data
+
+                setCars(carsData)
+                const keys: string[] = Object.keys(carsData)
+                setBrands(keys)
+
+            } catch (error) {
+                console.error(error)
+            }
+        }
+
+        getCars()
+    }, [])
+
+    const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
+        const selectedBrand = e.target.value
+
+        setBrand(selectedBrand)
+        selectedBrand ?
+            setCarModel(cars[selectedBrand])
+            : ''
+    }
+
+
+
     return (
         <div id="create-anuncio" className="{showCreate ? '' : 'hidden'} " >
             <form onSubmit={handleSubmit(submit)}>
@@ -35,26 +78,32 @@ const Anuncio = () => {
                 </div>
                 <p>Informações do veículo</p>
 
+
                 <div className="input_box">
                     <label htmlFor="marca" className="heading-7-600">Marca</label>
-                    <input
-                        type="text"
-                        placeholder="Digite uma marca"
+                    <select
                         id="marca"
+                        value={brand}
                         autoComplete="given-marca"
                         {...register("marca")}
+                        onChange={handleChange}
                         data-tooltip-id="marca-tooltip"
                         data-tooltip-content={errors.marca ? errors.marca.message : ""}
                         data-tooltip-place="top"
                         data-tooltip-float={true}
-                    />
+                    >
+                        <option value="" className="select-placeholder">Selecione uma marca</option>
+                        {Object.keys(cars).map((car, i) => {
+                            return (<option key={i}>{car}</option>)
+                        })}
+
+                    </select>
                     <Tooltip id="marca-tooltip" />
                 </div>
 
                 <div className="input_box">
                     <label htmlFor="modelo" className="heading-7-600">Modelo</label>
-                    <input
-                        type="text"
+                    <select
                         placeholder="Digite um modelo"
                         id="modelo"
                         autoComplete="given-modelo"
@@ -63,7 +112,12 @@ const Anuncio = () => {
                         data-tooltip-content={errors.modelo ? errors.modelo.message : ""}
                         data-tooltip-place="top"
                         data-tooltip-float={true}
-                    />
+                    >
+                        <option value="" className="select-placeholder">Selecione um modelo</option>
+                        {brand ? carModels.map((model, i) => {
+                            return (<option key={i}>{model!.name}</option>)
+                        }) : ''}
+                    </select>
                     <Tooltip id="modelo-tooltip" />
                 </div>
 

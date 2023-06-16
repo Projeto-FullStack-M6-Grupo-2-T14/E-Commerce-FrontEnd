@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { TAnuncioData } from "src/components/anuncio/anuncioFormSchema";
 import { TLoginData } from "src/components/forms/loginForm/loginFormSchema";
 import { TRegisterData } from "src/components/forms/registerForm/registerFormSchema";
-import Api from "src/services/Api";
+import { ApiShop } from "../services/api";
+
 
 interface IUserProviderProps {
   children: React.ReactNode;
@@ -59,7 +60,7 @@ const UserProvider = ({ children }: IUserProviderProps) => {
 
   const userRegister = async (userData: TRegisterData): Promise<void> => {
     try {
-      await Api.post<IUser>("/users", userData);
+      await ApiShop.post<IUser>("/users", userData);
     } catch (error) {
       console.log(error)
     } finally {
@@ -69,7 +70,7 @@ const UserProvider = ({ children }: IUserProviderProps) => {
 
   const login = async (loginData: TLoginData): Promise<void> => {
     try {
-      const response = await Api.post<ILoginResponse>("/login", loginData);
+      const response = await ApiShop.post<ILoginResponse>("/login", loginData);
       localStorage.setItem("@TOKEN", response.data.token);
     } catch (error) {
       console.log(error)
