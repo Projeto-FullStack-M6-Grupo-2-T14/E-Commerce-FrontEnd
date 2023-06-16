@@ -3,18 +3,19 @@
 .main
     padding: 4% 0
     display: flex
-    margin: 0 4.5%
 
     @media screen and (max-width: 560px)
         flex-direction: column
+        row-gap: 1.6rem
     
-aside
-    display: flex
-    flex-direction: column
-    row-gap: 1.3rem
-    margin-right: 1%
 
 #main-aside
+    padding-left: 2rem 
+    aside
+        display: flex
+        flex-direction: column
+        row-gap: 1.3rem
+
     @media screen and (max-width: 800px)
         display: none
 
@@ -48,9 +49,6 @@ aside
         overflow-y: scroll
         overflow-x: hidden 
 
-        & > button
-            margin: 3rem  0
-
         .modal-title
             padding: 2rem 0
             position: sticky
@@ -72,7 +70,6 @@ aside
 
 
 .show-filters-button
-    // max-width: 15rem
     font-size: 1.6rem
     font-weight: 600
     color: colors.$white-fixed
@@ -80,6 +77,9 @@ aside
 
 .out-aside
     display: none
+    margin: auto
+    padding: 1rem 5rem
+    width: fit-content
     font-size: 1.6rem
     font-weight: 600
     color: colors.$white-fixed
@@ -103,4 +103,3 @@ aside
         flex-wrap: nowrap
         gap: 0
         overflow: auto
-        margin: 8% 0

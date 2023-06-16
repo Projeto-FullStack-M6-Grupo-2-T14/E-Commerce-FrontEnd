@@ -11,6 +11,7 @@ import mock_car from "../../assets/images/card1.png"
 
 const HomePage = () => {
     const [showFilters, setShowFilter] = useState(false);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     const toggleFilters = () => {
         setShowFilter(!showFilters)
@@ -18,8 +19,8 @@ const HomePage = () => {
 
     return (
         <>
-            <Header/>
-            <BackgroundImage/>
+            <Header isMobileMenuOpen={isMobileMenuOpen} setIsMobileMenuOpen={setIsMobileMenuOpen} />
+            <BackgroundImage isMobileMenuOpen={isMobileMenuOpen} />
             <main className="main">
                 <aside id="main-aside">
                     <ListFilter title="Marca" lista={["General Motors", "Fiat", "Honda", "Porsche", "Volswagen"]} />
@@ -31,40 +32,40 @@ const HomePage = () => {
                     <ButtonFilter title="Preço" />
                 </aside>
                 <ul className="list-cards">
-                    <Card img={mock_car} 
-                        name="Ford Fiesta - 20" 
+                    <Card img={mock_car}
+                        name="Ford Fiesta - 20"
                         description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem..."
                         name_profile="Junior Santos"
                         mileage="110"
                         year="2021"
-                        price="90.000" 
+                        price="90.000"
                     />
-                    <Card img={mock_car} 
-                        name="Ford Fiesta - 20" 
+                    <Card img={mock_car}
+                        name="Ford Fiesta - 20"
                         description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem..."
                         name_profile="Junior Santos"
                         mileage="110"
                         year="2021"
-                        price="90.000" 
+                        price="90.000"
                     />
-                    <Card img={mock_car} 
-                        name="Ford Fiesta - 20" 
+                    <Card img={mock_car}
+                        name="Ford Fiesta - 20"
                         description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem..."
                         name_profile="Junior Santos"
                         mileage="110"
                         year="2021"
-                        price="90.000" 
+                        price="90.000"
                     />
-                    <Card img={mock_car} 
-                        name="Ford Fiesta - 20" 
+                    <Card img={mock_car}
+                        name="Ford Fiesta - 20"
                         description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem..."
                         name_profile="Junior Santos"
                         mileage="110"
                         year="2021"
-                        price="90.000" 
+                        price="90.000"
                     />
                 </ul>
-                <button className="out-aside" onClick={toggleFilters}>Filters</button>
+                <button className="out-aside" onClick={toggleFilters}>Filtros</button>
             </main>
             <Footer />
 
