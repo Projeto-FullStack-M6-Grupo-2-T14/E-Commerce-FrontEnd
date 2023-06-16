@@ -1,7 +1,7 @@
 import { VscMenu } from 'react-icons/vsc';
 import { AiOutlineCloseSquare } from 'react-icons/ai';
-import { Link } from 'react-router-dom';
 import "./header.sass"
+import { Link } from 'react-router-dom';
 
 interface HeaderProps {
   isMobileMenuOpen: boolean;
@@ -9,7 +9,6 @@ interface HeaderProps {
 }
 
 const Header = ({ isMobileMenuOpen, setIsMobileMenuOpen }: HeaderProps) => {
-
   const handleMobileMenuClick = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
@@ -24,8 +23,8 @@ const Header = ({ isMobileMenuOpen, setIsMobileMenuOpen }: HeaderProps) => {
           </h1>
         </div>
         <div className="button_container">
-          <Link to="/login" className="body-1-600">Fazer Login</Link>
-          <Link to="/register" className="button-big-text">Cadastrar</Link>
+          <Link to="/login" className="link-login">Fazer Login</Link>
+          <Link to="/register" className="link-register">Cadastrar</Link>
         </div>
         <div
           className={`mobile_menu_icon close_icon`}
@@ -36,9 +35,9 @@ const Header = ({ isMobileMenuOpen, setIsMobileMenuOpen }: HeaderProps) => {
       </header>
       <div className="mobile_menu_container">
         <div className={`mobile_menu ${isMobileMenuOpen ? 'open' : ''}`}>
-          <div>
-            <Link to="/login" className="body-1-600">Fazer Login</Link>
-            <Link to="/register" className="button-big-text">Cadastrar</Link>
+          <div className='button_container_mobile'>
+            <Link to="/login" className="link-login">Fazer Login</Link>
+            <Link to="/register" className="link-register">Cadastrar</Link>
           </div>
         </div>
       </div>
