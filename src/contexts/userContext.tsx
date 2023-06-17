@@ -21,13 +21,7 @@ interface IUser {
     cpf: string;
     phone: string;
     birthday: string;
-    description: string;
-    cep: string;
-    state: string;
-    city: string;
-    street: string;
-    number: string;
-    complement: string;
+    description: string;    
     is_seller: boolean;
   }
 
@@ -58,7 +52,7 @@ interface IUser {
       } catch (error) {
         console.log(error)
       } finally {
-        navigate("/dashboard", { replace: true })
+        navigate("/", { replace: true })
       }
     };
 
