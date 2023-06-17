@@ -4,8 +4,8 @@ form
     display: flex
     flex-direction: column
     justify-content: center
-    width: 360px
-    max-width: 300px
+    width: 36rem
+    min-width: 30rem
     margin: 0 auto
     padding: 5rem 3rem
     gap: 12px
@@ -29,17 +29,19 @@ form
             gap: 10px
             input
                 width: 100px
+
                 
         input
             width: 100%
             height: 48px
             padding: 0 16px
             border: 1.5px solid colors.$grey-7
-            border-radius: 4px
+            border-radius: 4px 
             font-size: 1.3rem
-            cursor: pointer
+
             &:hover
                 background-color: colors.$grey-7
+                
         ::placeholder
             font-weight: 400
             font-size: 1.02rem    
@@ -50,7 +52,7 @@ form
             text-align: end
 
 
-    .btn_submit
+    .btn_login
         border-radius: 4px
         padding: 12px 28px 12px 28px
         width: 100%
@@ -80,8 +82,3 @@ form
         color: colors.$grey-3
         font-size: 0.88rem
         text-align: center
-
-
-
-
-                

@@ -1,24 +1,26 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { TRegisterData, registerFormSchema } from "./registerFormSchema";
-import "./style.sass";
 import { UserContext } from "src/contexts/userContext";
 import { Tooltip } from "react-tooltip";
+import "./style.sass";
 
 const RegisterForm = () => {
   const { userRegister } = useContext(UserContext);
+  const [isSeller, setIsSeller] = useState(false);
 
   const { register, handleSubmit, formState: { errors } } = useForm<TRegisterData>({
     resolver: zodResolver(registerFormSchema),
   });
 
-  const submit: SubmitHandler<TRegisterData> = (userData) => {
+  const submitRegister: SubmitHandler<TRegisterData> = (userData) => {
+    userData.is_seller = isSeller;
     userRegister(userData);
   };
 
   return (
-    <form onSubmit={handleSubmit(submit)}>
+    <form onSubmit={handleSubmit(submitRegister)}>
       
       <h1 className="heading-5-500">Cadastro</h1>
       <h4 className="body-2-500">Infomações pessoais</h4>
@@ -117,9 +119,9 @@ const RegisterForm = () => {
         placeholder="00000.000" 
         id="cep"
         autoComplete="given-cep"
-        {...register("cep")}
+        {...register("address.cep")}
         data-tooltip-id="cep-tooltip"
-        data-tooltip-content={errors.cep ? errors.cep.message : ""}
+        data-tooltip-content={errors.address?.cep ? errors.address.cep.message : ""}
         data-tooltip-place="top"
         data-tooltip-float={true} 
         />
@@ -135,9 +137,9 @@ const RegisterForm = () => {
             placeholder="Digitar Estado" 
             id="state"
             autoComplete="given-state"
-            {...register("state")}
+            {...register("address.state")}
             data-tooltip-id="state-tooltip"
-            data-tooltip-content={errors.state ? errors.state.message : ""}
+            data-tooltip-content={errors.address?.state ? errors.address.state.message : ""}
             data-tooltip-place="top"
             data-tooltip-float={true} 
             />
@@ -151,9 +153,9 @@ const RegisterForm = () => {
             placeholder="Digitar Cidade" 
             id="city"
             autoComplete="given-city"
-            {...register("city")}
+            {...register("address.city")}
             data-tooltip-id="city-tooltip"
-            data-tooltip-content={errors.city ? errors.city.message : ""}
+            data-tooltip-content={errors.address?.city ? errors.address.city.message : ""}
             data-tooltip-place="top"
             data-tooltip-float={true} 
             />
@@ -169,9 +171,9 @@ const RegisterForm = () => {
         placeholder="Digitar Rua" 
         id="street"
         autoComplete="given-street"
-        {...register("street")}
+        {...register("address.street")}
         data-tooltip-id="street-tooltip"
-        data-tooltip-content={errors.street ? errors.street.message : ""}
+        data-tooltip-content={errors.address?.street ? errors.address.street.message : ""}
         data-tooltip-place="top"
         data-tooltip-float={true} 
         />
@@ -187,9 +189,9 @@ const RegisterForm = () => {
             placeholder="Digitar número" 
             id="number"
             autoComplete="given-number"
-            {...register("number")}
+            {...register("address.number")}
             data-tooltip-id="number-tooltip"
-            data-tooltip-content={errors.number ? errors.number.message : ""}
+            data-tooltip-content={errors.address?.number ? errors.address.number.message : ""}
             data-tooltip-place="top"
             data-tooltip-float={true} 
             />
@@ -206,8 +208,19 @@ const RegisterForm = () => {
       <div className="input_box">
         <label htmlFor="tipoConta">Tipo de Conta</label>
         <div className="input_box_container">
-          <button className="btn_comprador">Comprador</button>
-          <button className="btn_anunciante">Anunciante</button>
+        <button
+          className={`btn_comprador ${isSeller === false ? 'selected' : ''}`}
+          onClick={() => setIsSeller(false)}
+        >
+          Comprador
+        </button>
+        <button
+          className={`btn_anunciante ${isSeller === true ? 'selected' : ''}`}
+          onClick={() => setIsSeller(true)}
+        >
+          Anunciante
+        </button>
+
         </div>
       </div>
 
@@ -243,7 +256,7 @@ const RegisterForm = () => {
         <Tooltip id="password_confirm-tooltip" />
       </div>
 
-      <button className="btn_submit" type="submit">Finalizar cadastro</button>
+      <button className="btn_login" type="submit">Finalizar cadastro</button>
     </form>
   );
 };
