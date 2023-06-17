@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Header from "src/components/home/header"
 import RegisterForm from "src/components/forms/registerForm";
+import Header from "src/components/home/Header";
 import "./style.sass"
 
 

@@ -1,9 +1,9 @@
-import { createContext } from "react";
+import { Dispatch, SetStateAction, createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { TAnuncioData } from "src/components/anuncio/anuncioFormSchema";
 import { TLoginData } from "src/components/forms/loginForm/loginFormSchema";
 import { TRegisterData } from "src/components/forms/registerForm/registerFormSchema";
-import { ApiShop } from "../services/api";
+import { ApiShop } from "src/services/Api";
 
 
 interface IUserProviderProps {
@@ -14,6 +14,8 @@ interface IUserContext {
   userRegister: (userData: TRegisterData) => Promise<void>
   login: (loginData: TLoginData) => Promise<void>
   anuncio: (anuncioData: TAnuncioData) => Promise<void>
+  userData: IUser | null
+  setUserData: Dispatch<SetStateAction<IUser | null>>
 }
 
 interface IUser {
@@ -25,13 +27,17 @@ interface IUser {
   phone: string;
   birthday: string;
   description: string;
+  is_seller: boolean;
+  address: IAddress;
+}
+
+interface IAddress {
   cep: string;
   state: string;
   city: string;
   street: string;
   number: string;
   complement: string;
-  is_seller: boolean;
 }
 
 interface ILoginResponse {
@@ -56,11 +62,13 @@ interface IAnuncioResponse {
 export const UserContext = createContext({} as IUserContext);
 
 const UserProvider = ({ children }: IUserProviderProps) => {
+  const [userData, setUserData] = useState<IUser | null>(null);
   const navigate = useNavigate();
 
   const userRegister = async (userData: TRegisterData): Promise<void> => {
     try {
-      await ApiShop.post<IUser>("/users", userData);
+      const response = await ApiShop.post<IUser>("/users", userData);
+      setUserData(response.data)
     } catch (error) {
       console.log(error)
     } finally {
@@ -68,7 +76,7 @@ const UserProvider = ({ children }: IUserProviderProps) => {
     }
   };
 
-  const login = async (loginData: TLoginData): Promise<void> => {
+  const login =async (loginData:TLoginData): Promise<void> => {
     try {
       const response = await ApiShop.post<ILoginResponse>("/login", loginData);
       localStorage.setItem("@TOKEN", response.data.token);
@@ -90,7 +98,7 @@ const UserProvider = ({ children }: IUserProviderProps) => {
   };
 
   return (
-    <UserContext.Provider value={{ userRegister, login, anuncio }}>
+    <UserContext.Provider value={{ userRegister, login, anuncio, userData, setUserData }}>
       {children}
     </UserContext.Provider>
   );

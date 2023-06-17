@@ -5,9 +5,9 @@ import ButtonFilter from "src/components/home/ButtonFilter"
 import Footer from "src/components/home/Footer"
 import Header from "src/components/home/Header"
 import BackgroundImage from "src/components/home/BackgroundImage"
-import "./style.sass"
 import Card from "src/components/home/Card"
 import mock_car from "../../assets/images/card1.png"
+import "./style.sass"
 
 const HomePage = () => {
     const [showFilters, setShowFilter] = useState(false);

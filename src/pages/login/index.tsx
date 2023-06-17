@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Header from "src/components/home/header"
 import LoginForm from "src/components/forms/loginForm";
+import Header from "src/components/home/Header";
 import "./style.sass"
 
 

@@ -14,12 +14,12 @@ const LoginForm = () => {
     resolver: zodResolver(loginFormSchema),
   });
 
-  const submit: SubmitHandler<TLoginData> = (loginData) => {
+  const submitLogin: SubmitHandler<TLoginData> = (loginData) => {
     login(loginData);
   };
 
   return (
-    <form onSubmit={handleSubmit(submit)}>
+    <form onSubmit={handleSubmit(submitLogin)}>
 
       <h1 className="heading-5-500">Login</h1>
 
@@ -58,7 +58,7 @@ const LoginForm = () => {
         <span>Esqueci minha senha</span>
       </div>
 
-      <button className="btn_submit" type="submit">Entrar</button>
+      <button className="btn_register" type="submit">Entrar</button>
 
       <p>Ainda não possui conta?</p>
 

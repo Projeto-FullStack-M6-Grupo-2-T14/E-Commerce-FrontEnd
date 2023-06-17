@@ -45,6 +45,8 @@ form
                 transition: 0.3s
                 &:hover
                     background-color: colors.$brand-2
+                &:focus
+                    background-color: colors.$grey-0
 
             .btn_anunciante
                 border-radius: 4px
@@ -57,13 +59,18 @@ form
                 &:hover
                     background-color: colors.$grey-1
                     color: colors.$white-fixed
+
+            .selected 
+                background-color: colors.$grey-0
+                color: colors.$white-fixed
+                
                 
         input
             height: 48px
             padding: 0 16px
             border: 1.5px solid colors.$grey-7
             border-radius: 4px
-             
+            font-size: 1.3rem             
             
             &:hover
                 background-color: colors.$grey-7
@@ -80,6 +87,8 @@ form
             padding: 10px 16px
             border: 1.5px solid colors.$grey-7
             border-radius: 4px
+            font-size: 1.3rem
+
         ::placeholder
             font-weight: 400
             font-size: 1rem
@@ -89,7 +98,7 @@ form
             flex-direction: column
             gap: 4px
 
-    .btn_submit
+    .btn_register
         border-radius: 4px
         padding: 12px 28px 12px 28px
         width: 100%
@@ -99,8 +108,3 @@ form
         font-weight: 600
         &:hover
             background-color: colors.$brand-2
-
-
-
-
-                

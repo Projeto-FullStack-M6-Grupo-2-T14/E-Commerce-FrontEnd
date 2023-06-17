@@ -1,4 +1,3 @@
-import React from "react";
 import "./card.sass";
 
 export function Card(){
