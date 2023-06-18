@@ -1,14 +1,16 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { UserContext } from "src/contexts/userContext";
 import { Tooltip } from "react-tooltip";
 import { TLoginData, loginFormSchema } from "./loginFormSchema";
 import { Link } from "react-router-dom";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 import "./style.sass";
 
 const LoginForm = () => {
   const { login } = useContext(UserContext);
+  const [showPassword, setShowPassword ] = useState(false)
 
   const { register, handleSubmit, formState: { errors } } = useForm<TLoginData>({
     resolver: zodResolver(loginFormSchema),
@@ -43,19 +45,24 @@ const LoginForm = () => {
 
       <div className="input_box">
         <label htmlFor="password">Senha</label>
-        <input
-          type="text"
-          placeholder="Digitar senha"
-          id="password"
-          autoComplete="given-password"
-          {...register("password")}
-          data-tooltip-id="password-tooltip"
-          data-tooltip-content={errors.password ? errors.password.message : ""}
-          data-tooltip-place="top"
-          data-tooltip-float={true}
-        />
-        <Tooltip id="password-tooltip" />
-        <span>Esqueci minha senha</span>
+        <div className="password_input">
+          <input
+            type={showPassword ? "text" : "password"}
+            placeholder="Digitar senha"
+            id="password"
+            autoComplete="given-password"
+            {...register("password")}
+            data-tooltip-id="password-tooltip"
+            data-tooltip-content={errors.password ? errors.password.message : ""}
+            data-tooltip-place="top"
+            data-tooltip-float={true}
+          />
+          {showPassword ? (
+            <FiEyeOff onClick={() => setShowPassword(false)} />
+          ) : (
+            <FiEye onClick={() => setShowPassword(true)} />
+          )}
+        </div>
       </div>
 
       <button className="btn_register" type="submit">Entrar</button>
