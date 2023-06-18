@@ -16,12 +16,12 @@ const Header = ({ isMobileMenuOpen, setIsMobileMenuOpen }: HeaderProps) => {
   return (
     <>
       <header id="container">
-        <div className="logo_container">
+        <Link to="/" className="logo_container">
           <h1 className="heading-3-500">
             Motors
             <span className="heading-6-500"> shop</span>
           </h1>
-        </div>
+        </Link>
         <div className="button_container">
           <Link to="/login" className="link-login">Fazer Login</Link>
           <Link to="/register" className="link-register">Cadastrar</Link>
