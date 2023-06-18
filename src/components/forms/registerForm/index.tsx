@@ -4,11 +4,14 @@ import { useContext, useState } from "react";
 import { UserContext } from "src/contexts/userContext";
 import { TRegisterData, registerFormSchema } from "./registerFormSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 import "./style.sass";
 
 const RegisterForm = () => {
   const { userRegister } = useContext(UserContext);
   const [isSeller, setIsSeller] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const { register, handleSubmit, formState: { errors } } = useForm<TRegisterData>({
     resolver: zodResolver(registerFormSchema),
@@ -16,8 +19,8 @@ const RegisterForm = () => {
 
   const submitRegister: SubmitHandler<TRegisterData> = (userData) => {
     userData.is_seller = isSeller;
-    console.log(userData)
-    userRegister(userData)
+    console.log(userData);
+    userRegister(userData);
   };
 
   return (
@@ -107,10 +110,10 @@ const RegisterForm = () => {
 
       <div className="input_box">
         <label htmlFor="description">Descrição</label>
-        <textarea 
-        placeholder="Digitar descrição"
-        {...register("description")}
-         />
+        <textarea
+          placeholder="Digitar descrição"
+          {...register("description")}
+        />
       </div>
 
       <h4 className="body-2-500">Infomações de endereço</h4>
@@ -213,10 +216,10 @@ const RegisterForm = () => {
 
           <div>
             <label htmlFor="complement">Complemento</label>
-            <input 
-            placeholder="Ex: apart 307"
-            {...register("address.complement")}
-          />
+            <input
+              placeholder="Ex: apart 307"
+              {...register("address.complement")}
+            />
           </div>
         </div>
       </div>
@@ -243,38 +246,53 @@ const RegisterForm = () => {
 
       <div className="input_box">
         <label htmlFor="password">Senha</label>
-        <input
-          type="text"
-          placeholder="Digitar senha"
-          id="password"
-          autoComplete="given-password"
-          {...register("password")}
-          data-tooltip-id="password-tooltip"
-          data-tooltip-content={errors.password ? errors.password.message : ""}
-          data-tooltip-place="top"
-          data-tooltip-float={true}
-        />
+        <div className="password_input_register">
+          <input
+            type={showPassword ? "text" : "password"}
+            placeholder="Digitar senha"
+            id="password"
+            autoComplete="given-password"
+            {...register("password")}
+            data-tooltip-id="password-tooltip"
+            data-tooltip-content={
+              errors.password ? errors.password.message : ""
+            }
+            data-tooltip-place="top"
+            data-tooltip-float={true}
+          />
+          {showPassword ? (
+            <FiEyeOff onClick={() => setShowPassword(false)} />
+          ) : (
+            <FiEye onClick={() => setShowPassword(true)} />
+          )}
+        </div>
         <Tooltip id="password-tooltip" />
       </div>
 
       <div className="input_box">
         <label htmlFor="password_confirm">Confirmar Senha</label>
-        <input
-          type="text"
-          placeholder="Digitar senha"
-          id="password_confirm"
-          autoComplete="given-password_confirm"
-          {...register("password_confirm")}
-          data-tooltip-id="password_confirm-tooltip"
-          data-tooltip-content={
-            errors.password_confirm ? errors.password_confirm.message : ""
-          }
-          data-tooltip-place="top"
-          data-tooltip-float={true}
-        />
+        <div className="password_input_register">
+          <input
+            type={showConfirmPassword ? "text" : "password"}
+            placeholder="Digitar senha"
+            id="password_confirm"
+            autoComplete="given-password_confirm"
+            {...register("password_confirm")}
+            data-tooltip-id="password_confirm-tooltip"
+            data-tooltip-content={
+              errors.password_confirm ? errors.password_confirm.message : ""
+            }
+            data-tooltip-place="top"
+            data-tooltip-float={true}
+          />
+          {showConfirmPassword ? (
+            <FiEyeOff onClick={() => setShowConfirmPassword(false)} />
+          ) : (
+            <FiEye onClick={() => setShowConfirmPassword(true)} />
+          )}
+        </div>
         <Tooltip id="password_confirm-tooltip" />
       </div>
-
       <button className="btn_register" type="submit">
         Finalizar cadastro
       </button>
