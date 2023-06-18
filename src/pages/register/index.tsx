@@ -3,7 +3,6 @@ import RegisterForm from "src/components/forms/registerForm";
 import Header from "src/components/home/Header";
 import "./style.sass"
 
-
 const RegisterPage = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 

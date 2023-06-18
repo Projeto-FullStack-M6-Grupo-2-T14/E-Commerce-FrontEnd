@@ -1,3 +1,4 @@
+import { AxiosError } from "axios";
 import { Dispatch, SetStateAction, createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { TAnuncioData } from "src/components/anuncio/anuncioFormSchema";
@@ -69,22 +70,21 @@ const UserProvider = ({ children }: IUserProviderProps) => {
     try {
       const response = await ApiShop.post<IUser>("/users", userData);
       setUserData(response.data)
-    } catch (error) {
-      console.log(error)
-    } finally {
       navigate("/login")
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      console.log(axiosError.message)
     }
   };
 
-  const login =async (loginData:TLoginData): Promise<void> => {
+  const login = async (loginData:TLoginData): Promise<void> => {
     try {
       const response = await ApiShop.post<ILoginResponse>("/login", loginData);
       localStorage.setItem("@TOKEN", response.data.token);
+      navigate("/", { replace: true })
     } catch (error) {
       console.log(error)
-    } finally {
-      navigate("/dashboard", { replace: true })
-    }
+    } 
   };
 
   const anuncio = async (anuncioData: TAnuncioData): Promise<void> => {
