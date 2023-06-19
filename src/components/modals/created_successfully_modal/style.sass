@@ -1,0 +1,51 @@
+@use "../../../styles/_colors.sass"
+    
+.background
+    position: fixed
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    background-color: rgba(0, 0, 0, 0.5) /* Fundo preto transparente */
+    display: flex
+    justify-content: center
+    align-items: center
+
+    .modal
+        width: 50%
+        min-width: 300px
+        max-width: 500px
+        display: flex
+        flex-direction: column
+        background-color: colors.$white-fixed
+        padding: 2rem
+        border-radius: 8px
+        gap: 20px
+
+        span
+            color: colors.$grey-3
+
+        button
+            width: 132px
+            height: 38px
+            left: 25.5px
+            top: 206px
+            background: colors.$brand-1
+            border: 1.5px solid colors.$brand-1
+            border-radius: 4px
+            color: colors.$white-fixed
+            &:hover
+                background: colors.$brand-2
+
+        .header
+            display: flex
+            justify-content: space-between
+            align-items: center
+            padding-bottom: 2rem        
+
+            svg
+                color: colors.$grey-2
+                width: 2rem
+                cursor: pointer
+                &:hover
+                    color: colors.$grey-1

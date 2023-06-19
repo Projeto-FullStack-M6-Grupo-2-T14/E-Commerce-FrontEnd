@@ -1,15 +1,19 @@
+import { useContext, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useContext, useState } from "react"
-import { TRegisterData, registerFormSchema } from "./registerFormSchema";
-import { UserContext } from "src/contexts/userContext";
 import { Tooltip } from "react-tooltip";
+import { UserContext } from "src/contexts/userContext";
+import { TRegisterData, registerFormSchema } from "./registerFormSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
 import styles from "./registerForm.module.sass";
+
 
 const RegisterForm = () => {
   const { userRegister } = useContext(UserContext);
   const [isSeller, setIsSeller] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const { register, handleSubmit, formState: { errors } } = useForm<TRegisterData>({
     resolver: zodResolver(registerFormSchema),
@@ -17,12 +21,12 @@ const RegisterForm = () => {
 
   const submitRegister: SubmitHandler<TRegisterData> = (userData) => {
     userData.is_seller = isSeller;
+    console.log(userData);
     userRegister(userData);
   };
 
   return (
     <form onSubmit={handleSubmit(submitRegister)}>
-
       <h1 className="heading-5-500">Cadastro</h1>
       <h4 className="body-2-500">Infomações pessoais</h4>
 
@@ -93,7 +97,7 @@ const RegisterForm = () => {
       <div className={styles.inputBox}>
         <label htmlFor="birthday">Data de nascimento</label>
         <input
-          type="text"
+          type="date"
           placeholder="00/00/00"
           id="birthday"
           autoComplete="given-birthday"
@@ -108,25 +112,30 @@ const RegisterForm = () => {
 
       <div className={styles.inputBox}>
         <label htmlFor="description">Descrição</label>
-        <textarea placeholder="Digitar descrição" />
+        <textarea
+          placeholder="Digitar descrição"
+          {...register("description")}
+        />
       </div>
 
       <h4 className="body-2-500">Infomações de endereço</h4>
 
       <div className={styles.inputBox}>
-        <label htmlFor="cep">CEP</label>
+        <label htmlFor="zipcode">CEP</label>
         <input
           type="text"
           placeholder="00000.000"
-          id="cep"
-          autoComplete="given-cep"
-          {...register("address.cep")}
-          data-tooltip-id="cep-tooltip"
-          data-tooltip-content={errors.address?.cep ? errors.address.cep.message : ""}
+          id="zipcode"
+          autoComplete="given-zipcode"
+          {...register("address.zipcode")}
+          data-tooltip-id="zipcode-tooltip"
+          data-tooltip-content={
+            errors.address?.zipcode ? errors.address.zipcode.message : ""
+          }
           data-tooltip-place="top"
           data-tooltip-float={true}
         />
-        <Tooltip id="cep-tooltip" />
+        <Tooltip id="zipcode-tooltip" />
       </div>
 
       <div className={styles.inputBox}>
@@ -140,7 +149,9 @@ const RegisterForm = () => {
               autoComplete="given-state"
               {...register("address.state")}
               data-tooltip-id="state-tooltip"
-              data-tooltip-content={errors.address?.state ? errors.address.state.message : ""}
+              data-tooltip-content={
+                errors.address?.state ? errors.address.state.message : ""
+              }
               data-tooltip-place="top"
               data-tooltip-float={true}
             />
@@ -156,7 +167,9 @@ const RegisterForm = () => {
               autoComplete="given-city"
               {...register("address.city")}
               data-tooltip-id="city-tooltip"
-              data-tooltip-content={errors.address?.city ? errors.address.city.message : ""}
+              data-tooltip-content={
+                errors.address?.city ? errors.address.city.message : ""
+              }
               data-tooltip-place="top"
               data-tooltip-float={true}
             />
@@ -174,7 +187,9 @@ const RegisterForm = () => {
           autoComplete="given-street"
           {...register("address.street")}
           data-tooltip-id="street-tooltip"
-          data-tooltip-content={errors.address?.street ? errors.address.street.message : ""}
+          data-tooltip-content={
+            errors.address?.street ? errors.address.street.message : ""
+          }
           data-tooltip-place="top"
           data-tooltip-float={true}
         />
@@ -192,7 +207,9 @@ const RegisterForm = () => {
               autoComplete="given-number"
               {...register("address.number")}
               data-tooltip-id="number-tooltip"
-              data-tooltip-content={errors.address?.number ? errors.address.number.message : ""}
+              data-tooltip-content={
+                errors.address?.number ? errors.address.number.message : ""
+              }
               data-tooltip-place="top"
               data-tooltip-float={true}
             />
@@ -201,7 +218,10 @@ const RegisterForm = () => {
 
           <div>
             <label htmlFor="complement">Complemento</label>
-            <input placeholder="Ex: apart 307" />
+            <input
+              placeholder="Ex: apart 307"
+              {...register("address.complement")}
+            />
           </div>
         </div>
       </div>
@@ -210,55 +230,75 @@ const RegisterForm = () => {
         <label htmlFor="tipoConta">Tipo de Conta</label>
         <div className={styles.inputBoxContainer}>
           <button
-            className={`${styles.btnComprador} ${isSeller === false ? styles.selected : ''}`}
+            className={`${styles.btnComprador} ${isSeller === false ? styles.selected : ""}`}
             onClick={() => setIsSeller(false)}
+            type="button"
           >
             Comprador
           </button>
           <button
-            className={`${styles.btnAnunciante} ${isSeller === true ? styles.selected : ''}`}
+            className={`${styles.btnAnunciante} ${isSeller === true ? styles.selected : ""}`}
             onClick={() => setIsSeller(true)}
+            type="button"
           >
             Anunciante
           </button>
-
-        </div>
-      </div>
+        </div >
+      </div >
 
       <div className={styles.inputBox}>
         <label htmlFor="password">Senha</label>
-        <input
-          type="text"
-          placeholder="Digitar senha"
-          id="password"
-          autoComplete="given-password"
-          {...register("password")}
-          data-tooltip-id="password-tooltip"
-          data-tooltip-content={errors.password ? errors.password.message : ""}
-          data-tooltip-place="top"
-          data-tooltip-float={true}
-        />
+        <div className={styles.passwordInputRegister}>
+          <input
+            type={showPassword ? "text" : "password"}
+            placeholder="Digitar senha"
+            id="password"
+            autoComplete="given-password"
+            {...register("password")}
+            data-tooltip-id="password-tooltip"
+            data-tooltip-content={
+              errors.password ? errors.password.message : ""
+            }
+            data-tooltip-place="top"
+            data-tooltip-float={true}
+          />
+          {showPassword ? (
+            <FiEyeOff onClick={() => setShowPassword(false)} />
+          ) : (
+            <FiEye onClick={() => setShowPassword(true)} />
+          )}
+        </div>
         <Tooltip id="password-tooltip" />
-      </div>
+      </div >
 
       <div className={styles.inputBox}>
         <label htmlFor="password_confirm">Confirmar Senha</label>
-        <input
-          type="text"
-          placeholder="Digitar senha"
-          id="password_confirm"
-          autoComplete="given-password_confirm"
-          {...register("password_confirm")}
-          data-tooltip-id="password_confirm-tooltip"
-          data-tooltip-content={errors.password_confirm ? errors.password_confirm.message : ""}
-          data-tooltip-place="top"
-          data-tooltip-float={true}
-        />
+        <div className={styles.passwordInputRegister}>
+          <input
+            type={showConfirmPassword ? "text" : "password"}
+            placeholder="Digitar senha"
+            id="password_confirm"
+            autoComplete="given-password_confirm"
+            {...register("password_confirm")}
+            data-tooltip-id="password_confirm-tooltip"
+            data-tooltip-content={
+              errors.password_confirm ? errors.password_confirm.message : ""
+            }
+            data-tooltip-place="top"
+            data-tooltip-float={true}
+          />
+          {showConfirmPassword ? (
+            <FiEyeOff onClick={() => setShowConfirmPassword(false)} />
+          ) : (
+            <FiEye onClick={() => setShowConfirmPassword(true)} />
+          )}
+        </div>
         <Tooltip id="password_confirm-tooltip" />
       </div>
-
-      <button className={styles.btnLogin} type="submit">Finalizar cadastro</button>
-    </form>
+      <button className={styles.btnRegister} type="submit">
+        Finalizar cadastro
+      </button>
+    </form >
   );
 };
 
