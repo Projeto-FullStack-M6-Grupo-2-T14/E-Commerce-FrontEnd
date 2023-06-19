@@ -6,11 +6,12 @@ import { Tooltip } from "react-tooltip";
 import { TLoginData, loginFormSchema } from "./loginFormSchema";
 import { Link } from "react-router-dom";
 import { FiEye, FiEyeOff } from "react-icons/fi";
-import "./style.sass";
+
+import styles from "./loginForm.module.sass";
 
 const LoginForm = () => {
   const { login } = useContext(UserContext);
-  const [showPassword, setShowPassword ] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
 
   const { register, handleSubmit, formState: { errors } } = useForm<TLoginData>({
     resolver: zodResolver(loginFormSchema),
@@ -26,7 +27,7 @@ const LoginForm = () => {
       <h1 className="heading-5-500">Login</h1>
 
 
-      <div className="input_box">
+      <div className={styles.inputBox}>
         <label htmlFor="email">Email</label>
         <input
           type="text"
@@ -43,9 +44,9 @@ const LoginForm = () => {
       </div>
 
 
-      <div className="input_box">
+      <div className={styles.inputBox}>
         <label htmlFor="password">Senha</label>
-        <div className="password_input">
+        <div className={styles.passwordInput}>
           <input
             type={showPassword ? "text" : "password"}
             placeholder="Digitar senha"
@@ -65,7 +66,7 @@ const LoginForm = () => {
         </div>
       </div>
 
-      <button className="btn_register" type="submit">Entrar</button>
+      <button className={styles.btnRegister} type="submit">Entrar</button>
 
       <p>Ainda não possui conta?</p>
 

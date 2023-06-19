@@ -3,24 +3,26 @@
 .main
     padding: 4% 0
     display: flex
+    
 
     @media screen and (max-width: 800px)
         flex-direction: column
         row-gap: 1.6rem
     
 
-#main-aside
+#mainAside
     padding-left: 2rem 
-    aside
-        display: flex
-        flex-direction: column
-        row-gap: 1.3rem
+    
+    display: flex
+    flex-direction: column
+    row-gap: 1.6rem
+        
 
     @media screen and (max-width: 800px)
         display: none
 
 
-#show-filters
+#showFilters
     font-size: 1.6rem
     font-weight: 600
 
@@ -44,12 +46,15 @@
         height: 90vh
         margin: auto
         padding: 0rem 3rem
+        display: flex
+        flex-direction: column
+        row-gap: 1.6rem
         color: colors.$grey-0
         background-color: colors.$white-fixed
         overflow-y: scroll
         overflow-x: hidden 
 
-        .modal-title
+        .modalTitle
             padding: 2rem 0
             position: sticky
             top: 0rem
@@ -63,14 +68,17 @@
                 font-size: 1.7rem
             span
                 font-size: 2rem
+       
+            
 
-.show-filters-button
+.showFiltersButton
     font-size: 1.6rem
     font-weight: 600
     color: colors.$white-fixed
     background-color: colors.$brand-2
+    margin-bottom: 2rem
 
-.out-aside
+.outAside
     display: none
     margin: auto
     padding: 1rem 5rem
@@ -87,14 +95,14 @@
 .hidden
     display: none !important
 
-.list-cards
+.listCards
     display: flex
     gap: 20px 15px
     flex-wrap: wrap
     align-content: flex-start
 
 @media (max-width: 800px)
-    .list-cards
+    .listCards
         flex-wrap: nowrap
         gap: 0
         overflow: auto

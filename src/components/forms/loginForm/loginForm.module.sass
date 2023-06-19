@@ -1,4 +1,4 @@
-@use "../../../styles/_colors.sass"
+@import "../../../styles/_colors.sass"
     
 form
     display: flex
@@ -9,21 +9,19 @@ form
     margin: 0 auto
     padding: 5rem 3rem
     gap: 12px
-    background: colors.$grey-10
+    background: $grey-10
     border-radius: 4px
 
     h1
         padding-bottom: 1rem
 
-    label
-        font-size: 1rem
-    .input_box
+    .inputBox
         display: flex
         flex-direction: column
         gap: 6px
         width: 100%
 
-        .input_box_container
+        .inputBoxContainer
             display: flex
             flex-direction: row
             gap: 10px
@@ -35,14 +33,14 @@ form
             width: 100%
             height: 48px
             padding: 0 16px
-            border: 1.5px solid colors.$grey-7
+            border: 1.5px solid $grey-7
             border-radius: 4px 
-            font-size: 1.3rem
+            font-size: 1.6rem
 
             &:hover
-                background-color: colors.$grey-7
+                background-color: $grey-7
 
-        .password_input
+        .passwordInput
             position: relative
 
         svg
@@ -50,47 +48,47 @@ form
             width: 15px
             right: 10px
             top: 10px
-            color: colors.$grey-2
+            color: $grey-2
             cursor: pointer
 
                 
         ::placeholder
             font-weight: 400
-            font-size: 1.02rem    
+            font-size: 1.6rem
+        
+        
 
         span
-            color: colors.$grey-3
-            font-size: 0.88rem  
+            color: $grey-3
+            font-size: 1.6rem  
             text-align: end
 
 
-    .btn_login
+    .btnLogin
         border-radius: 4px
         padding: 12px 28px 12px 28px
         width: 100%
-        background-color: colors.$brand-1
-        color: colors.$white-fixed
-        font-size: 1rem
+        background-color: $brand-1
+        color: $white-fixed
         font-weight: 600
         &:hover
-            background-color: colors.$brand-2
+            background-color: $brand-2
 
     a
         display: flex
         justify-content: center
         padding: 12px 28px
-        border: 1.5px solid colors.$grey-4
+        border: 1.5px solid $grey-4
         border-radius: 4px
-        color: colors.$grey-0
-        font-size: 1rem
+        color: $grey-0
         text-decoration: none
         cursor: pointer
         transition: 0.2s
         &:hover
-            background-color: colors.$grey-1
-            color: colors.$white-fixed
+            background-color: $grey-1
+            color: $white-fixed
 
     p
-        color: colors.$grey-3
-        font-size: 0.88rem
+        color: $grey-3
+        font-size: 1.6rem
         text-align: center

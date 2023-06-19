@@ -1,5 +1,4 @@
-@use "../../../styles/_colors.sass"
-@use "../../../styles/_typography.sass"
+@import "../../../styles/_colors.sass"
 
 svg
   font-size: 3rem !important
@@ -8,9 +7,9 @@ svg
   display: flex
   justify-content: space-between
   align-items: center
-  background-color: colors.$grey-10
+  background-color: $grey-10
   padding: 2rem
-  border-bottom: 2px solid colors.$grey-6
+  border-bottom: 2px solid $grey-6
   width: 100vw
 
   h1
@@ -28,38 +27,39 @@ svg
     margin-top: 2%
 
 
-.link-login, .link-register
+.linkLogin, .linkRegister
   cursor: pointer
   font-size: 1.6rem
   font-weight: 600
   transition: 0.3s ease
 
-.link-login
-    color: colors.$brand-1
+.linkLogin
+    color: $brand-1
 
     &:hover
-      color: colors.$brand-3
+      color: $brand-3
 
-.link-register
+.linkRegister
+
   padding: 1.2rem 2.8rem
   border-radius: 4px
-  border: 2px solid colors.$grey-4
-  color: colors.$grey-1
-  background-color: colors.$grey-9
+  border: 2px solid $grey-4
+  color: $grey-1
+  background-color: $grey-9
 
   &:hover
-    color: colors.$white-fixed
-    background-color: colors.$grey-1
-    border: 2px solid colors.$grey-1
+    color: $white-fixed
+    background-color: $grey-1
+    border: 2px solid $grey-1
 
 
-.button_container, .button_container_mobile
+.buttonContainer, .buttonContainerMobile
   display: flex
   align-items: center
   justify-content: space-between
   column-gap: 1.6rem
 
-.mobile_menu
+.mobileMenu
   display: flex
   justify-content: center
   position: absolute
@@ -67,7 +67,7 @@ svg
   height: 100px
   top: -100px
   transition: 0.3s ease
-  background-color: colors.$white-fixed
+  background-color: $white-fixed
   z-index: 1
 
   &.open
@@ -75,7 +75,7 @@ svg
     @media screen and (max-width: 315px)
 
 
-.mobile_menu_icon
+.mobileMenuIcon
   display: none
 
 .hidden
@@ -83,10 +83,10 @@ svg
 
 
 @media screen and (max-width: 560px)
-  .button_container
+  .buttonContainer
     display: none
 
-  .mobile_menu_icon
+  .mobileMenuIcon
     display: block
 
   .visible
