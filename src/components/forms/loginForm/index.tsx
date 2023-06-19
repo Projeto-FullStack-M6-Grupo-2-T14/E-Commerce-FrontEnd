@@ -1,11 +1,12 @@
-import { SubmitHandler, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useContext } from "react"
-import "./style.sass";
+import { Link } from "react-router-dom";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { TLoginData, loginFormSchema } from "./loginFormSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { UserContext } from "src/contexts/userContext";
 import { Tooltip } from "react-tooltip";
-import { TLoginData, loginFormSchema } from "./loginFormSchema";
-import { Link } from "react-router-dom";
+
+import styles from "./loginForm.module.sass";
 
 const LoginForm = () => {
   const { login } = useContext(UserContext);
@@ -24,7 +25,7 @@ const LoginForm = () => {
       <h1 className="heading-5-500">Login</h1>
 
 
-      <div className="input_box">
+      <div className={styles.inputBox}>
         <label htmlFor="email">Email</label>
         <input
           type="text"
@@ -41,7 +42,7 @@ const LoginForm = () => {
       </div>
 
 
-      <div className="input_box">
+      <div className={styles.inputBox}>
         <label htmlFor="password">Senha</label>
         <input
           type="text"
@@ -58,7 +59,7 @@ const LoginForm = () => {
         <span>Esqueci minha senha</span>
       </div>
 
-      <button className="btn_register" type="submit">Entrar</button>
+      <button className={styles.btnRegister} type="submit">Entrar</button>
 
       <p>Ainda não possui conta?</p>
 

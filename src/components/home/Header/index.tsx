@@ -1,7 +1,8 @@
 import { VscMenu } from 'react-icons/vsc';
 import { AiOutlineCloseSquare } from 'react-icons/ai';
-import "./header.sass"
 import { Link } from 'react-router-dom';
+
+import styles from "./header.module.sass"
 
 interface HeaderProps {
   isMobileMenuOpen: boolean;
@@ -15,29 +16,31 @@ const Header = ({ isMobileMenuOpen, setIsMobileMenuOpen }: HeaderProps) => {
 
   return (
     <>
-      <header id="container">
-        <div className="logo_container">
-          <h1 className="heading-3-500">
-            Motors
-            <span className="heading-6-500"> shop</span>
-          </h1>
+      <header id={styles.container}>
+        <div className={styles.logoContainer}>
+          <Link to="/">
+            <h1 className="heading-3-500">
+              Motors
+              <span className="heading-6-500"> shop</span>
+            </h1>
+          </Link>
         </div>
-        <div className="button_container">
-          <Link to="/login" className="link-login">Fazer Login</Link>
-          <Link to="/register" className="link-register">Cadastrar</Link>
+        <div className={styles.buttonContainer}>
+          <Link to="/login" className={styles.linkLogin}>Fazer Login</Link>
+          <Link to="/register" className={styles.linkRegister}>Cadastrar</Link>
         </div>
         <div
-          className={`mobile_menu_icon close_icon`}
+          className={`${styles.mobileMenuIcon} ${styles.closeIcon}`}
           onClick={handleMobileMenuClick}
         >
           {isMobileMenuOpen ? <AiOutlineCloseSquare /> : <VscMenu />}
         </div>
       </header>
-      <div className="mobile_menu_container">
-        <div className={`mobile_menu ${isMobileMenuOpen ? 'open' : ''}`}>
-          <div className='button_container_mobile'>
-            <Link to="/login" className="link-login">Fazer Login</Link>
-            <Link to="/register" className="link-register">Cadastrar</Link>
+      <div className={styles.mobileMenuContainer}>
+        <div className={`${styles.mobileMenu} ${isMobileMenuOpen ? styles.open : ''}`}>
+          <div className={styles.buttonContainerMobile}>
+            <Link to="/login" className={styles.linkLogin}>Fazer Login</Link>
+            <Link to="/register" className={styles.linkRegister}>Cadastrar</Link>
           </div>
         </div>
       </div>

@@ -1,7 +1,8 @@
 import { useState } from "react";
 import RegisterForm from "src/components/forms/registerForm";
 import Header from "src/components/home/Header";
-import "./style.sass"
+
+import styles from "./register.module.sass"
 
 
 const RegisterPage = () => {
@@ -9,10 +10,10 @@ const RegisterPage = () => {
 
     return (
         <>
-        <Header isMobileMenuOpen={isMobileMenuOpen} setIsMobileMenuOpen={setIsMobileMenuOpen}/>
-        <main>
-            <RegisterForm/>
-        </main>
+            <Header isMobileMenuOpen={isMobileMenuOpen} setIsMobileMenuOpen={setIsMobileMenuOpen} />
+            <main className={styles.main}>
+                <RegisterForm />
+            </main>
         </>
     )
 }

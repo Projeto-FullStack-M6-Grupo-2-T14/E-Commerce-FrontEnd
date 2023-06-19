@@ -7,7 +7,8 @@ import Header from "src/components/home/Header"
 import BackgroundImage from "src/components/home/BackgroundImage"
 import Card from "src/components/home/Card"
 import mock_car from "../../assets/images/card1.png"
-import "./style.sass"
+
+import styles from "./home.module.sass"
 
 const HomePage = () => {
     const [showFilters, setShowFilter] = useState(false);
@@ -21,8 +22,8 @@ const HomePage = () => {
         <>
             <Header isMobileMenuOpen={isMobileMenuOpen} setIsMobileMenuOpen={setIsMobileMenuOpen} />
             <BackgroundImage isMobileMenuOpen={isMobileMenuOpen} />
-            <main className="main">
-                <aside id="main-aside">
+            <main className={styles.main}>
+                <aside id={styles.mainAside}>
                     <ListFilter title="Marca" lista={["General Motors", "Fiat", "Honda", "Porsche", "Volswagen"]} />
                     <ListFilter title="Modelo" lista={["Civic", "Corolla", "Cruze", "Fiat", "Gol", "Ka", "Onix", "Pulse"]} />
                     <ListFilter title="Cor" lista={["Azul", "Branca", "Cinza", "Prata", "Preta", "Verde"]} />
@@ -31,7 +32,7 @@ const HomePage = () => {
                     <ButtonFilter title="Km" />
                     <ButtonFilter title="Preço" />
                 </aside>
-                <ul className="list-cards">
+                <ul className={styles.listCards}>
                     <Card img={mock_car}
                         name="Ford Fiesta - 20"
                         description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem..."
@@ -65,13 +66,13 @@ const HomePage = () => {
                         price="90.000"
                     />
                 </ul>
-                <button className="out-aside" onClick={toggleFilters}>Filtros</button>
+                <button className={styles.outAside} onClick={toggleFilters}>Filtros</button>
             </main>
             <Footer />
 
-            <div id="show-filters" className={showFilters ? '' : 'hidden'}>
-                <aside>
-                    <div className="modal-title">
+            <div id={styles.showFilters} className={showFilters ? '' : styles.hidden}>
+                <aside >
+                    <div className={styles.modalTitle}>
                         <h1>Filtros</h1>
                         <AiOutlineCloseSquare onClick={toggleFilters} />
                     </div>
@@ -84,7 +85,7 @@ const HomePage = () => {
                     <ButtonFilter title="Km" />
                     <ButtonFilter title="Preço" />
 
-                    <button className="show-filters-button" onClick={toggleFilters}>Ver Anúncios</button>
+                    <button className={styles.showFiltersButton} onClick={toggleFilters}>Ver Anúncios</button>
 
                 </aside>
             </div>
