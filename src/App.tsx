@@ -1,3 +1,4 @@
+import PosterProvider from "./contexts/posterContext"
 import UserProvider from "./contexts/userContext"
 import RoutesMain from "./routes"
 
@@ -6,7 +7,9 @@ function App() {
   return (
     <>
     <UserProvider>
-      <RoutesMain />
+      <PosterProvider>
+        <RoutesMain />
+      </PosterProvider>
     </UserProvider>
     </>
   )

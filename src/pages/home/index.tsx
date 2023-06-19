@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { AiOutlineCloseSquare } from "react-icons/ai"
 import ListFilter from "../../components/home/ListFilter"
 import ButtonFilter from "src/components/home/ButtonFilter"
@@ -6,16 +6,22 @@ import Footer from "src/components/home/Footer"
 import Header from "src/components/home/Header"
 import BackgroundImage from "src/components/home/BackgroundImage"
 import Card from "src/components/home/Card"
-import mock_car from "../../assets/images/card1.png"
 import "./style.sass"
+import { PosterContext } from "src/contexts/posterContext"
+
 
 const HomePage = () => {
     const [showFilters, setShowFilter] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const {filteredPosters, setFilteredPosters, getPosters} = useContext(PosterContext)
 
     const toggleFilters = () => {
         setShowFilter(!showFilters)
     }
+
+    useEffect(() => {
+        getPosters()
+    }, [setFilteredPosters])
 
     return (
         <>
@@ -32,38 +38,9 @@ const HomePage = () => {
                     <ButtonFilter title="Preço" />
                 </aside>
                 <ul className="list-cards">
-                    <Card img={mock_car}
-                        name="Ford Fiesta - 20"
-                        description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem..."
-                        name_profile="Junior Santos"
-                        mileage="110"
-                        year="2021"
-                        price="90.000"
-                    />
-                    <Card img={mock_car}
-                        name="Ford Fiesta - 20"
-                        description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem..."
-                        name_profile="Junior Santos"
-                        mileage="110"
-                        year="2021"
-                        price="90.000"
-                    />
-                    <Card img={mock_car}
-                        name="Ford Fiesta - 20"
-                        description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem..."
-                        name_profile="Junior Santos"
-                        mileage="110"
-                        year="2021"
-                        price="90.000"
-                    />
-                    <Card img={mock_car}
-                        name="Ford Fiesta - 20"
-                        description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem..."
-                        name_profile="Junior Santos"
-                        mileage="110"
-                        year="2021"
-                        price="90.000"
-                    />
+                    {
+                        filteredPosters.map( poster => <Card {...poster} /> )
+                    }
                 </ul>
                 <button className="out-aside" onClick={toggleFilters}>Filtros</button>
             </main>
