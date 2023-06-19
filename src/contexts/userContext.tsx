@@ -1,7 +1,7 @@
 import { AxiosError } from "axios";
 import { Dispatch, SetStateAction, createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { TAnuncioData } from "src/components/anuncio/anuncioFormSchema";
+import { TAnuncioData } from "src/components/anuncio/posterFormSchema";
 import { TLoginData } from "src/components/forms/loginForm/loginFormSchema";
 import { TRegisterData } from "src/components/forms/registerForm/registerFormSchema";
 import { ApiShop } from "src/services/Api";
@@ -80,14 +80,14 @@ const UserProvider = ({ children }: IUserProviderProps) => {
     }
   };
 
-  const login = async (loginData:TLoginData): Promise<void> => {
+  const login = async (loginData: TLoginData): Promise<void> => {
     try {
       const response = await ApiShop.post<ILoginResponse>("/login", loginData);
       localStorage.setItem("@TOKEN", response.data.token);
       navigate("/", { replace: true })
     } catch (error) {
       console.log(error)
-    } 
+    }
   };
 
   const anuncio = async (anuncioData: TAnuncioData): Promise<void> => {
