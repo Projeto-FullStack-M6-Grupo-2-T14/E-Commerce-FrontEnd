@@ -1,21 +1,21 @@
-import './styles.sass'
 import logo from './../../../assets/images/mshoplogo.png'
+import styles from './footer.module.sass'
 
 
 const Footer = () => {
     return (
-        <footer className="footer">
-            <div className='footer-container'>
-                <div className='footer-logo-container'>
-                    <img className='footer-logo' src={logo} alt="logo" />
+        <footer className={styles.footer}>
+            <div className={styles.footerContainer}>
+                <div className={styles.footerLogoContainer}>
+                    <img className={styles.footerLogo} src={logo} alt="logo" />
                 </div>
-                <div className='footer-text-container'>
-                    <span className='footer-text'>
+                <div className={styles.footerTextContainer}>
+                    <span className={styles.footerText}>
                         &copy; 2023 - Todos os direitos reservados.
                     </span>
                 </div>
-                <div className='footer-button-container'>
-                    <button className='footer-button'>^</button>
+                <div className={styles.footerButtonContainer}>
+                    <button className={styles.footerButton}>^</button>
                 </div>
             </div>
         </footer>

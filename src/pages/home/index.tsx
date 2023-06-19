@@ -6,14 +6,15 @@ import Footer from "src/components/home/Footer"
 import Header from "src/components/home/Header"
 import BackgroundImage from "src/components/home/BackgroundImage"
 import Card from "src/components/home/Card"
-import "./style.sass"
 import { PosterContext } from "src/contexts/posterContext"
+
+import styles from "./home.module.sass"
 
 
 const HomePage = () => {
     const [showFilters, setShowFilter] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const {filteredPosters, setFilteredPosters, getPosters} = useContext(PosterContext)
+    const { filteredPosters, setFilteredPosters, getPosters } = useContext(PosterContext)
 
     const toggleFilters = () => {
         setShowFilter(!showFilters)
@@ -27,8 +28,8 @@ const HomePage = () => {
         <>
             <Header isMobileMenuOpen={isMobileMenuOpen} setIsMobileMenuOpen={setIsMobileMenuOpen} />
             <BackgroundImage isMobileMenuOpen={isMobileMenuOpen} />
-            <main className="main">
-                <aside id="main-aside">
+            <main className={styles.main}>
+                <aside id={styles.mainAside}>
                     <ListFilter title="Marca" lista={["General Motors", "Fiat", "Honda", "Porsche", "Volswagen"]} />
                     <ListFilter title="Modelo" lista={["Civic", "Corolla", "Cruze", "Fiat", "Gol", "Ka", "Onix", "Pulse"]} />
                     <ListFilter title="Cor" lista={["Azul", "Branca", "Cinza", "Prata", "Preta", "Verde"]} />
@@ -39,16 +40,16 @@ const HomePage = () => {
                 </aside>
                 <ul className="list-cards">
                     {
-                        filteredPosters.map( poster => <Card {...poster} /> )
+                        filteredPosters.map(poster => <Card {...poster} />)
                     }
                 </ul>
-                <button className="out-aside" onClick={toggleFilters}>Filtros</button>
+                <button className={styles.outAside} onClick={toggleFilters}>Filtros</button>
             </main>
             <Footer />
 
-            <div id="show-filters" className={showFilters ? '' : 'hidden'}>
-                <aside>
-                    <div className="modal-title">
+            <div id={styles.showFilters} className={showFilters ? '' : styles.hidden}>
+                <aside >
+                    <div className={styles.modalTitle}>
                         <h1>Filtros</h1>
                         <AiOutlineCloseSquare onClick={toggleFilters} />
                     </div>
@@ -61,7 +62,7 @@ const HomePage = () => {
                     <ButtonFilter title="Km" />
                     <ButtonFilter title="Preço" />
 
-                    <button className="show-filters-button" onClick={toggleFilters}>Ver Anúncios</button>
+                    <button className={styles.showFiltersButton} onClick={toggleFilters}>Ver Anúncios</button>
 
                 </aside>
             </div>

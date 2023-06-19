@@ -1,16 +1,16 @@
-import "./style.sass"
+import styles from "./listFilter.module.sass"
 
 
-interface iElementsListFilter {
+interface IElementsListFilter {
     title: string,
     lista: string[]
 }
 
-const ListFilter = ({ title, lista }: iElementsListFilter) => {
+const ListFilter = ({ title, lista }: IElementsListFilter) => {
     return (
         <div>
             <h3 className='heading-4-600'>{title}</h3>
-            <ul className="filters-ul">
+            <ul className={styles.filtersUl}>
                 {
                     lista.map((item: string, index) => {
                         return (

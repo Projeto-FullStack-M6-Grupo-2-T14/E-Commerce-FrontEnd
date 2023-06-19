@@ -1,7 +1,8 @@
 import { useState } from "react";
 import LoginForm from "src/components/forms/loginForm";
 import Header from "src/components/home/Header";
-import "./style.sass"
+
+import styles from "./login.module.sass"
 
 
 const LoginPage = () => {
@@ -9,9 +10,9 @@ const LoginPage = () => {
 
     return (
         <>
-            <Header isMobileMenuOpen={isMobileMenuOpen} setIsMobileMenuOpen={setIsMobileMenuOpen}/>
-            <main>
-                <LoginForm/>
+            <Header isMobileMenuOpen={isMobileMenuOpen} setIsMobileMenuOpen={setIsMobileMenuOpen} />
+            <main className={styles.main}>
+                <LoginForm />
             </main>
         </>
     )

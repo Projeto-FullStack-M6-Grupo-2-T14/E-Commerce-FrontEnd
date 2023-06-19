@@ -1,11 +1,13 @@
+import { useContext, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Tooltip } from "react-tooltip";
-import { useContext, useState } from "react";
 import { UserContext } from "src/contexts/userContext";
 import { TRegisterData, registerFormSchema } from "./registerFormSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FiEye, FiEyeOff } from "react-icons/fi";
-import "./style.sass";
+
+import styles from "./registerForm.module.sass";
+
 
 const RegisterForm = () => {
   const { userRegister } = useContext(UserContext);
@@ -28,7 +30,7 @@ const RegisterForm = () => {
       <h1 className="heading-5-500">Cadastro</h1>
       <h4 className="body-2-500">Infomações pessoais</h4>
 
-      <div className="input_box">
+      <div className={styles.inputBox}>
         <label htmlFor="name">Nome</label>
         <input
           type="text"
@@ -44,7 +46,7 @@ const RegisterForm = () => {
         <Tooltip id="name-tooltip" />
       </div>
 
-      <div className="input_box">
+      <div className={styles.inputBox}>
         <label htmlFor="email">Email</label>
         <input
           type="text"
@@ -60,7 +62,7 @@ const RegisterForm = () => {
         <Tooltip id="email-tooltip" />
       </div>
 
-      <div className="input_box">
+      <div className={styles.inputBox}>
         <label htmlFor="cpf">CPF</label>
         <input
           type="text"
@@ -76,7 +78,7 @@ const RegisterForm = () => {
         <Tooltip id="cpf-tooltip" />
       </div>
 
-      <div className="input_box">
+      <div className={styles.inputBox}>
         <label htmlFor="phone">Celular</label>
         <input
           type="text"
@@ -92,7 +94,7 @@ const RegisterForm = () => {
         <Tooltip id="phone-tooltip" />
       </div>
 
-      <div className="input_box">
+      <div className={styles.inputBox}>
         <label htmlFor="birthday">Data de nascimento</label>
         <input
           type="date"
@@ -108,7 +110,7 @@ const RegisterForm = () => {
         <Tooltip id="birthday-tooltip" />
       </div>
 
-      <div className="input_box">
+      <div className={styles.inputBox}>
         <label htmlFor="description">Descrição</label>
         <textarea
           placeholder="Digitar descrição"
@@ -118,7 +120,7 @@ const RegisterForm = () => {
 
       <h4 className="body-2-500">Infomações de endereço</h4>
 
-      <div className="input_box">
+      <div className={styles.inputBox}>
         <label htmlFor="zipcode">CEP</label>
         <input
           type="text"
@@ -136,8 +138,8 @@ const RegisterForm = () => {
         <Tooltip id="zipcode-tooltip" />
       </div>
 
-      <div className="input_box">
-        <div className="input_box_container">
+      <div className={styles.inputBox}>
+        <div className={styles.inputBoxContainer}>
           <div>
             <label htmlFor="state">Estado</label>
             <input
@@ -176,7 +178,7 @@ const RegisterForm = () => {
         </div>
       </div>
 
-      <div className="input_box">
+      <div className={styles.inputBox}>
         <label htmlFor="street">Rua</label>
         <input
           type="text"
@@ -194,8 +196,8 @@ const RegisterForm = () => {
         <Tooltip id="street-tooltip" />
       </div>
 
-      <div className="input_box">
-        <div className="input_box_container">
+      <div className={styles.inputBox}>
+        <div className={styles.inputBoxContainer}>
           <div>
             <label htmlFor="number">Número</label>
             <input
@@ -224,29 +226,29 @@ const RegisterForm = () => {
         </div>
       </div>
 
-      <div className="input_box">
+      <div className={styles.inputBox}>
         <label htmlFor="tipoConta">Tipo de Conta</label>
-        <div className="input_box_container">
+        <div className={styles.inputBoxContainer}>
           <button
-            className={`btn_comprador ${isSeller === false ? "selected" : ""}`}
+            className={`${styles.btnComprador} ${isSeller === false ? styles.selected : ""}`}
             onClick={() => setIsSeller(false)}
             type="button"
           >
             Comprador
           </button>
           <button
-            className={`btn_anunciante ${isSeller === true ? "selected" : ""}`}
+            className={`${styles.btnAnunciante} ${isSeller === true ? styles.selected : ""}`}
             onClick={() => setIsSeller(true)}
             type="button"
           >
             Anunciante
           </button>
-        </div>
-      </div>
+        </div >
+      </div >
 
-      <div className="input_box">
+      <div className={styles.inputBox}>
         <label htmlFor="password">Senha</label>
-        <div className="password_input_register">
+        <div className={styles.passwordInputRegister}>
           <input
             type={showPassword ? "text" : "password"}
             placeholder="Digitar senha"
@@ -267,11 +269,11 @@ const RegisterForm = () => {
           )}
         </div>
         <Tooltip id="password-tooltip" />
-      </div>
+      </div >
 
-      <div className="input_box">
+      <div className={styles.inputBox}>
         <label htmlFor="password_confirm">Confirmar Senha</label>
-        <div className="password_input_register">
+        <div className={styles.passwordInputRegister}>
           <input
             type={showConfirmPassword ? "text" : "password"}
             placeholder="Digitar senha"
@@ -293,10 +295,10 @@ const RegisterForm = () => {
         </div>
         <Tooltip id="password_confirm-tooltip" />
       </div>
-      <button className="btn_register" type="submit">
+      <button className={styles.btnRegister} type="submit">
         Finalizar cadastro
       </button>
-    </form>
+    </form >
   );
 };
 
