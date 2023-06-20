@@ -66,7 +66,7 @@ const LoginForm = () => {
         </div>
       </div>
 
-      <button className={styles.btnRegister} type="submit">Entrar</button>
+      <button className={styles.btnLogin} type="submit">Entrar</button>
 
       <p>Ainda não possui conta?</p>
 
