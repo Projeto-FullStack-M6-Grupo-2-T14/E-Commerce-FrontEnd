@@ -5,7 +5,7 @@ import { TAnuncioData, anuncioFormSchema } from "./posterFormSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { UserContext } from "src/contexts/userContext";
 import { Tooltip } from "react-tooltip";
-import { ApiCars } from "../../services/api"
+import { ApiCars } from "../../services/Api"
 
 import styles from "./styles.module.sass"
 

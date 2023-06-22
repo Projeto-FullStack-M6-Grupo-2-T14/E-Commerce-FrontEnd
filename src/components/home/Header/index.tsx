@@ -19,9 +19,9 @@ const Header = ({ isMobileMenuOpen, setIsMobileMenuOpen }: HeaderProps) => {
       <header id={styles.container}>
         <div className={styles.logoContainer}>
           <Link to="/">
-            <h1 className="heading-3-500">
+            <h1 className="heading-2-600">
               Motors
-              <span className="heading-6-500"> shop</span>
+              <span className="heading-5-600"> shop</span>
             </h1>
           </Link>
         </div>
