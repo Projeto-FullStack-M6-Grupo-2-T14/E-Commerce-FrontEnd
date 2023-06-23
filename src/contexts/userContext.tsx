@@ -85,7 +85,14 @@ const UserProvider = ({ children }: IUserProviderProps) => {
     try {
       const response = await ApiShop.post<ILoginResponse>("/login", loginData);
       localStorage.setItem("@TOKEN", response.data.token);
-      navigate("/", { replace: true });
+
+      const isSeller = response.data.user.is_seller;
+      
+      if (isSeller) {
+        navigate("/pagina-do-vendedor", { replace: true });
+      } else {
+        navigate("/", { replace: true });
+      }
     } catch (error) {
       console.log(error);
     }
