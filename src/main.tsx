@@ -2,8 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 
-import '@styles/_globalstyles.sass'
-import '@styles/_typography.sass'
+import './styles/_globalStyles.sass'
+import './styles/_typography.sass'
 
 import { BrowserRouter } from 'react-router-dom';
 

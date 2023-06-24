@@ -6,7 +6,8 @@ import { TLoginData } from "src/components/forms/loginForm/loginFormSchema";
 import { TRegisterData } from "src/components/forms/registerForm/registerFormSchema";
 import { TNewPass } from "src/pages/newPassword/newPasswordSchema";
 import { ApiShop } from "src/services/Api";
-import { boolean } from "zod";
+import jwt_decode from "jwt-decode";
+
 
 interface IUserProviderProps {
   children: React.ReactNode;
@@ -16,11 +17,11 @@ interface IUserContext {
   userRegister: (userData: TRegisterData) => Promise<void>;
   login: (loginData: TLoginData) => Promise<void>;
   anuncio: (anuncioData: TAnuncioData) => Promise<void>;
-  userData: IUser | null;
-  setUserData: Dispatch<SetStateAction<IUser | null>>;
+  isSeller: boolean;
   successfullyCreated: boolean;
   setSuccessfullyCreated: Dispatch<SetStateAction<boolean>>;
   updatePassword: (newPassData: TNewPass) => Promise<void>
+  userLogout: () => void
 }
 
 interface IUser {
@@ -46,7 +47,6 @@ interface IAddress {
 }
 
 interface ILoginResponse {
-  user: IUser,
   token: string;
 }
 
@@ -67,7 +67,7 @@ interface IAnuncioResponse {
 export const UserContext = createContext({} as IUserContext);
 
 const UserProvider = ({ children }: IUserProviderProps) => {
-  const [userData, setUserData] = useState<IUser | null>(null);
+  const [isSeller, setIsSeller] = useState(false);
   const [successfullyCreated, setSuccessfullyCreated] = useState(false);
   const navigate = useNavigate();
 
@@ -84,13 +84,18 @@ const UserProvider = ({ children }: IUserProviderProps) => {
   const login = async (loginData: TLoginData): Promise<void> => {
     try {
       const response = await ApiShop.post<ILoginResponse>("/login", loginData);
-      const {user: userResponse, token} = response.data
-      setUserData(userResponse)
+      const { token } = response.data;
+      const decodedToken = jwt_decode<{ userId: number, userName: string, userIsSeller: boolean }>(token)
+      const userId = decodedToken.userId; 
+      const userName = decodedToken.userName;
+      setIsSeller(decodedToken.userIsSeller)
       localStorage.setItem("@TOKEN", token);
-      localStorage.setItem("@USER_ID", String(userResponse.id));
-      navigate("/", { replace: true });
+      localStorage.setItem("@USER_ID", String(userId));
+      localStorage.setItem("@USER_NAME", userName);      
     } catch (error) {
       console.log(error);
+    } finally {
+      navigate("/user", { replace: true });
     }
   };
 
@@ -114,17 +119,25 @@ const UserProvider = ({ children }: IUserProviderProps) => {
     }
   };
 
+  const userLogout = () => {
+    localStorage.removeItem("@TOKEN");
+    localStorage.removeItem("@USER_ID");
+    localStorage.removeItem("@USER_NAME");
+    setIsSeller(false)
+    navigate("/");
+  };
+
   return (
     <UserContext.Provider
       value={{
         userRegister,
         login,
         anuncio,
-        userData,
-        setUserData,
+        isSeller,
         successfullyCreated,
         setSuccessfullyCreated,
-        updatePassword
+        updatePassword,
+        userLogout
       }}
     >
       {children}
