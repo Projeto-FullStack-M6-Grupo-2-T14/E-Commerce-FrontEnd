@@ -1,0 +1,61 @@
+@import "../../../../styles/_colors.sass"
+
+.box_btns
+    display: flex
+    align-items: center
+    gap: 15px
+    height: 36px
+    margin-top: 4%
+    border-radius: 8px
+
+    .btn_exclude
+        width: 55%
+        font-weight: 600
+        background-color: $grey-6
+        color: $grey-2
+        transition: 0.3s ease
+    
+    .btn_exclude:hover
+        transition: 0.3s ease
+        background-color: $grey-0
+        color: $white-fixed
+    
+    .btn_save
+        width: 45%
+        font-weight: 600
+        background-color: $brand-3
+        color: $white-fixed
+        transition: 0.3s ease
+
+    .btn_save:hover
+        transition: 0.3s ease
+        background-color: $brand-1
+
+
+.box_pub
+    div
+        display: flex
+        gap: 15px
+        justify-content: space-between
+        margin-top: 2%
+
+        button
+            width: 47%
+            border: 2px solid $grey-0
+            background-color: $white-fixed
+            color: $grey-0
+            border-radius: 5px
+            font-weight: 600
+            transition: 0.3s ease
+
+.btn_yes:focus
+    background-color: $brand-1
+    color: $white-fixed
+    transition: 0.3s ease
+    border: 2px solid $brand-1
+
+.btn_not:focus
+    background-color: $brand-1
+    color: $white-fixed
+    transition: 0.3s ease
+    border: 2px solid $brand-1

@@ -93,6 +93,7 @@ const UserProvider = ({ children }: IUserProviderProps) => {
       } else {
         navigate("/", { replace: true });
       }
+
     } catch (error) {
       console.log(error);
     }
@@ -128,7 +129,7 @@ const UserProvider = ({ children }: IUserProviderProps) => {
         setUserData,
         successfullyCreated,
         setSuccessfullyCreated,
-        updatePassword
+        updatePassword,
       }}
     >
       {children}
