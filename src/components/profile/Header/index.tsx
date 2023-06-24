@@ -1,5 +1,6 @@
+import { useContext } from 'react';
 import styles from './header.module.sass';
-import { Link } from 'react-router-dom';
+import { UserContext } from 'src/contexts/userContext';
 
 interface iHeaderProfile {
     initial_name: string,
@@ -7,6 +8,8 @@ interface iHeaderProfile {
 }
 
 const HeaderProfile = ({initial_name, name}: iHeaderProfile) => {
+    const { userLogout } = useContext(UserContext)
+
     return (
         <header id={styles.cabecalho}>
             <div className={styles.container}>
@@ -19,7 +22,7 @@ const HeaderProfile = ({initial_name, name}: iHeaderProfile) => {
                         <figcaption className="heading-6-500">{name}</figcaption>
                     </figure>
 
-                    <Link to="/">Saída</Link>
+                    <button onClick={userLogout}>Saída</button>
                 </div>                
             </div>
         </header>

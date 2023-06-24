@@ -3,9 +3,18 @@ import { Navigate, Outlet } from "react-router-dom";
 import { UserContext } from "src/contexts/userContext";
 
 const ProtectedRoutes = () => {
-    const { userData } = useContext(UserContext);  
+  const { isSeller } = useContext(UserContext);
+  const token = localStorage.getItem('@TOKEN');
 
-    return <>{userData ? <Outlet /> : <Navigate to="/login" replace />}</>;
-  };
+  if (!token) {
+    return <Navigate to="/login" replace />;
+  }
+
+  if (isSeller) {
+    return <Navigate to="/admin" replace />;
+  } else {
+    return <Outlet />;
+  }
+};
   
-  export default ProtectedRoutes;
+export default ProtectedRoutes;
