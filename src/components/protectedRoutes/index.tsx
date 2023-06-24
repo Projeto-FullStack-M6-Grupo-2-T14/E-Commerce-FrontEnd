@@ -5,7 +5,22 @@ import { UserContext } from "src/contexts/userContext";
 const ProtectedRoutes = () => {
     const { userData } = useContext(UserContext);  
 
-    return <>{userData ? <Outlet /> : <Navigate to="/login" replace />}</>;
+    const isSeller = userData && userData.is_seller;
+
+    return (
+      <>
+        {userData ? (
+          
+          isSeller ? (
+            <Navigate to="/anuncios" replace />
+          ) : (
+            <Outlet />
+          )
+        ) : (
+          <Navigate to="/login" replace />
+        )}
+      </>
+    );
   };
   
   export default ProtectedRoutes;

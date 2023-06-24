@@ -6,6 +6,7 @@ import { TLoginData } from "src/components/forms/loginForm/loginFormSchema";
 import { TRegisterData } from "src/components/forms/registerForm/registerFormSchema";
 import { TNewPass } from "src/pages/newPassword/newPasswordSchema";
 import { ApiShop } from "src/services/Api";
+import { boolean } from "zod";
 
 interface IUserProviderProps {
   children: React.ReactNode;
@@ -45,7 +46,7 @@ interface IAddress {
 }
 
 interface ILoginResponse {
-  user: IUser;
+  user: IUser,
   token: string;
 }
 
@@ -72,8 +73,7 @@ const UserProvider = ({ children }: IUserProviderProps) => {
 
   const userRegister = async (userData: TRegisterData): Promise<void> => {
     try {
-      const response = await ApiShop.post<IUser>("/users", userData);
-      setUserData(response.data);
+      await ApiShop.post<IUser>("/users", userData);
       setSuccessfullyCreated(true);
     } catch (error) {
       const axiosError = error as AxiosError;
@@ -84,15 +84,11 @@ const UserProvider = ({ children }: IUserProviderProps) => {
   const login = async (loginData: TLoginData): Promise<void> => {
     try {
       const response = await ApiShop.post<ILoginResponse>("/login", loginData);
-      localStorage.setItem("@TOKEN", response.data.token);
-
-      const isSeller = response.data.user.is_seller;
-      
-      if (isSeller) {
-        navigate("/pagina-do-vendedor", { replace: true });
-      } else {
-        navigate("/", { replace: true });
-      }
+      const {user: userResponse, token} = response.data
+      setUserData(userResponse)
+      localStorage.setItem("@TOKEN", token);
+      localStorage.setItem("@USER_ID", String(userResponse.id));
+      navigate("/", { replace: true });
     } catch (error) {
       console.log(error);
     }
