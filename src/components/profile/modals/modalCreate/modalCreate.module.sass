@@ -1,0 +1,146 @@
+@import "../../../../styles/_colors.sass"
+
+.container_modal
+    display: flex
+    width: 100vw
+    height: 100vh
+    position: fixed
+    top: 0
+    left: 0
+    background-color: rgba(0, 0, 0, 0.5)
+    display: flex
+    justify-content: center
+    overflow: auto
+
+.modal
+    position: relative
+    background-color: $white-fixed
+    border-radius: 5px
+    width: 520px
+    top: 5%
+    height : fit-content
+    margin-bottom: 5%
+
+    .container
+        width: 93%
+        margin: 0 auto
+        display: flex
+        flex-direction: column
+
+    .box_title
+        display: flex
+        align-items: center
+        justify-content: space-between
+        margin-top: 3%
+
+
+.icon
+    opacity: 35%
+    cursor: pointer
+    transition: 0.3s ease
+
+.icon:hover
+    opacity: 100%
+    transition: 0.3s ease
+
+
+.form
+    display: flex
+    width: 100%
+    padding: 20px 0
+
+    .box_input_med
+        display: flex
+        flex-direction: column
+        gap: 6px
+        margin-top: 10px
+
+.input_med
+    height: 35px
+    border-radius: 5px
+    border: 3px solid $grey-7
+    padding: 5px
+    transition: 0.3s ease
+    outline: none
+
+.input_med:focus
+    transition: 0.3s ease
+    border: 3px solid $grey-2
+
+
+.box_input
+    display: flex
+    justify-content: space-between
+    margin-top: 10px
+
+    .box_input_small
+        display: flex
+        flex-direction: column
+        width: 48%
+
+        input
+            display: flex
+            height: 35px
+            width: 100%
+            outline: none
+            transition: 0.3s ease
+            padding: 5px
+            border-radius: 5px
+            border: 3px solid $grey-7
+        
+        input:focus
+            transition: 0.3s ease
+            border: 3px solid $grey-2
+
+
+.box_text
+    display: flex
+    flex-direction: column
+    gap: 6px
+    margin-top: 10px
+
+    textarea
+        width: 100%
+        height: 70px
+        border: 3px solid $grey-7
+        border-radius: 5px
+        padding: 5px
+        resize: none
+
+
+.btn_add
+    display: flex
+    align-items: center
+    max-width: 65%
+    height: 36px
+    background-color: $brand-4
+    border-radius: 5px
+    color: $brand-1
+    margin-top: 3%
+    transition: 0.3s ease
+    font-weight: 600
+
+.btn_add:hover
+    transition: 0.3s ease
+    background-color: $brand-1
+    color: $white-fixed
+
+.box_btns
+    display: flex
+    justify-content: flex-end
+    align-items: center
+    gap: 15px
+    height: 36px
+    margin-top: 4%
+    border-radius: 8px
+    
+    button
+        display: flex
+        align-items: center
+        font-weight: 600
+        transition: 0.3s ease
+    
+    button:hover
+        color: $white-fixed
+        background-color: $grey-0
+        transition: 0.3s ease

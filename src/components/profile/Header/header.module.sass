@@ -1,0 +1,73 @@
+@import "../../../styles/_colors.sass"
+
+#cabecalho
+    background-color: $white-fixed
+    width: 100vw
+    height: 100px
+    border-bottom: 4px solid $grey-6
+
+    .container
+        display: flex
+        justify-content: space-between
+        align-items: center
+        max-width: 90vw
+        margin: 0 auto
+        height: 100px
+
+        h1
+            background: linear-gradient(90deg, #0B0D0D -1.61%, #4529E6 100.99%)
+            -webkit-background-clip: text
+            -webkit-text-fill-color: transparent
+            display: flex
+            align-items: center
+            justify-content: center
+            gap: 3%
+        h1 > span
+            display: flex
+            width: 75px
+            margin-top: 2%
+        
+        div
+            display: flex
+            align-items: center
+
+            a
+                background-color: $alert-3
+                padding: 10px
+                width: 120px
+                border-radius: 5px
+                display: flex
+                align-items: center
+                justify-content: center
+                color: $grey-2
+                font-size: 1.8rem
+                font-weight: 500
+                transition: 0.3s ease
+            
+            a:hover
+                font-weight: 600
+                color: $white-fixed
+                background-color: $alert-1
+
+            figure
+                display: flex
+                align-items: center
+                gap: 10px
+
+                #barra
+                    background-color: $grey-6
+                    padding: 1.5px
+                    height: 100px
+                    margin-right: 20px
+
+                #icon_profile
+                    border-radius: 50%
+                    background-color: $brand-1
+                    color: $white-fixed
+                    padding: 4%
+                
+                figcaption
+                    display: flex
+                    color: $grey-2
+                    width: 200px
+

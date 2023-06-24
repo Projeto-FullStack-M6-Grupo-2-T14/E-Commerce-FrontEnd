@@ -1,0 +1,77 @@
+@import "../../../styles/_colors.sass"
+
+.card
+    display: flex
+    flex-direction: column
+    gap: 15px
+    width: 300px
+    cursor: pointer
+    transition: 0.3s ease
+    border: 3px solid transparent
+    padding: 5px
+    border-radius: 5px
+
+    figure
+        background-color: $grey-7
+        border-radius: 5px
+        width: 285px
+        height: 170px
+
+        img
+            width: 285px
+            height: 170px
+
+.card:hover
+    transition: 0.3s ease
+    border: 3px solid $brand-1
+
+.box_profile
+    display: flex
+    align-items: center
+    gap: 10px
+
+    span
+        display: flex
+        justify-content: center
+        align-items: center
+        border-radius: 50%
+        background-color: $brand-1
+        width: 40px
+        height: 40px
+        color: $white-fixed
+
+.box_info
+    display: flex
+    justify-content: space-between
+    align-items: center
+    margin-top: 2%
+
+    div
+        display: flex
+        gap: 10px
+
+        span
+            color: $brand-1
+            background-color: $brand-4
+            border-radius: 5px
+            padding: 4px
+
+.box_btns
+    display: flex
+    align-items: center
+    gap: 15px
+    height: 40px
+
+    button
+        display: flex
+        justify-contetn: center
+        align-items: center
+        border: 3px solid $grey-0
+        border-radius: 5px
+        background-color: $grey-8
+        height: 40px
+        transition: 0.3s ease
+    
+    button:hover
+        color: $white-fixed
+        background-color: $grey-0

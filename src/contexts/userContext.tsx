@@ -6,23 +6,22 @@ import { TLoginData } from "src/components/forms/loginForm/loginFormSchema";
 import { TRegisterData } from "src/components/forms/registerForm/registerFormSchema";
 import { ApiShop } from "src/services/Api";
 
-
 interface IUserProviderProps {
   children: React.ReactNode;
 }
 
 interface IUserContext {
-  userRegister: (userData: TRegisterData) => Promise<void>
-  login: (loginData: TLoginData) => Promise<void>
-  anuncio: (anuncioData: TAnuncioData) => Promise<void>
-  userData: IUser | null
-  setUserData: Dispatch<SetStateAction<IUser | null>>
-  successfullyCreated: boolean
-  setSuccessfullyCreated: Dispatch<SetStateAction<boolean>>
+  userRegister: (userData: TRegisterData) => Promise<void>;
+  login: (loginData: TLoginData) => Promise<void>;
+  anuncio: (anuncioData: TAnuncioData) => Promise<void>;
+  userData: IUser | null;
+  setUserData: Dispatch<SetStateAction<IUser | null>>;
+  successfullyCreated: boolean;
+  setSuccessfullyCreated: Dispatch<SetStateAction<boolean>>;
 }
 
 interface IUser {
-  id: number
+  id: number;
   name: string;
   email: string;
   password: string;
@@ -44,7 +43,7 @@ interface IAddress {
 }
 
 interface ILoginResponse {
-  user: IUser
+  user: IUser;
   token: string;
 }
 
@@ -66,17 +65,17 @@ export const UserContext = createContext({} as IUserContext);
 
 const UserProvider = ({ children }: IUserProviderProps) => {
   const [userData, setUserData] = useState<IUser | null>(null);
-  const [successfullyCreated, setSuccessfullyCreated] = useState(false)
+  const [successfullyCreated, setSuccessfullyCreated] = useState(false);
   const navigate = useNavigate();
 
   const userRegister = async (userData: TRegisterData): Promise<void> => {
     try {
       const response = await ApiShop.post<IUser>("/users", userData);
-      setUserData(response.data)
-      setSuccessfullyCreated(true)
+      setUserData(response.data);
+      setSuccessfullyCreated(true);
     } catch (error) {
       const axiosError = error as AxiosError;
-      console.log(axiosError.message)
+      console.log(axiosError.message);
     }
   };
 
@@ -84,27 +83,37 @@ const UserProvider = ({ children }: IUserProviderProps) => {
     try {
       const response = await ApiShop.post<ILoginResponse>("/login", loginData);
       localStorage.setItem("@TOKEN", response.data.token);
-      navigate("/", { replace: true })
+      navigate("/", { replace: true });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
   const anuncio = async (anuncioData: TAnuncioData): Promise<void> => {
     try {
-      console.log(anuncioData)
+      console.log(anuncioData);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     } finally {
-      navigate("/dashboard", { replace: true })
+      navigate("/dashboard", { replace: true });
     }
   };
 
   return (
-    <UserContext.Provider value={{ userRegister, login, anuncio, userData, setUserData, successfullyCreated, setSuccessfullyCreated }}>
+    <UserContext.Provider
+      value={{
+        userRegister,
+        login,
+        anuncio,
+        userData,
+        setUserData,
+        successfullyCreated,
+        setSuccessfullyCreated,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );
-}
+};
 
-export default UserProvider
+export default UserProvider;
