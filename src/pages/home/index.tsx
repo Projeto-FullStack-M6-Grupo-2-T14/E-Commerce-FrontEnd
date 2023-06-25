@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useState } from "react"
 import { AiOutlineCloseSquare } from "react-icons/ai"
 import ListFilter from "../../components/home/ListFilter"

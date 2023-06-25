@@ -1,4 +1,6 @@
-import { useState } from "react"
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useContext, useEffect, useState } from "react"
+import { UserContext } from "src/contexts/userContext"
 import FooterProfile from "src/components/profile/FooterProfile"
 import HeaderProfile from "src/components/profile/Header"
 import SectionPosters from "src/components/profile/SectionPosters"
@@ -16,11 +18,23 @@ const ProfileAdminPage = () => {
     const [openConfUpdate, setOpenConfUpdate] = useState(false)
     const [openExclude, setOpenExclude] = useState(false)
 
+    const { user, getInitials, retrieveUser } = useContext(UserContext)
+
+    useEffect(() => {
+        const storedUserId = localStorage.getItem("@USER_ID");
+        const token = localStorage.getItem("@TOKEN");
+        const userId = storedUserId ? parseInt(storedUserId) : null;
+      
+        if (userId && token) {
+          retrieveUser(userId, token);
+        }
+      }, []);
+
     return (
         <>
-            <HeaderProfile initial_name="JS" name="Junio Santos"/>
+            <HeaderProfile initial_name={getInitials(user?.name)} name={user?.name ?? ""}/>
             <main>
-                <SectionProfile open_modal={setOpenCreate} initial_name="SL" name="Samuel Leão" description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s" />
+                <SectionProfile open_modal={setOpenCreate} initial_name={getInitials(user?.name)} name={user?.name ?? ""} description={user?.description ?? ""} />
                 <SectionPosters open_update={setOpenUpdate}/>
             </main>
             <FooterProfile />
