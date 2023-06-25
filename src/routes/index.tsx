@@ -5,6 +5,8 @@ import LoginPage from 'src/pages/login'
 import Anuncio from 'src/components/anuncio'
 import ProfileAdminPage from 'src/pages/profileAdmin'
 import ProfileUserPage from 'src/pages/profileUser'
+import NewPasswordPage from 'src/pages/newPassword'
+import ProtectedRoutes from 'src/components/protectedRoutes'
 
 const RoutesMain = () => (
     <Routes>
@@ -14,6 +16,8 @@ const RoutesMain = () => (
         <Route path='/anuncio' element={<Anuncio />} />
         <Route path='/admin' element={<ProfileAdminPage />} />
         <Route path='/user' element={<ProfileUserPage />}/>
+        <Route path='/login/newPassword' element={<NewPasswordPage />} />
+        <Route element={<ProtectedRoutes/>}></Route>   
     </Routes>
 )
 

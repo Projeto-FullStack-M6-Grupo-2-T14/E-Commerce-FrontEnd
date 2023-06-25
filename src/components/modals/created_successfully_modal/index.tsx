@@ -1,9 +1,25 @@
 import { Link } from "react-router-dom"
 import { IoMdClose } from "react-icons/io"
+import { useEffect } from "react";
 
 import styles from "./successModal.module.sass"
 
 const SuccessfullyCreatedModal = ({ closeModal }: { closeModal: () => void }) => {
+
+    useEffect(() => {
+        const handleKeyDown = (event: any) => {
+          if (event.key === "Escape") {
+            closeModal();
+          }
+        };    
+    
+        document.addEventListener("keydown", handleKeyDown);
+    
+        return () => {
+          document.removeEventListener("keydown", handleKeyDown);
+        };
+
+      }, [closeModal]);
 
     return (
         <div className={styles.background}>

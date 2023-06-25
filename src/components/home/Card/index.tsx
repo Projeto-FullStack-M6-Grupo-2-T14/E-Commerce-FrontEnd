@@ -1,16 +1,18 @@
+// import card1 from '../../../assets/images/card1.png'
+import { TPostUserSchema } from 'src/contexts/posterContext'
 import styles from './card.module.sass'
 
-interface ICardElements {
-    img: string,
-    name: string,
+export interface iCardElements {
+    cover_image: string,
+    title: string,
     description: string,
-    name_profile: string,
+    user: TPostUserSchema,
     mileage: string,
     year: string,
     price: string
 }
 
-const Card = ({ img, name, description, name_profile, mileage, year, price }: ICardElements) => {
+const Card = ({ cover_image, title, description, user, mileage, year, price }: iCardElements) => {
     function generateColor() {
         const letters = '0123456789ABCDEF'
         let color = '#'
@@ -22,28 +24,28 @@ const Card = ({ img, name, description, name_profile, mileage, year, price }: IC
         return color
     }
 
+    let userName = user.name
     function generateNameImg() {
-        let name = name_profile[0]
 
-        for (let i = 0; i < name_profile.length; i++) {
-            if (name_profile[i] === ' ') {
-                name += name_profile[i + 1]
+        for (let i = 0; i < userName.length; i++) {
+            if (userName[i] === ' ') {
+                userName += userName[i + 1]
             }
         }
 
-        return name
+        return userName
     }
 
     return (
-        <li className={styles.card}>
-            <img src={img} alt={name} />
-            <h3 className='heading-5-600'>{name}</h3>
+        <li className='card'>
+            <img src={cover_image} alt={title} />
+            <h3 className='heading-5-600'>{title}</h3>
 
             <p className='body-1-400'>{description}</p>
 
             <figure>
                 <div style={{ 'backgroundColor': `${generateColor()}` }} className='body-1-600'>{`${generateNameImg()}`}</div>
-                <figcaption className='body-1-600'>{name_profile}</figcaption>
+                <figcaption className='body-1-600'>{userName}</figcaption>
             </figure>
 
             <div className={styles.boxInfocar}>

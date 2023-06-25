@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { TAnuncioData } from "src/components/anuncio/posterFormSchema";
 import { TLoginData } from "src/components/forms/loginForm/loginFormSchema";
 import { TRegisterData } from "src/components/forms/registerForm/registerFormSchema";
+import { TNewPass } from "src/pages/newPassword/newPasswordSchema";
 import { ApiShop } from "src/services/Api";
 
 interface IUserProviderProps {
@@ -18,6 +19,7 @@ interface IUserContext {
   setUserData: Dispatch<SetStateAction<IUser | null>>;
   successfullyCreated: boolean;
   setSuccessfullyCreated: Dispatch<SetStateAction<boolean>>;
+  updatePassword: (newPassData: TNewPass) => Promise<void>
 }
 
 interface IUser {
@@ -83,7 +85,15 @@ const UserProvider = ({ children }: IUserProviderProps) => {
     try {
       const response = await ApiShop.post<ILoginResponse>("/login", loginData);
       localStorage.setItem("@TOKEN", response.data.token);
-      navigate("/", { replace: true });
+
+      const isSeller = response.data.user.is_seller;
+      
+      if (isSeller) {
+        navigate("/pagina-do-vendedor", { replace: true });
+      } else {
+        navigate("/", { replace: true });
+      }
+
     } catch (error) {
       console.log(error);
     }
@@ -92,6 +102,16 @@ const UserProvider = ({ children }: IUserProviderProps) => {
   const anuncio = async (anuncioData: TAnuncioData): Promise<void> => {
     try {
       console.log(anuncioData);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      navigate("/dashboard", { replace: true });
+    }
+  };
+
+  const updatePassword = async (newPassData: TNewPass): Promise<void> => {
+    try {
+      console.log(newPassData);
     } catch (error) {
       console.log(error);
     } finally {
@@ -109,6 +129,7 @@ const UserProvider = ({ children }: IUserProviderProps) => {
         setUserData,
         successfullyCreated,
         setSuccessfullyCreated,
+        updatePassword,
       }}
     >
       {children}
