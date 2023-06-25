@@ -1,9 +1,9 @@
 import { AxiosError } from "axios";
 import { Dispatch, SetStateAction, createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { TAnuncioData } from "src/components/anuncio/posterFormSchema";
-import { TLoginData } from "src/components/forms/loginForm/loginFormSchema";
-import { TRegisterData } from "src/components/forms/registerForm/registerFormSchema";
+import { TAnuncioData } from "src/components/Poster/posterFormSchema";
+import { TLoginData } from "src/components/forms/LoginForm/loginFormSchema";
+import { TRegisterData } from "src/components/forms/RegisterForm/registerFormSchema";
 import { TNewPass } from "src/pages/newPassword/newPasswordSchema";
 import { ApiShop } from "src/services/Api";
 import jwt_decode from "jwt-decode";
@@ -20,8 +20,11 @@ interface IUserContext {
   isSeller: boolean;
   successfullyCreated: boolean;
   setSuccessfullyCreated: Dispatch<SetStateAction<boolean>>;
-  updatePassword: (newPassData: TNewPass) => Promise<void>
-  userLogout: () => void
+  updatePassword: (newPassData: TNewPass) => Promise<void>;
+  userLogout: () => void;
+  user: IUser | null;
+  getInitials: (name: string | undefined) => string;
+  retrieveUser: (userId: number, token: string) => Promise<void>;
 }
 
 interface IUser {
@@ -64,9 +67,11 @@ interface IAnuncioResponse {
   imagemGaleria: string;
 }
 
+
 export const UserContext = createContext({} as IUserContext);
 
 const UserProvider = ({ children }: IUserProviderProps) => {
+  const [user, setUser] = useState<IUser | null>(null)
   const [isSeller, setIsSeller] = useState(false);
   const [successfullyCreated, setSuccessfullyCreated] = useState(false);
   const navigate = useNavigate();
@@ -81,17 +86,34 @@ const UserProvider = ({ children }: IUserProviderProps) => {
     }
   };
 
+  const retrieveUser = async (userId: number, token: string) => {
+    try {
+      const response = await ApiShop.get(`/users/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const userData = response.data;
+      setUser(userData); 
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const login = async (loginData: TLoginData): Promise<void> => {
     try {
       const response = await ApiShop.post<ILoginResponse>("/login", loginData);
       const { token } = response.data;
-      const decodedToken = jwt_decode<{ userId: number, userName: string, userIsSeller: boolean }>(token)
-      const userId = decodedToken.userId; 
-      const userName = decodedToken.userName;
-      setIsSeller(decodedToken.userIsSeller)
+
+      const decodedToken = jwt_decode<{ id: number, is_seller: boolean }>(token)
+      const userId = decodedToken.id; 
+
+      setIsSeller(decodedToken.is_seller)
+
       localStorage.setItem("@TOKEN", token);
       localStorage.setItem("@USER_ID", String(userId));
-      localStorage.setItem("@USER_NAME", userName);      
+
+
     } catch (error) {
       console.log(error);
     } finally {
@@ -124,7 +146,15 @@ const UserProvider = ({ children }: IUserProviderProps) => {
     localStorage.removeItem("@USER_ID");
     localStorage.removeItem("@USER_NAME");
     setIsSeller(false)
+    setUser(null)
     navigate("/");
+  };
+
+  const getInitials = (name: string | undefined): string => {
+    if (!name) return ""; 
+    const names = name.split(" ");
+    const initials = names.map((name) => name.charAt(0));
+    return initials.join("");
   };
 
   return (
@@ -137,7 +167,10 @@ const UserProvider = ({ children }: IUserProviderProps) => {
         successfullyCreated,
         setSuccessfullyCreated,
         updatePassword,
-        userLogout
+        userLogout,
+        user,
+        getInitials,
+        retrieveUser
       }}
     >
       {children}

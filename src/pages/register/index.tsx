@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import RegisterForm from "src/components/forms/registerForm";
+import RegisterForm from "src/components/forms/RegisterForm";
 import Header from "src/components/home/Header";
 import SuccessfullyCreatedModal from "src/components/modals/created_successfully_modal";
 import { UserContext } from "src/contexts/userContext";
