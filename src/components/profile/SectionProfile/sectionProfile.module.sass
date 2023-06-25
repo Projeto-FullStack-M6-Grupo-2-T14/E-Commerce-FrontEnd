@@ -1,8 +1,7 @@
 @import "../../../styles/_colors.sass"
 
-section
-    background-color: $brand-1
-    height: 40vh
+.section_profile
+    height: fit-content
     display: flex
     justify-content: center
     margin: 0 auto
@@ -11,9 +10,10 @@ section
     .container_profile
         background-color: $white-fixed
         width: 80%
-        height: 300px
+        height: fit-content
         border-radius: 5px
         margin-top: 7%
+        padding: 20px 0
 
         .box_container
             width: 90%
@@ -75,3 +75,37 @@ section
     color: $white-fixed
     background-color: $brand-1
     transition: 0.3s ease
+
+.background
+    width: 100vw
+    height: 50vh
+    background-color: $brand-1
+    position: absolute
+    top: 100px
+    z-index: -10
+
+@media (max-width: 800px)
+    .background
+        top: 80px
+    .section_profile .container_profile
+        width: 85%
+        .box_container
+            #btn_create
+                width: fit-content
+                height: fit-content
+                padding: 10px
+            p
+                margin-bottom: 20px
+            figure
+                width: 70px
+                height: 70px
+            
+            div h3
+                font-size: 22px
+            div span
+                font-size: 16px
+                width: fit-content
+                padding: 5px
+            div
+                margin-bottom: 20px
+

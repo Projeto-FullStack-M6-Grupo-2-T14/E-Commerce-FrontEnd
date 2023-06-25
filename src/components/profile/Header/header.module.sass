@@ -13,6 +13,7 @@
         max-width: 90vw
         margin: 0 auto
         height: 100px
+        border-bottom: 3px solid transparent
 
         h1
             background: linear-gradient(90deg, #0B0D0D -1.61%, #4529E6 100.99%)
@@ -71,3 +72,90 @@
                     color: $grey-2
                     width: 200px
 
+.menu_mobile
+    display: none
+    transition: 0.3s ease
+
+.close_menu_mobile
+    display: none
+    transition: 0.3s ease
+
+@media (max-width: 800px)
+    #cabecalho
+        height: fit-content
+
+    #cabecalho .container
+        height: 80px
+
+        h1
+            font-size: 3rem
+        h1 > span
+            font-size: 2.2rem
+
+        div figure
+            display: none
+        div a
+            display: none
+        
+        .menu_mobile
+            display: flex
+            transition: 0.3s ease
+            animation: openMobile 1s
+
+        .close_menu_mobile
+            display: flex
+            transition: 0.3s ease
+            animation: openMobile 1s
+    
+    #cabecalho .box_mobile
+        display: flex
+        flex-direction: column
+        justify-content: center
+        align-items: center
+        gap: 15px
+
+        a
+            border-radius: 5px
+            background-color: $alert-2
+            width: 50%
+            color: $grey-3
+            display: flex
+            justify-content: center
+            align-items: center
+            padding: 10px
+            cursor: pointer
+            margin: 15px 0
+            transition: 0.3s ease
+        
+        a:hover
+            background-color: $alert-1
+            color: $white-fixed
+            transition: 0.3s ease
+
+
+        div
+            display: flex
+            align-items: center
+            gap: 10px
+
+            #icon_mobile
+                display: flex
+                border-radius: 50%
+                background-color: $brand-1
+                color: $white-fixed
+                font-size: 2rem
+                padding: 7px
+                font-size: 20px
+                font-weight: 600
+            
+            #name_mobile
+                font-size: 22px
+                font-weight: 500
+
+
+
+@keyframes openMobile
+    0%
+        opacity: 0%
+    100%
+        opacity: 100%
