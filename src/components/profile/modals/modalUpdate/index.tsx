@@ -11,6 +11,9 @@ interface iModalUpdate {
 }
 
 const ModalUpdate = ({close_modal, open_modal, open_exclude}: iModalUpdate) => {
+    const [countImg, setCountImg] = useState(2)
+    const [activePubButton, setActivePubButton] = useState(true)
+
     function closeModal(element: any) {
         if(element.className.includes('container_modal')) {
             close_modal(false)
@@ -87,8 +90,8 @@ const ModalUpdate = ({close_modal, open_modal, open_exclude}: iModalUpdate) => {
                             <h4 className='heading-7-600'>Publicado</h4>
 
                             <div>
-                                <button className={`${style.btn_yes} body-2-500`} type='button'>Sim</button>
-                                <button className={`${style.btn_not}`} type='button'>Não</button>
+                                <button onClick={() => setActivePubButton(false)} className={`${style.btn_yes} body-2-500`} type='button' style={activePubButton === false ? {backgroundColor: '#4529E6', color: 'white', border: '2px solid #4529E6'} : {}}>Sim</button>
+                                <button onClick={() => setActivePubButton(true)} className={`${style.btn_not}`} type='button' style={activePubButton === true ? {backgroundColor: '#4529E6', color: 'white', border: '2px solid #4529E6'} : {}}>Não</button>
                             </div>
                         </div>
 
@@ -100,9 +103,17 @@ const ModalUpdate = ({close_modal, open_modal, open_exclude}: iModalUpdate) => {
                         <div className={styles.box_imgs}>
                             <InputImg number={1} />
                             <InputImg number={2} />
+                            { countImg > 2 ? <InputImg number={3}/> : null }
+                            { countImg > 3 ? <InputImg number={4}/> : null }
+                            { countImg > 4 ? <InputImg number={5}/> : null }
+                            { countImg > 5 ? <InputImg number={6}/> : null }
+                            { countImg > 6 ? <InputImg number={7}/> : null }
+                            { countImg > 7 ? <InputImg number={8}/> : null }
+                            { countImg > 8 ? <InputImg number={9}/> : null }
+                            { countImg > 9 ? <InputImg number={10}/> : null }
                         </div>
 
-                        <button className={`${styles.btn_add} body-2-500`} type='button'>Adicionar campo para imagem da galeria</button>
+                        <button className={`${styles.btn_add} body-2-500`} type='button' onClick={() => countImg < 10 ? setCountImg(countImg + 1) : setCountImg(10)}>Adicionar campo para imagem da galeria</button>
 
                         <div className={style.box_btns}>
                             <button className={`${style.btn_exclude} body-2-500`} onClick={() => {

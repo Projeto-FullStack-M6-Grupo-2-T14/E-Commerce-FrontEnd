@@ -11,10 +11,11 @@ interface iSectionPosters {
     km: string,
     year: string,
     price: string,
+    poster_active: boolean,
     open_update: Dispatch<SetStateAction<boolean>>,
 }
 
-const CardProfile = ({img, car_name, description, initial_name, name_profile, km, year, price, open_update}: iSectionPosters) => {
+const CardProfile = ({img, car_name, description, initial_name, name_profile, km, year, price, poster_active, open_update}: iSectionPosters) => {
     const url = window.location.href
     const findUrl = url.includes('admin')
 
@@ -22,6 +23,7 @@ const CardProfile = ({img, car_name, description, initial_name, name_profile, km
         <li className={styles.card}>
             <figure>
                 <img src={img} alt={car_name} />
+                { findUrl === false ? <></> : <span className={`heading-7-500`} style={poster_active === true ? {backgroundColor: '#4529E6'} : {backgroundColor: '#adb5bd'}}>{poster_active === true ? 'Ativo' : 'Inativo'}</span>}
             </figure>
 
             <h3 className='heading-6-600'>{car_name}</h3>

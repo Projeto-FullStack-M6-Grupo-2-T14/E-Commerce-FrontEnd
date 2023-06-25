@@ -29,6 +29,7 @@ const SectionPosters = ({open_update}: iSectionPoster) => {
                     year='2019'
                     price='120.000'
                     open_update={open_update}
+                    poster_active={true}
                 />
                 <CardProfile  
                     img={car1} 
@@ -40,6 +41,7 @@ const SectionPosters = ({open_update}: iSectionPoster) => {
                     year='2019'
                     price='120.000'
                     open_update={open_update}
+                    poster_active={false}
                 />
                 <CardProfile  
                     img={car1} 
@@ -51,6 +53,7 @@ const SectionPosters = ({open_update}: iSectionPoster) => {
                     year='2019'
                     price='120.000'
                     open_update={open_update}
+                    poster_active={false}
                 />
                 <CardProfile  
                     img={car1} 
@@ -62,6 +65,7 @@ const SectionPosters = ({open_update}: iSectionPoster) => {
                     year='2019'
                     price='120.000'
                     open_update={open_update}
+                    poster_active={true}
                 />
                 <CardProfile  
                     img={car1} 
@@ -73,6 +77,7 @@ const SectionPosters = ({open_update}: iSectionPoster) => {
                     year='2019'
                     price='120.000'
                     open_update={open_update}
+                    poster_active={true}
                 />
                 <CardProfile  
                     img={car1} 
@@ -84,6 +89,7 @@ const SectionPosters = ({open_update}: iSectionPoster) => {
                     year='2019'
                     price='120.000'
                     open_update={open_update}
+                    poster_active={false}
                 />
                 
             </ul>

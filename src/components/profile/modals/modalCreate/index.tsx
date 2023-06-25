@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction} from 'react';
+import { Dispatch, SetStateAction, useState} from 'react';
 import styles from './modalCreate.module.sass';
 // import { Link } from 'react-router-dom';
 import { AiOutlineClose } from 'react-icons/ai';
@@ -10,6 +10,7 @@ interface iModalCreatePoster {
 }
 
 const ModalCreatePoster = ({close_modal, open_modal}: iModalCreatePoster) => {
+    const [countImg, setCountImg] = useState(2)
 
     function closeModal(element: any) {
         if(element.className.includes('container_modal')) {
@@ -91,9 +92,17 @@ const ModalCreatePoster = ({close_modal, open_modal}: iModalCreatePoster) => {
                         <div className={styles.box_imgs}>
                             <InputImg number={1} />
                             <InputImg number={2} />
+                            { countImg > 2 ? <InputImg number={3}/> : null }
+                            { countImg > 3 ? <InputImg number={4}/> : null }
+                            { countImg > 4 ? <InputImg number={5}/> : null }
+                            { countImg > 5 ? <InputImg number={6}/> : null }
+                            { countImg > 6 ? <InputImg number={7}/> : null }
+                            { countImg > 7 ? <InputImg number={8}/> : null }
+                            { countImg > 8 ? <InputImg number={9}/> : null }
+                            { countImg > 9 ? <InputImg number={10}/> : null }
                         </div>
 
-                        <button className={`${styles.btn_add} body-2-500`} type='button'>Adicionar campo para imagem da galeria</button>
+                        <button className={`${styles.btn_add} body-2-500`} type='button' onClick={() => countImg < 10 ? setCountImg(countImg + 1) : setCountImg(10)}>Adicionar campo para imagem da galeria</button>
 
                         <div className={styles.box_btns}>
                             <button className='body-2-500' onClick={() => close_modal(false)}>Cancelar</button>
