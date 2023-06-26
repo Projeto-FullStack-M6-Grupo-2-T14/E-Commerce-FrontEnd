@@ -1,12 +1,14 @@
 import { AxiosError } from "axios";
 import { Dispatch, SetStateAction, createContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { TAnuncioData } from "src/components/Poster/posterFormSchema";
-import { TLoginData } from "src/components/forms/LoginForm/loginFormSchema";
-import { TRegisterData } from "src/components/forms/RegisterForm/registerFormSchema";
+
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { TLoginData } from "src/components/forms/loginForm/loginFormSchema";
+import { TRegisterData } from "src/components/forms/registerForm/registerFormSchema";
 import { TNewPass } from "src/pages/newPassword/newPasswordSchema";
 import { ApiShop } from "src/services/Api";
 import jwt_decode from "jwt-decode";
+import { TSendEmail } from "src/pages/sendEmail/sendEmailSchema";
+
 
 
 interface IUserProviderProps {
@@ -16,10 +18,11 @@ interface IUserProviderProps {
 interface IUserContext {
   userRegister: (userData: TRegisterData) => Promise<void>;
   login: (loginData: TLoginData) => Promise<void>;
-  anuncio: (anuncioData: TAnuncioData) => Promise<void>;
+  // anuncio: (anuncioData: TAnuncioData) => Promise<void>;
   isSeller: boolean;
   successfullyCreated: boolean;
   setSuccessfullyCreated: Dispatch<SetStateAction<boolean>>;
+  sendEmail: (email: TSendEmail) => Promise<void>;
   updatePassword: (newPassData: TNewPass) => Promise<void>;
   userLogout: () => void;
   user: IUser | null;
@@ -53,19 +56,20 @@ interface ILoginResponse {
   token: string;
 }
 
-interface IAnuncioResponse {
-  marca: string;
-  modelo: string;
-  ano: string;
-  combustivel: string;
-  quilometragem: string;
-  cor: string;
-  precoFipe: string;
-  preco: string;
-  descricao: string;
-  imagemCapa: string;
-  imagemGaleria: string;
-}
+// interface IAnuncioResponse {
+//   marca: string;
+//   modelo: string;
+//   ano: string;
+//   combustivel: string;
+//   quilometragem: string;
+//   cor: string;
+//   precoFipe: string;
+//   preco: string;
+//   descricao: string;
+//   imagemCapa: string;
+//   imagemGaleria: string;
+// }
+
 
 
 export const UserContext = createContext({} as IUserContext);
@@ -75,6 +79,8 @@ const UserProvider = ({ children }: IUserProviderProps) => {
   const [isSeller, setIsSeller] = useState(false);
   const [successfullyCreated, setSuccessfullyCreated] = useState(false);
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
 
   const userRegister = async (userData: TRegisterData): Promise<void> => {
     try {
@@ -94,7 +100,8 @@ const UserProvider = ({ children }: IUserProviderProps) => {
         },
       });
       const userData = response.data;
-      setUser(userData); 
+      setUser(userData);
+
     } catch (error) {
       console.log(error);
     }
@@ -106,38 +113,54 @@ const UserProvider = ({ children }: IUserProviderProps) => {
       const { token } = response.data;
 
       const decodedToken = jwt_decode<{ id: number, is_seller: boolean }>(token)
-      const userId = decodedToken.id; 
+      const userId = decodedToken.id;
+
 
       setIsSeller(decodedToken.is_seller)
 
       localStorage.setItem("@TOKEN", token);
       localStorage.setItem("@USER_ID", String(userId));
 
-
     } catch (error) {
       console.log(error);
     } finally {
-      navigate("/user", { replace: true });
+      navigate("/home", { replace: true });
     }
   };
 
-  const anuncio = async (anuncioData: TAnuncioData): Promise<void> => {
-    try {
-      console.log(anuncioData);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      navigate("/dashboard", { replace: true });
-    }
-  };
+  // const anuncio = async (anuncioData: TAnuncioData): Promise<void> => {
+  //   try {
+  //     console.log(anuncioData);
+  //   } catch (error) {
+  //     console.log(error);
+  //   } finally {
+  //     navigate("/dashboard", { replace: true });
+  //   }
+  // };
 
   const updatePassword = async (newPassData: TNewPass): Promise<void> => {
     try {
-      console.log(newPassData);
+      const reset_token = searchParams.get('reset_token')
+      !reset_token && navigate("/", { replace: true });
+
+      await ApiShop.post<TNewPass>(`/users/resetpassword?reset_token=${reset_token}`, newPassData)
     } catch (error) {
       console.log(error);
-    } finally {
-      navigate("/dashboard", { replace: true });
+    }
+    finally {
+      navigate("/", { replace: true });
+    }
+  };
+
+  const sendEmail = async (emailData: TSendEmail): Promise<void> => {
+    try {
+      await ApiShop.post<TSendEmail>("/users/sendemail", emailData);
+
+    } catch (error) {
+      console.log(error);
+    }
+    finally {
+      navigate("/", { replace: true });
     }
   };
 
@@ -151,7 +174,8 @@ const UserProvider = ({ children }: IUserProviderProps) => {
   };
 
   const getInitials = (name: string | undefined): string => {
-    if (!name) return ""; 
+    if (!name) return "";
+
     const names = name.split(" ");
     const initials = names.map((name) => name.charAt(0));
     return initials.join("");
@@ -162,10 +186,11 @@ const UserProvider = ({ children }: IUserProviderProps) => {
       value={{
         userRegister,
         login,
-        anuncio,
         isSeller,
         successfullyCreated,
         setSuccessfullyCreated,
+        sendEmail,
+
         updatePassword,
         userLogout,
         user,

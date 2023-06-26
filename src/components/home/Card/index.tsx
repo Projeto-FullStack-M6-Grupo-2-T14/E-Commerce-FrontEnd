@@ -37,7 +37,7 @@ const Card = ({ cover_image, title, description, user, mileage, year, price }: i
     }
 
     return (
-        <li className='card'>
+        <li className={styles.card}>
             <img src={cover_image} alt={title} />
             <h3 className='heading-5-600'>{title}</h3>
 
