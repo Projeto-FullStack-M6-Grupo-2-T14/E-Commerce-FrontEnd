@@ -10,6 +10,7 @@ import styles from "./newPassword.module.sass";
 const NewPasswordPage = () => {
   const { updatePassword } = useContext(UserContext)
 
+
   const { register, handleSubmit, formState: { errors } } = useForm<TNewPass>({
     resolver: zodResolver(newPassSchema),
   });

@@ -1,5 +1,6 @@
 import { AxiosError } from "axios";
 import { Dispatch, SetStateAction, createContext, useState } from "react";
+
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { TLoginData } from "src/components/forms/loginForm/loginFormSchema";
 import { TRegisterData } from "src/components/forms/registerForm/registerFormSchema";
@@ -7,6 +8,7 @@ import { TNewPass } from "src/pages/newPassword/newPasswordSchema";
 import { ApiShop } from "src/services/Api";
 import jwt_decode from "jwt-decode";
 import { TSendEmail } from "src/pages/sendEmail/sendEmailSchema";
+
 
 
 interface IUserProviderProps {
@@ -69,6 +71,7 @@ interface ILoginResponse {
 // }
 
 
+
 export const UserContext = createContext({} as IUserContext);
 
 const UserProvider = ({ children }: IUserProviderProps) => {
@@ -98,6 +101,7 @@ const UserProvider = ({ children }: IUserProviderProps) => {
       });
       const userData = response.data;
       setUser(userData);
+
     } catch (error) {
       console.log(error);
     }
@@ -111,11 +115,11 @@ const UserProvider = ({ children }: IUserProviderProps) => {
       const decodedToken = jwt_decode<{ id: number, is_seller: boolean }>(token)
       const userId = decodedToken.id;
 
+
       setIsSeller(decodedToken.is_seller)
 
       localStorage.setItem("@TOKEN", token);
       localStorage.setItem("@USER_ID", String(userId));
-
 
     } catch (error) {
       console.log(error);
@@ -171,6 +175,7 @@ const UserProvider = ({ children }: IUserProviderProps) => {
 
   const getInitials = (name: string | undefined): string => {
     if (!name) return "";
+
     const names = name.split(" ");
     const initials = names.map((name) => name.charAt(0));
     return initials.join("");
@@ -185,6 +190,7 @@ const UserProvider = ({ children }: IUserProviderProps) => {
         successfullyCreated,
         setSuccessfullyCreated,
         sendEmail,
+
         updatePassword,
         userLogout,
         user,
