@@ -12,14 +12,14 @@ interface iModalCreatePoster {
 const ModalCreatePoster = ({close_modal, open_modal}: iModalCreatePoster) => {
     const [countImg, setCountImg] = useState(2)
 
-    function closeModal(element: any) {
-        if(element.className.includes('container_modal')) {
+    function closeModal(element: string) {
+        if(element.includes('container_modal')) {
             close_modal(false)
         }
     }
 
     return (
-        <div className={styles.container_modal} onClick={(event) => closeModal(event.target)}>
+        <div className={styles.container_modal} onClick={(event: React.MouseEvent<HTMLDivElement, MouseEvent>) => closeModal(event.currentTarget.className)}>
             <div className={styles.modal}>
                 <div className={styles.container}>
 

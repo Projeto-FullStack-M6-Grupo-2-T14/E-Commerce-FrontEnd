@@ -8,14 +8,15 @@ interface iModalConfCreate {
 }
 
 const ModalConfCreate = ({close_modal}: iModalConfCreate) => {
-    function closeModal(element: any) {
-        if(element.className.includes('container_modal')) {
+    function closeModal(element: string) {
+        console.log(element)
+        if(element.includes('container_modal')) {
             close_modal(false)
         }
     }
     
-    return (
-        <div className={style.container_modal} onClick={(event) => closeModal(event.target)}>
+    return ( 
+        <div className={style.container_modal} onClick={(event: React.MouseEvent<HTMLDivElement, MouseEvent>) => closeModal(event.currentTarget.className)}>
             <div className={styles.modal}>
                 <div className={styles.container}>
 

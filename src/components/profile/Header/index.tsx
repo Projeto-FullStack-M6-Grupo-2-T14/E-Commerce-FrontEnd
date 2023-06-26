@@ -30,11 +30,7 @@ const HeaderProfile = ({initial_name, name}: iHeaderProfile) => {
                     <Link to="/" onClick={userLogout}>Saída</Link>
                     { openMenuMobile === false ? <BiMenu size='40' className={styles.menu_mobile} onClick={() => setOpenMenuMobile(true)}/> : null}
                     { openMenuMobile === true ? <IoMdClose size='40' className={styles.close_menu_mobile} onClick={() => setOpenMenuMobile(false)}/> : null }
-<<<<<<< HEAD
-=======
 
-
->>>>>>> 928a5e11d120c2fcb197824a7e4b77c5c944428d
                 </div>                
             </div>
 

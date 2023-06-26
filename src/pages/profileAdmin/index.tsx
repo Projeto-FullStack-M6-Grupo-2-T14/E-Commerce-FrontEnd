@@ -5,11 +5,11 @@ import FooterProfile from "src/components/profile/FooterProfile"
 import HeaderProfile from "src/components/profile/Header"
 import SectionPosters from "src/components/profile/SectionPosters"
 import SectionProfile from "src/components/profile/SectionProfile"
-import ModalConfCreate from "src/components/profile/modals/modalConfCreate"
-import ModalConfUpdate from "src/components/profile/modals/modalConfUpdate"
-import ModalCreatePoster from "src/components/profile/modals/modalCreate"
-import ModalDelete from "src/components/profile/modals/modalDelete"
-import ModalUpdate from "src/components/profile/modals/modalUpdate"
+import ModalConfCreate from "src/components/profile/Modals/modalConfCreate"
+import ModalConfUpdate from "src/components/profile/Modals/modalConfUpdate"
+import ModalCreatePoster from "src/components/profile/Modals/modalCreate"
+import ModalDelete from "src/components/profile/Modals/modalDelete"
+import ModalUpdate from "src/components/profile/Modals/modalUpdate"
 
 const ProfileAdminPage = () => {
     const [openCreate, setOpenCreate] = useState(false)
