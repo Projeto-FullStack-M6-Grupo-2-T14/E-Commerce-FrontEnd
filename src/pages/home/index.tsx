@@ -60,6 +60,11 @@ const HomePage = () => {
             toggleFilters()
         }
     }
+    const filterAll = () => {
+        const filtered = [...allPosters]
+        const returnFiltered = posterCardListSchema.parse(filtered)
+        setFilteredPosters(returnFiltered)
+    }
 
     const filterList = (property: keyof TPosterCard) => {
         const listSet = new Set(allPosters.map((poster) => poster[property]))
@@ -68,7 +73,7 @@ const HomePage = () => {
     }
     const sortByPrice = (priceOption: string) => {
         if (priceOption === 'min') {
-            const filtered = [...allPosters].sort((a,b) => {
+            const filtered = [...filteredPosters].sort((a,b) => {
                 return parseInt(a.price) - parseInt(b.price)
             })
             const returnFiltered = posterCardListSchema.safeParse(filtered)
@@ -77,7 +82,7 @@ const HomePage = () => {
             }
         }
         if (priceOption === 'max') {
-            const filtered = [...allPosters].sort((a,b) => {
+            const filtered = [...filteredPosters].sort((a,b) => {
                 return parseInt(b.price) - parseInt(a.price)
             })
             const returnFiltered = posterCardListSchema.safeParse(filtered)
@@ -88,14 +93,14 @@ const HomePage = () => {
     }
     const sortByKm = (mileageOption: string) => {
         if (mileageOption === 'min') {
-            const filtered = [...allPosters].sort((a,b) => {
+            const filtered = [...filteredPosters].sort((a,b) => {
                 return parseInt(a.mileage) - parseInt(b.mileage)
             })
             const returnFiltered = posterCardListSchema.parse(filtered)
             setFilteredPosters(returnFiltered)
         }
         if (mileageOption === 'max') {
-            const filtered = [...allPosters].sort((a,b) => {
+            const filtered = [...filteredPosters].sort((a,b) => {
                 return parseInt(b.mileage) - parseInt(a.mileage)
             })
             const returnFiltered = posterCardListSchema.parse(filtered)
@@ -109,6 +114,7 @@ const HomePage = () => {
             <BackgroundImage isMobileMenuOpen={isMobileMenuOpen} />
             <main className={styles.main}>
                 <aside id={styles.mainAside}>
+                    <button onClick={filterAll} className="heading-4-600">Todos</button>
                     <ListFilter onClick={(filterName) => filter(filterName, 'brand')} title="Marca" lista={() => filterList('brand')} />
                     <ListFilter onClick={(filterName) => filter(filterName, 'model')} title="Modelo" lista={() => filterList('model')} />
                     <ListFilter onClick={(filterName) => filter(filterName, 'color')} title="Cor" lista={() => filterList('color')} />
@@ -132,6 +138,7 @@ const HomePage = () => {
                         <h1>Filtros</h1>
                         <AiOutlineCloseSquare onClick={toggleFilters} />
                     </div>
+                    <button onClick={filterAll} className="heading-4-600">Todos</button>
                     <ListFilter onClick={(filterName) => filter(filterName, 'brand')} title="Marca" lista={() => filterList('brand')} />
                     <ListFilter onClick={(filterName) => filter(filterName, 'model')} title="Modelo" lista={() => filterList('model')} />
                     <ListFilter onClick={(filterName) => filter(filterName, 'color')} title="Cor" lista={() => filterList('color')} />
