@@ -117,7 +117,7 @@ const UserProvider = ({ children }: IUserProviderProps) => {
     } catch (error) {
       console.log(error);
     } finally {
-      navigate("/user", { replace: true });
+      navigate("/home", { replace: true });
     }
   };
 

@@ -8,6 +8,7 @@ import ProfileUserPage from 'src/pages/profileUser'
 import NewPasswordPage from 'src/pages/newPassword'
 import ProtectedRoutes from 'src/components/protectedRoutes'
 import SendEmailPage from 'src/pages/sendEmail'
+import HomeProfile from 'src/pages/homeProfile'
 
 
 const RoutesMain = () => (
@@ -20,7 +21,8 @@ const RoutesMain = () => (
         <Route path='/login/sendEmail' element={<SendEmailPage />} />        
         <Route element={<ProtectedRoutes/>}>
             <Route path='/admin' element={<ProfileAdminPage />} />
-            <Route path='/user' element={<ProfileUserPage />}/>            
+            <Route path='/user' element={<ProfileUserPage />}/>
+            <Route path='/home' element={<HomeProfile/>}/>         
         </Route>   
     </Routes>
 )
