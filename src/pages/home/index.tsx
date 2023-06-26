@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useState } from "react"
 import { AiOutlineCloseSquare } from "react-icons/ai"
 import ListFilter from "../../components/home/ListFilter"
@@ -56,7 +55,7 @@ const HomePage = () => {
         if (returnFiltered.success) {
             setFilteredPosters(returnFiltered.data)
         }
-        if(showFilters) {
+        if (showFilters) {
             toggleFilters()
         }
     }
@@ -68,7 +67,7 @@ const HomePage = () => {
     }
     const sortByPrice = (priceOption: string) => {
         if (priceOption === 'min') {
-            const filtered = [...allPosters].sort((a,b) => {
+            const filtered = [...allPosters].sort((a, b) => {
                 return parseInt(a.price) - parseInt(b.price)
             })
             const returnFiltered = posterCardListSchema.safeParse(filtered)
@@ -77,7 +76,7 @@ const HomePage = () => {
             }
         }
         if (priceOption === 'max') {
-            const filtered = [...allPosters].sort((a,b) => {
+            const filtered = [...allPosters].sort((a, b) => {
                 return parseInt(b.price) - parseInt(a.price)
             })
             const returnFiltered = posterCardListSchema.safeParse(filtered)
@@ -88,14 +87,14 @@ const HomePage = () => {
     }
     const sortByKm = (mileageOption: string) => {
         if (mileageOption === 'min') {
-            const filtered = [...allPosters].sort((a,b) => {
+            const filtered = [...allPosters].sort((a, b) => {
                 return parseInt(a.mileage) - parseInt(b.mileage)
             })
             const returnFiltered = posterCardListSchema.parse(filtered)
             setFilteredPosters(returnFiltered)
         }
         if (mileageOption === 'max') {
-            const filtered = [...allPosters].sort((a,b) => {
+            const filtered = [...allPosters].sort((a, b) => {
                 return parseInt(b.mileage) - parseInt(a.mileage)
             })
             const returnFiltered = posterCardListSchema.parse(filtered)
