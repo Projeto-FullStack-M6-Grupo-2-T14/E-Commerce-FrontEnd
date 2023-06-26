@@ -3,8 +3,10 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { Tooltip } from "react-tooltip";
 import { TSendEmail, sendEmailSchema } from "./sendEmailSchema";
 import styles from "./sendEmail.module.sass";
+
 import { useContext } from "react";
 import { UserContext } from "src/contexts/userContext";
+
 
 const SendEmailPage = () => {
 
@@ -13,8 +15,6 @@ const SendEmailPage = () => {
   });
 
   const { sendEmail } = useContext(UserContext)
-
-
   const submit: SubmitHandler<TSendEmail> = (emailData) => {
     sendEmail(emailData)
   };
@@ -23,7 +23,6 @@ const SendEmailPage = () => {
     <main>
       <form onSubmit={handleSubmit(submit)}>
         <h1 className="heading-5-500">Alteração de Senha</h1>
-
         <div className={styles.inputBox}>
           <label htmlFor="email">Ensira seu email de cadastro</label>
           <input

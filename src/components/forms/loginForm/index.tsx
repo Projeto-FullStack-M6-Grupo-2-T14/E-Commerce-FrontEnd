@@ -64,7 +64,9 @@ const LoginForm = () => {
             <FiEye onClick={() => setShowPassword(true)} />
           )}
         </div>
+
         <Link to="sendemail" className={styles.container_newPass}>
+
           <span>Esqueci minha senha</span>
         </Link>
       </div>

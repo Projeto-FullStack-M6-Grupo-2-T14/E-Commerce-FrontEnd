@@ -1,5 +1,14 @@
 import { AxiosError } from "axios";
 import { Dispatch, SetStateAction, createContext, useState } from "react";
+<<<<<<<< < Temporary merge branch 1
+import { useNavigate } from "react-router-dom";
+import { TAnuncioData } from "src/components/Poster/posterFormSchema";
+import { TLoginData } from "src/components/forms/LoginForm/loginFormSchema";
+import { TRegisterData } from "src/components/forms/RegisterForm/registerFormSchema";
+import { TNewPass } from "src/pages/newPassword/newPasswordSchema";
+import { ApiShop } from "src/services/Api";
+import jwt_decode from "jwt-decode";
+=========
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { TLoginData } from "src/components/forms/loginForm/loginFormSchema";
 import { TRegisterData } from "src/components/forms/registerForm/registerFormSchema";
@@ -7,6 +16,7 @@ import { TNewPass } from "src/pages/newPassword/newPasswordSchema";
 import { ApiShop } from "src/services/Api";
 import jwt_decode from "jwt-decode";
 import { TSendEmail } from "src/pages/sendEmail/sendEmailSchema";
+>>>>>>>>> Temporary merge branch 2
 
 
 interface IUserProviderProps {
@@ -98,6 +108,7 @@ const UserProvider = ({ children }: IUserProviderProps) => {
       });
       const userData = response.data;
       setUser(userData);
+>>>>>>>>> Temporary merge branch 2
     } catch (error) {
       console.log(error);
     }
@@ -110,12 +121,12 @@ const UserProvider = ({ children }: IUserProviderProps) => {
 
       const decodedToken = jwt_decode<{ id: number, is_seller: boolean }>(token)
       const userId = decodedToken.id;
+>>>>>>>>> Temporary merge branch 2
 
       setIsSeller(decodedToken.is_seller)
 
       localStorage.setItem("@TOKEN", token);
       localStorage.setItem("@USER_ID", String(userId));
-
 
     } catch (error) {
       console.log(error);
@@ -176,6 +187,32 @@ const UserProvider = ({ children }: IUserProviderProps) => {
     return initials.join("");
   };
 
+  const updatePassword = async (newPassData: TNewPass): Promise<void> => {
+    try {
+      console.log(newPassData);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      navigate("/dashboard", { replace: true });
+    }
+  };
+
+  const userLogout = () => {
+    localStorage.removeItem("@TOKEN");
+    localStorage.removeItem("@USER_ID");
+    localStorage.removeItem("@USER_NAME");
+    setIsSeller(false)
+    setUser(null)
+    navigate("/");
+  };
+
+  const getInitials = (name: string | undefined): string => {
+    if (!name) return "";
+    const names = name.split(" ");
+    const initials = names.map((name) => name.charAt(0));
+    return initials.join("");
+  };
+
   return (
     <UserContext.Provider
       value={{
@@ -185,6 +222,7 @@ const UserProvider = ({ children }: IUserProviderProps) => {
         successfullyCreated,
         setSuccessfullyCreated,
         sendEmail,
+>>>>>>>>> Temporary merge branch 2
         updatePassword,
         userLogout,
         user,
