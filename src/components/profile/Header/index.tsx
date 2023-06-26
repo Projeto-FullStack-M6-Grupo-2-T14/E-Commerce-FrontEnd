@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { BiMenu } from 'react-icons/bi'
 import { IoMdClose } from 'react-icons/io'
 import { useContext } from 'react';
-import styles from './header.module.sass';
 import { UserContext } from 'src/contexts/userContext';
 
 interface iHeaderProfile {
@@ -28,11 +27,10 @@ const HeaderProfile = ({initial_name, name}: iHeaderProfile) => {
                         <figcaption className="heading-6-500">{name}</figcaption>
                     </figure>
 
-                    <Link to="/">Saída</Link>
+                    <Link to="/" onClick={userLogout}>Saída</Link>
                     { openMenuMobile === false ? <BiMenu size='40' className={styles.menu_mobile} onClick={() => setOpenMenuMobile(true)}/> : null}
                     { openMenuMobile === true ? <IoMdClose size='40' className={styles.close_menu_mobile} onClick={() => setOpenMenuMobile(false)}/> : null }
 
-                    <button onClick={userLogout}>Saída</button>
 
                 </div>                
             </div>
@@ -43,7 +41,7 @@ const HeaderProfile = ({initial_name, name}: iHeaderProfile) => {
                     <span className="heading-6-500" id={styles.name_mobile}>{name}</span>
                 </div>
 
-                <Link to="/">Saída</Link>
+                <Link to="/" onClick={userLogout}>Saída</Link>
             </div>
         </header>
     )
