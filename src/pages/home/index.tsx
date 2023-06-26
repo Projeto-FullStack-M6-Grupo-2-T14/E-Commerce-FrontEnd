@@ -10,7 +10,6 @@ import { PosterContext } from "src/contexts/posterContext"
 import { z } from 'zod'
 import styles from "./home.module.sass"
 
-
 const HomePage = () => {
     const [showFilters, setShowFilter] = useState(false)
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -109,45 +108,44 @@ const HomePage = () => {
 
     return (
         <>
-            <Header isMobileMenuOpen={isMobileMenuOpen} setIsMobileMenuOpen={setIsMobileMenuOpen} />
-            <BackgroundImage isMobileMenuOpen={isMobileMenuOpen} />
-            <main className={styles.main}>
-                <aside id={styles.mainAside}>
-                    <button onClick={filterAll} className="heading-4-600">Todos</button>
-                    <ListFilter onClick={(filterName) => filter(filterName, 'brand')} title="Marca" lista={() => filterList('brand')} />
-                    <ListFilter onClick={(filterName) => filter(filterName, 'model')} title="Modelo" lista={() => filterList('model')} />
-                    <ListFilter onClick={(filterName) => filter(filterName, 'color')} title="Cor" lista={() => filterList('color')} />
-                    <ListFilter onClick={(filterName) => filter(filterName, 'year')} title="Ano" lista={() => filterList('year')} />
-                    <ListFilter onClick={(filterName) => filter(filterName, 'fuel')} title="Combustível" lista={() => filterList('fuel')} />
-                    <ButtonFilter sortByPrice={sortByPrice} title="Preço" />
-                    <ButtonFilter sortByKm={sortByKm} title="Km" />
-                </aside>
-                <ul className="list-cards">
-                    {
-                        filteredPosters.map(poster => <Card {...poster} />)
-                    }
-                </ul>
-                <button className={styles.outAside} onClick={toggleFilters}>Filtros</button>
-            </main>
-            <Footer />
-
-            <div id={styles.showFilters} className={showFilters ? '' : styles.hidden}>
-                <aside >
-                    <div className={styles.modalTitle}>
-                        <h1>Filtros</h1>
-                        <AiOutlineCloseSquare onClick={toggleFilters} />
-                    </div>
-                    <button onClick={filterAll} className="heading-4-600">Todos</button>
-                    <ListFilter onClick={(filterName) => filter(filterName, 'brand')} title="Marca" lista={() => filterList('brand')} />
-                    <ListFilter onClick={(filterName) => filter(filterName, 'model')} title="Modelo" lista={() => filterList('model')} />
-                    <ListFilter onClick={(filterName) => filter(filterName, 'color')} title="Cor" lista={() => filterList('color')} />
-                    <ListFilter onClick={(filterName) => filter(filterName, 'year')} title="Ano" lista={() => filterList('year')} />
-                    <ListFilter onClick={(filterName) => filter(filterName, 'fuel')} title="Combustível" lista={() => filterList('fuel')} />
-                    <ButtonFilter sortByPrice={sortByPrice} title="Preço" />
-                    <ButtonFilter sortByKm={sortByKm} title="Km" />
-                    <button className={styles.showFiltersButton} onClick={toggleFilters}>Ver Anúncios</button>
-                </aside>
-            </div>
+          <Header isMobileMenuOpen={isMobileMenuOpen} setIsMobileMenuOpen={setIsMobileMenuOpen} />
+          <BackgroundImage isMobileMenuOpen={isMobileMenuOpen} />
+           <main className={styles.main}>
+               <aside id={styles.mainAside}>
+                   <button onClick={filterAll} className="heading-4-600">Todos</button>
+                   <ListFilter onClick={(filterName) => filter(filterName, 'brand')} title="Marca" lista={() => filterList('brand')} />
+                   <ListFilter onClick={(filterName) => filter(filterName, 'model')} title="Modelo" lista={() => filterList('model')} />
+                   <ListFilter onClick={(filterName) => filter(filterName, 'color')} title="Cor" lista={() => filterList('color')} />
+                   <ListFilter onClick={(filterName) => filter(filterName, 'year')} title="Ano" lista={() => filterList('year')} />
+                   <ListFilter onClick={(filterName) => filter(filterName, 'fuel')} title="Combustível" lista={() => filterList('fuel')} />
+                   <ButtonFilter sortByPrice={sortByPrice} title="Preço" />
+                   <ButtonFilter sortByKm={sortByKm} title="Km" />
+               </aside>
+               <ul className="list-cards">
+                   {
+                       filteredPosters.map(poster => <Card {...poster} />)
+                   }
+               </ul>
+               <button className={styles.outAside} onClick={toggleFilters}>Filtros</button>
+           </main>
+           <Footer />
+           <div id={styles.showFilters} className={showFilters ? '' : styles.hidden}>
+               <aside >
+                   <div className={styles.modalTitle}>
+                       <h1>Filtros</h1>
+                       <AiOutlineCloseSquare onClick={toggleFilters} />
+                   </div>
+                   <button onClick={filterAll} className="heading-4-600">Todos</button>
+                   <ListFilter onClick={(filterName) => filter(filterName, 'brand')} title="Marca" lista={() => filterList('brand')} />
+                   <ListFilter onClick={(filterName) => filter(filterName, 'model')} title="Modelo" lista={() => filterList('model')} />
+                   <ListFilter onClick={(filterName) => filter(filterName, 'color')} title="Cor" lista={() => filterList('color')} />
+                   <ListFilter onClick={(filterName) => filter(filterName, 'year')} title="Ano" lista={() => filterList('year')} />
+                   <ListFilter onClick={(filterName) => filter(filterName, 'fuel')} title="Combustível" lista={() => filterList('fuel')} />
+                   <ButtonFilter sortByPrice={sortByPrice} title="Preço" />
+                   <ButtonFilter sortByKm={sortByKm} title="Km" />
+                   <button className={styles.showFiltersButton} onClick={toggleFilters}>Ver Anúncios</button>
+               </aside>
+           </div>
         </>
     )
 }
