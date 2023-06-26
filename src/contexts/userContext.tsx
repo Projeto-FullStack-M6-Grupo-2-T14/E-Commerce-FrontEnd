@@ -1,9 +1,9 @@
 import { AxiosError } from "axios";
-import { Dispatch, SetStateAction, createContext, useState } from "react";
+import { Dispatch, SetStateAction, createContext, useEffect, useState } from "react";
 
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { TLoginData } from "src/components/forms/loginForm/loginFormSchema";
-import { TRegisterData } from "src/components/forms/registerForm/registerFormSchema";
+import { TLoginData } from "src/components/forms/LoginForm/loginFormSchema";
+import { TRegisterData } from "src/components/forms/RegisterForm/registerFormSchema";
 import { TNewPass } from "src/pages/newPassword/newPasswordSchema";
 import { ApiShop } from "src/services/Api";
 import jwt_decode from "jwt-decode";
@@ -80,6 +80,16 @@ const UserProvider = ({ children }: IUserProviderProps) => {
   const [successfullyCreated, setSuccessfullyCreated] = useState(false);
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+
+  useEffect(() => {
+    const storedUserId = localStorage.getItem("@USER_ID");
+    const token = localStorage.getItem("@TOKEN");
+    const userId = storedUserId ? parseInt(storedUserId) : null;
+  
+    if (userId && token) {
+      retrieveUser(userId, token);
+    }
+  }, []);
 
 
   const userRegister = async (userData: TRegisterData): Promise<void> => {

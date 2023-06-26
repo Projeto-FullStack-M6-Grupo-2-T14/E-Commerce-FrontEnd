@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useContext, useEffect, useState } from "react"
+import { useContext, useState } from "react"
 import { UserContext } from "src/contexts/userContext"
 import FooterProfile from "src/components/profile/FooterProfile"
 import HeaderProfile from "src/components/profile/Header"
@@ -18,17 +18,7 @@ const ProfileAdminPage = () => {
     const [openConfUpdate, setOpenConfUpdate] = useState(false)
     const [openExclude, setOpenExclude] = useState(false)
 
-    const { user, getInitials, retrieveUser } = useContext(UserContext)
-
-    useEffect(() => {
-        const storedUserId = localStorage.getItem("@USER_ID");
-        const token = localStorage.getItem("@TOKEN");
-        const userId = storedUserId ? parseInt(storedUserId) : null;
-      
-        if (userId && token) {
-          retrieveUser(userId, token);
-        }
-      }, []);
+    const { user, getInitials } = useContext(UserContext)    
 
     return (
         <>
