@@ -9,7 +9,7 @@ const RoutesMain = () => (
         <Route path='/' element={<HomePage />} />
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/login' element={<LoginPage />} />
-        <Route path='/anuncio' element={<Anuncio />} />
+        <Route path='/anuncio/:tokenReset' element={<Anuncio />} />
     </Routes>
 )
 

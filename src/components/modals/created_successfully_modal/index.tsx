@@ -4,7 +4,6 @@ import { IoMdClose } from "react-icons/io"
 import styles from "./successModal.module.sass"
 
 const SuccessfullyCreatedModal = ({ closeModal }: { closeModal: () => void }) => {
-
     return (
         <div className={styles.background}>
             <div className={styles.modal}>
