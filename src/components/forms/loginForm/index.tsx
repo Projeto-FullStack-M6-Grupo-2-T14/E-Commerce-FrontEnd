@@ -64,13 +64,17 @@ const LoginForm = () => {
             <FiEye onClick={() => setShowPassword(true)} />
           )}
         </div>
+        <Link to="sendemail" className={styles.container_newPass}>
+          <span>Esqueci minha senha</span>
+        </Link>
       </div>
 
-      <button className={styles.btnRegister} type="submit">Entrar</button>
+
+      <button className={styles.btnLogin} type="submit">Entrar</button>
 
       <p>Ainda não possui conta?</p>
 
-      <Link to="/register">Cadastrar</Link>
+      <Link to="/register" className={styles.btnRegister}>Cadastrar</Link>
 
     </form>
   );

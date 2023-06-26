@@ -1,0 +1,54 @@
+@import "../../../../styles/_colors.sass"
+
+
+.modal
+    position: relative
+    background-color: $white-fixed
+    border-radius: 5px
+    width: 520px
+    top: 20%
+    height : fit-content
+    margin-bottom: 5%
+
+    .container
+        width: 93%
+        margin: 0 auto
+        display: flex
+        flex-direction: column
+
+        h2
+            margin: 6% 0
+        
+        p
+            padding-bottom: 5%
+
+.box_title
+    display: flex
+    align-items: center
+    justify-content: space-between
+    margin-top: 3%
+
+
+.icon
+    opacity: 35%
+    cursor: pointer
+    transition: 0.3s ease
+
+.icon:hover
+    opacity: 100%
+    transition: 0.3s ease
+
+
+@media (max-width: 600px)
+    .modal
+        width: 90%
+    
+    .box_title
+        h3
+            font-size: 20px
+        .icon
+            width: 25px
+            height: 25px
+    .container 
+        h2
+            font-size: 20px

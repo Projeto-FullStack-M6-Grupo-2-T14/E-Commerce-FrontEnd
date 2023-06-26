@@ -4,18 +4,20 @@ import { AiOutlineCloseSquare } from "react-icons/ai"
 import ListFilter from "../../components/home/ListFilter"
 import ButtonFilter from "src/components/home/ButtonFilter"
 import Footer from "src/components/home/Footer"
-import Header from "src/components/home/Header"
 import BackgroundImage from "src/components/home/BackgroundImage"
 import Card from "src/components/home/Card"
 import { PosterContext } from "src/contexts/posterContext"
 
-import styles from "./home.module.sass"
+import styles from "./homeProfile.module.sass"
+import { UserContext } from "src/contexts/userContext"
+import HeaderProfile from "src/components/profile/Header"
 
 
-const HomePage = () => {
+const HomeProfile = () => {
     const [showFilters, setShowFilter] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const { filteredPosters, setFilteredPosters, getPosters } = useContext(PosterContext)
+    const { user, getInitials, retrieveUser } = useContext(UserContext)
 
     const toggleFilters = () => {
         setShowFilter(!showFilters)
@@ -25,9 +27,22 @@ const HomePage = () => {
         getPosters()
     }, [setFilteredPosters])
 
+
+    useEffect(() => {
+        const storedUserId = localStorage.getItem("@USER_ID");
+        const token = localStorage.getItem("@TOKEN");
+        const userId = storedUserId ? parseInt(storedUserId) : null;
+      
+        if (userId && token) {
+          retrieveUser(userId, token);
+        }
+      }, []);
+
+    
+
     return (
         <>
-            <Header isMobileMenuOpen={isMobileMenuOpen} setIsMobileMenuOpen={setIsMobileMenuOpen} />
+            <HeaderProfile initial_name={getInitials(user?.name)} name={user?.name ?? ""}/>
             <BackgroundImage isMobileMenuOpen={isMobileMenuOpen} />
             <main className={styles.main}>
                 <aside id={styles.mainAside}>
@@ -72,4 +87,4 @@ const HomePage = () => {
 }
 
 
-export default HomePage
+export default HomeProfile

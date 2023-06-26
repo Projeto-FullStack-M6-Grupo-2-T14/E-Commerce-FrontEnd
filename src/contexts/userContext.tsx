@@ -1,10 +1,12 @@
 import { AxiosError } from "axios";
 import { Dispatch, SetStateAction, createContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { TAnuncioData } from "src/components/anuncio/posterFormSchema";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { TLoginData } from "src/components/forms/loginForm/loginFormSchema";
 import { TRegisterData } from "src/components/forms/registerForm/registerFormSchema";
+import { TNewPass } from "src/pages/newPassword/newPasswordSchema";
 import { ApiShop } from "src/services/Api";
+import jwt_decode from "jwt-decode";
+import { TSendEmail } from "src/pages/sendEmail/sendEmailSchema";
 
 
 interface IUserProviderProps {
@@ -12,17 +14,22 @@ interface IUserProviderProps {
 }
 
 interface IUserContext {
-  userRegister: (userData: TRegisterData) => Promise<void>
-  login: (loginData: TLoginData) => Promise<void>
-  anuncio: (anuncioData: TAnuncioData) => Promise<void>
-  userData: IUser | null
-  setUserData: Dispatch<SetStateAction<IUser | null>>
-  successfullyCreated: boolean
-  setSuccessfullyCreated: Dispatch<SetStateAction<boolean>>
+  userRegister: (userData: TRegisterData) => Promise<void>;
+  login: (loginData: TLoginData) => Promise<void>;
+  // anuncio: (anuncioData: TAnuncioData) => Promise<void>;
+  isSeller: boolean;
+  successfullyCreated: boolean;
+  setSuccessfullyCreated: Dispatch<SetStateAction<boolean>>;
+  sendEmail: (email: TSendEmail) => Promise<void>;
+  updatePassword: (newPassData: TNewPass) => Promise<void>;
+  userLogout: () => void;
+  user: IUser | null;
+  getInitials: (name: string | undefined) => string;
+  retrieveUser: (userId: number, token: string) => Promise<void>;
 }
 
 interface IUser {
-  id: number
+  id: number;
   name: string;
   email: string;
   password: string;
@@ -44,67 +51,150 @@ interface IAddress {
 }
 
 interface ILoginResponse {
-  user: IUser
   token: string;
 }
 
-interface IAnuncioResponse {
-  marca: string;
-  modelo: string;
-  ano: string;
-  combustivel: string;
-  quilometragem: string;
-  cor: string;
-  precoFipe: string;
-  preco: string;
-  descricao: string;
-  imagemCapa: string;
-  imagemGaleria: string;
-}
+// interface IAnuncioResponse {
+//   marca: string;
+//   modelo: string;
+//   ano: string;
+//   combustivel: string;
+//   quilometragem: string;
+//   cor: string;
+//   precoFipe: string;
+//   preco: string;
+//   descricao: string;
+//   imagemCapa: string;
+//   imagemGaleria: string;
+// }
+
 
 export const UserContext = createContext({} as IUserContext);
 
 const UserProvider = ({ children }: IUserProviderProps) => {
-  const [userData, setUserData] = useState<IUser | null>(null);
-  const [successfullyCreated, setSuccessfullyCreated] = useState(false)
+  const [user, setUser] = useState<IUser | null>(null)
+  const [isSeller, setIsSeller] = useState(false);
+  const [successfullyCreated, setSuccessfullyCreated] = useState(false);
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
 
   const userRegister = async (userData: TRegisterData): Promise<void> => {
     try {
-      const response = await ApiShop.post<IUser>("/users", userData);
-      setUserData(response.data)
-      setSuccessfullyCreated(true)
+      await ApiShop.post<IUser>("/users", userData);
+      setSuccessfullyCreated(true);
     } catch (error) {
       const axiosError = error as AxiosError;
-      console.log(axiosError.message)
+      console.log(axiosError.message);
+    }
+  };
+
+  const retrieveUser = async (userId: number, token: string) => {
+    try {
+      const response = await ApiShop.get(`/users/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const userData = response.data;
+      setUser(userData);
+    } catch (error) {
+      console.log(error);
     }
   };
 
   const login = async (loginData: TLoginData): Promise<void> => {
     try {
       const response = await ApiShop.post<ILoginResponse>("/login", loginData);
-      localStorage.setItem("@TOKEN", response.data.token);
-      navigate("/", { replace: true })
+      const { token } = response.data;
+
+      const decodedToken = jwt_decode<{ id: number, is_seller: boolean }>(token)
+      const userId = decodedToken.id;
+
+      setIsSeller(decodedToken.is_seller)
+
+      localStorage.setItem("@TOKEN", token);
+      localStorage.setItem("@USER_ID", String(userId));
+
+
     } catch (error) {
-      console.log(error)
+      console.log(error);
+    } finally {
+      navigate("/home", { replace: true });
     }
   };
 
-  const anuncio = async (anuncioData: TAnuncioData): Promise<void> => {
+  // const anuncio = async (anuncioData: TAnuncioData): Promise<void> => {
+  //   try {
+  //     console.log(anuncioData);
+  //   } catch (error) {
+  //     console.log(error);
+  //   } finally {
+  //     navigate("/dashboard", { replace: true });
+  //   }
+  // };
+
+  const updatePassword = async (newPassData: TNewPass): Promise<void> => {
     try {
-      console.log(anuncioData)
+      const reset_token = searchParams.get('reset_token')
+      !reset_token && navigate("/", { replace: true });
+
+      await ApiShop.post<TNewPass>(`/users/resetpassword?reset_token=${reset_token}`, newPassData)
     } catch (error) {
-      console.log(error)
-    } finally {
-      navigate("/dashboard", { replace: true })
+      console.log(error);
     }
+    finally {
+      navigate("/", { replace: true });
+    }
+  };
+
+  const sendEmail = async (emailData: TSendEmail): Promise<void> => {
+    try {
+      await ApiShop.post<TSendEmail>("/users/sendemail", emailData);
+
+    } catch (error) {
+      console.log(error);
+    }
+    finally {
+      navigate("/", { replace: true });
+    }
+  };
+
+  const userLogout = () => {
+    localStorage.removeItem("@TOKEN");
+    localStorage.removeItem("@USER_ID");
+    localStorage.removeItem("@USER_NAME");
+    setIsSeller(false)
+    setUser(null)
+    navigate("/");
+  };
+
+  const getInitials = (name: string | undefined): string => {
+    if (!name) return "";
+    const names = name.split(" ");
+    const initials = names.map((name) => name.charAt(0));
+    return initials.join("");
   };
 
   return (
-    <UserContext.Provider value={{ userRegister, login, anuncio, userData, setUserData, successfullyCreated, setSuccessfullyCreated }}>
+    <UserContext.Provider
+      value={{
+        userRegister,
+        login,
+        isSeller,
+        successfullyCreated,
+        setSuccessfullyCreated,
+        sendEmail,
+        updatePassword,
+        userLogout,
+        user,
+        getInitials,
+        retrieveUser
+      }}
+    >
       {children}
     </UserContext.Provider>
   );
-}
+};
 
-export default UserProvider
+export default UserProvider;
