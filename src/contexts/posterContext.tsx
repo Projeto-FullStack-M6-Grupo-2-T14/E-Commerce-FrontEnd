@@ -1,6 +1,6 @@
-import { Context, Dispatch, ReactNode, SetStateAction, createContext, useState } from "react";
-import { ApiShop } from "src/services/Api";
-import { AxiosError } from "axios";
+import { Context, Dispatch, ReactNode, SetStateAction, createContext, useState } from "react"
+import { ApiShop } from "src/services/Api"
+import { AxiosError } from "axios"
 import { z } from 'zod'
 
 
@@ -81,7 +81,6 @@ const PosterProvider = ({children}: IPosterProviderProps) => {
     const getPosters = async (): Promise<void> => {
         try {
             const response = await ApiShop.get('/posters')
-            console.log(response.data, 'RDATA')
             setAllPosters(response.data)
             const postersList = posterCardListSchema.parse(response.data)
             if (filteredPosters.length === 0 && !loadPosters) {
@@ -89,7 +88,6 @@ const PosterProvider = ({children}: IPosterProviderProps) => {
                 setLoadPosters(false)
             }
             setFilteredPosters(postersList)
-            console.log(postersList, 'pl')
         } catch (error) {
             const axiosError = error as AxiosError
             console.error(axiosError.message)

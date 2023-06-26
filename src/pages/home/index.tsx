@@ -15,7 +15,6 @@ const HomePage = () => {
     const [showFilters, setShowFilter] = useState(false)
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
     const { filteredPosters, setFilteredPosters, getPosters, allPosters } = useContext(PosterContext)
-    const [posterFilter, setPosterFilter] = useState('')
     const toggleFilters = () => {
         setShowFilter(!showFilters)
     }
@@ -51,10 +50,8 @@ const HomePage = () => {
     const posterCardListSchema = z.array(posterCardSchema)
 
     const filter = (filterName: string, propertyName: keyof TPosterCard) => {
-        // setPosterFilter(filterName)
         const filtered = allPosters.filter(poster => poster[propertyName] === filterName)
         const returnFiltered = posterCardListSchema.safeParse(filtered)
-        console.log(filtered, 'filtered')
         if (returnFiltered.success) {
             setFilteredPosters(returnFiltered.data)
         }
@@ -66,19 +63,43 @@ const HomePage = () => {
     const filterList = (property: keyof TPosterCard) => {
         const listSet = new Set(allPosters.map((poster) => poster[property]))
         const list = Array.from(listSet).filter((item) => typeof item === 'string')
-        console.log(list, 'filterlist')
         return list as string[]
     }
-    const sortByPrice = () => {
-        filteredPosters.sort((a,b) => {
-            if (a.price < b.price) {
-                return -1
+    const sortByPrice = (priceOption: string) => {
+        if (priceOption === 'min') {
+            const filtered = [...allPosters].sort((a,b) => {
+                return parseInt(a.price) - parseInt(b.price)
+            })
+            const returnFiltered = posterCardListSchema.safeParse(filtered)
+            if (returnFiltered.success) {
+                setFilteredPosters(returnFiltered.data)
             }
-            if (a.price > b.price) {
-                return 1
+        }
+        if (priceOption === 'max') {
+            const filtered = [...allPosters].sort((a,b) => {
+                return parseInt(b.price) - parseInt(a.price)
+            })
+            const returnFiltered = posterCardListSchema.safeParse(filtered)
+            if (returnFiltered.success) {
+                setFilteredPosters(returnFiltered.data)
             }
-            return 0
-        })
+        }
+    }
+    const sortByKm = (mileageOption: string) => {
+        if (mileageOption === 'min') {
+            const filtered = [...allPosters].sort((a,b) => {
+                return parseInt(a.mileage) - parseInt(b.mileage)
+            })
+            const returnFiltered = posterCardListSchema.parse(filtered)
+            setFilteredPosters(returnFiltered)
+        }
+        if (mileageOption === 'max') {
+            const filtered = [...allPosters].sort((a,b) => {
+                return parseInt(b.mileage) - parseInt(a.mileage)
+            })
+            const returnFiltered = posterCardListSchema.parse(filtered)
+            setFilteredPosters(returnFiltered)
+        }
     }
 
     return (
@@ -87,18 +108,13 @@ const HomePage = () => {
             <BackgroundImage isMobileMenuOpen={isMobileMenuOpen} />
             <main className={styles.main}>
                 <aside id={styles.mainAside}>
-                    {/* <button onClick={() => filterList()}>filtro</button> */}
                     <ListFilter onClick={(filterName) => filter(filterName, 'brand')} title="Marca" lista={() => filterList('brand')} />
                     <ListFilter onClick={(filterName) => filter(filterName, 'model')} title="Modelo" lista={() => filterList('model')} />
                     <ListFilter onClick={(filterName) => filter(filterName, 'color')} title="Cor" lista={() => filterList('color')} />
                     <ListFilter onClick={(filterName) => filter(filterName, 'year')} title="Ano" lista={() => filterList('year')} />
                     <ListFilter onClick={(filterName) => filter(filterName, 'fuel')} title="Combustível" lista={() => filterList('fuel')} />
-                    {/* <ListFilter title="Modelo" lista={["Civic", "Corolla", "Cruze", "Fiat", "Gol", "Ka", "Onix", "Pulse"]} />
-                    <ListFilter title="Cor" lista={["Azul", "Branca", "Cinza", "Prata", "Preta", "Verde"]} />
-                    <ListFilter title="Ano" lista={["2022", "2021", "2018", "2015", "2013"]} />
-                    <ListFilter title="Combustível" lista={["Diesel", "Etanol", "Gasolina", "Flex"]} /> */}
-                    <ButtonFilter title="Km" />
-                    <ButtonFilter title="Preço" />
+                    <ButtonFilter sortByPrice={sortByPrice} title="Preço" />
+                    <ButtonFilter sortByKm={sortByKm} title="Km" />
                 </aside>
                 <ul className="list-cards">
                     {
@@ -120,17 +136,9 @@ const HomePage = () => {
                     <ListFilter onClick={(filterName) => filter(filterName, 'color')} title="Cor" lista={() => filterList('color')} />
                     <ListFilter onClick={(filterName) => filter(filterName, 'year')} title="Ano" lista={() => filterList('year')} />
                     <ListFilter onClick={(filterName) => filter(filterName, 'fuel')} title="Combustível" lista={() => filterList('fuel')} />
-
-                    {/* <ListFilter title="Marca" lista={["General Motors", "Fiat", "Honda", "Porsche", "Volswagen"]} />
-                    <ListFilter title="Modelo" lista={["Civic", "Corolla", "Cruze", "Fiat", "Gol", "Ka", "Onix", "Pulse"]} />
-                    <ListFilter title="Cor" lista={["Azul", "Branca", "Cinza", "Prata", "Preta", "Verde"]} />
-                    <ListFilter title="Ano" lista={["2022", "2021", "2018", "2015", "2013"]} />
-                    <ListFilter title="Combustível" lista={["Diesel", "Etanol", "Gasolina", "Flex"]} /> */}
-                    <ButtonFilter title="Km" />
-                    <ButtonFilter title="Preço" />
-
+                    <ButtonFilter sortByPrice={sortByPrice} title="Preço" />
+                    <ButtonFilter sortByKm={sortByKm} title="Km" />
                     <button className={styles.showFiltersButton} onClick={toggleFilters}>Ver Anúncios</button>
-
                 </aside>
             </div>
         </>
