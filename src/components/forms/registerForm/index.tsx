@@ -21,7 +21,6 @@ const RegisterForm = () => {
 
   const submitRegister: SubmitHandler<TRegisterData> = (userData) => {
     userData.is_seller = isSeller;
-    console.log(userData);
     userRegister(userData);
   };
 

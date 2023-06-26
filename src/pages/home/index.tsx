@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useState } from "react"
 import { AiOutlineCloseSquare } from "react-icons/ai"
 import ListFilter from "../../components/home/ListFilter"
@@ -56,7 +55,7 @@ const HomePage = () => {
         if (returnFiltered.success) {
             setFilteredPosters(returnFiltered.data)
         }
-        if(showFilters) {
+        if (showFilters) {
             toggleFilters()
         }
     }

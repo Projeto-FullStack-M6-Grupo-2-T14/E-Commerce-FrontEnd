@@ -73,11 +73,11 @@ const posterCardListSchema = z.array(posterCardSchema)
 
 export const PosterContext: Context<IPosterContext> = createContext({} as IPosterContext)
 
-const PosterProvider = ({children}: IPosterProviderProps) => {
-    const [ filteredPosters, setFilteredPosters ] = useState<TPosterCardList>([])
-    const [ loadPosters, setLoadPosters ] = useState(true)
-    const [ allPosters, setAllPosters ] = useState<TAllPosterList>([])
-    
+const PosterProvider = ({ children }: IPosterProviderProps) => {
+    const [filteredPosters, setFilteredPosters] = useState<TPosterCardList>([])
+    const [loadPosters, setLoadPosters] = useState(true)
+    const [allPosters, setAllPosters] = useState<TAllPosterList>([])
+
     const getPosters = async (): Promise<void> => {
         try {
             const response = await ApiShop.get('/posters')
@@ -95,7 +95,7 @@ const PosterProvider = ({children}: IPosterProviderProps) => {
     }
 
     return (
-        <PosterContext.Provider value={{getPosters, filteredPosters, setFilteredPosters, allPosters, setAllPosters}} >
+        <PosterContext.Provider value={{ getPosters, filteredPosters, setFilteredPosters, allPosters, setAllPosters }} >
             {children}
         </PosterContext.Provider>
     )
