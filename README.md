@@ -1,11 +1,10 @@
 # MotorsShop - E-Commerce (Front-End)
 
 
-## 💻 Link da página
+# 💻 Link da página
 
-## 💻 Link do repositório Back-end
-https://github.com/Projeto-FullStack-M6-Grupo-2-T14/E-Commerce-BackEnd
-
+# 💻 Link do repositório Back-end
+[Link para o repositório do projeto](https://bit.ly/3h7fWgw)
 
 ## 🚀 Principais Tecnologias
 <div>
