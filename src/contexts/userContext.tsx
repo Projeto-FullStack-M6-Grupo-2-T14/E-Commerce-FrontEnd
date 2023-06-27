@@ -8,6 +8,7 @@ import { TNewPass } from "src/pages/newPassword/newPasswordSchema";
 import { ApiShop } from "src/services/Api";
 import jwt_decode from "jwt-decode";
 import { TSendEmail } from "src/pages/sendEmail/sendEmailSchema";
+import { toast } from "react-toastify";
 
 
 
@@ -98,6 +99,7 @@ const UserProvider = ({ children }: IUserProviderProps) => {
       setSuccessfullyCreated(true);
     } catch (error) {
       const axiosError = error as AxiosError;
+      toast.error(`Ops, algo deu errado! ${axiosError.message}`)
       console.log(axiosError.message);
     }
   };
@@ -132,8 +134,11 @@ const UserProvider = ({ children }: IUserProviderProps) => {
       localStorage.setItem("@USER_ID", String(userId));
 
     } catch (error) {
-      console.log(error);
+      const axiosError = error as AxiosError;
+      toast.error(`Ops, algo deu errado! ${axiosError.message}`)
+      console.log(axiosError.message);
     } finally {
+      toast.success("Login realizado com sucesso!")
       navigate("/home", { replace: true });
     }
   };

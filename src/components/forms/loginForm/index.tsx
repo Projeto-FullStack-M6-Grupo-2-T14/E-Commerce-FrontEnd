@@ -3,9 +3,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useContext, useState } from "react";
 import { UserContext } from "src/contexts/userContext";
 import { Tooltip } from "react-tooltip";
-import { TLoginData, loginFormSchema } from "./loginFormSchema";
 import { Link } from "react-router-dom";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import { TLoginData, loginFormSchema } from "./loginFormSchema";
 
 import styles from "./loginForm.module.sass";
 
@@ -40,7 +40,7 @@ const LoginForm = () => {
           data-tooltip-place="top"
           data-tooltip-float={true}
         />
-        <Tooltip id="email-tooltip" />
+        <Tooltip id="email-tooltip" className={styles.tooltip}/>
       </div>
 
 
@@ -58,6 +58,7 @@ const LoginForm = () => {
             data-tooltip-place="top"
             data-tooltip-float={true}
           />
+          <Tooltip id="password-tooltip" className={styles.tooltip}/>
           {showPassword ? (
             <FiEyeOff onClick={() => setShowPassword(false)} />
           ) : (
