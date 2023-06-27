@@ -42,7 +42,7 @@ const RegisterForm = () => {
           data-tooltip-place="top"
           data-tooltip-float={true}
         />
-        <Tooltip id="name-tooltip" />
+        <Tooltip id="name-tooltip" className={styles.tooltip}/>
       </div>
 
       <div className={styles.inputBox}>
@@ -58,7 +58,7 @@ const RegisterForm = () => {
           data-tooltip-place="top"
           data-tooltip-float={true}
         />
-        <Tooltip id="email-tooltip" />
+        <Tooltip id="email-tooltip" className={styles.tooltip}/>
       </div>
 
       <div className={styles.inputBox}>
@@ -74,7 +74,7 @@ const RegisterForm = () => {
           data-tooltip-place="top"
           data-tooltip-float={true}
         />
-        <Tooltip id="cpf-tooltip" />
+        <Tooltip id="cpf-tooltip" className={styles.tooltip}/>
       </div>
 
       <div className={styles.inputBox}>
@@ -90,7 +90,7 @@ const RegisterForm = () => {
           data-tooltip-place="top"
           data-tooltip-float={true}
         />
-        <Tooltip id="phone-tooltip" />
+        <Tooltip id="phone-tooltip" className={styles.tooltip}/>
       </div>
 
       <div className={styles.inputBox}>
@@ -106,7 +106,7 @@ const RegisterForm = () => {
           data-tooltip-place="top"
           data-tooltip-float={true}
         />
-        <Tooltip id="birthday-tooltip" />
+        <Tooltip id="birthday-tooltip" className={styles.tooltip}/>
       </div>
 
       <div className={styles.inputBox}>
@@ -134,7 +134,7 @@ const RegisterForm = () => {
           data-tooltip-place="top"
           data-tooltip-float={true}
         />
-        <Tooltip id="zipcode-tooltip" />
+        <Tooltip id="zipcode-tooltip" className={styles.tooltip}/>
       </div>
 
       <div className={styles.inputBox}>
@@ -154,7 +154,7 @@ const RegisterForm = () => {
               data-tooltip-place="top"
               data-tooltip-float={true}
             />
-            <Tooltip id="state-tooltip" />
+            <Tooltip id="state-tooltip" className={styles.tooltip}/>
           </div>
 
           <div>
@@ -172,7 +172,7 @@ const RegisterForm = () => {
               data-tooltip-place="top"
               data-tooltip-float={true}
             />
-            <Tooltip id="city-tooltip" />
+            <Tooltip id="city-tooltip" className={styles.tooltip}/>
           </div>
         </div>
       </div>
@@ -192,7 +192,7 @@ const RegisterForm = () => {
           data-tooltip-place="top"
           data-tooltip-float={true}
         />
-        <Tooltip id="street-tooltip" />
+        <Tooltip id="street-tooltip" className={styles.tooltip}/>
       </div>
 
       <div className={styles.inputBox}>
@@ -212,7 +212,7 @@ const RegisterForm = () => {
               data-tooltip-place="top"
               data-tooltip-float={true}
             />
-            <Tooltip id="number-tooltip" />
+            <Tooltip id="number-tooltip" className={styles.tooltip}/>
           </div>
 
           <div>
@@ -267,7 +267,7 @@ const RegisterForm = () => {
             <FiEye onClick={() => setShowPassword(true)} />
           )}
         </div>
-        <Tooltip id="password-tooltip" />
+        <Tooltip id="password-tooltip" className={styles.tooltip}/>
       </div >
 
       <div className={styles.inputBox}>
@@ -286,13 +286,14 @@ const RegisterForm = () => {
             data-tooltip-place="top"
             data-tooltip-float={true}
           />
+          <Tooltip id="password_confirm-tooltip" className={styles.tooltip}/>
           {showConfirmPassword ? (
             <FiEyeOff onClick={() => setShowConfirmPassword(false)} />
           ) : (
             <FiEye onClick={() => setShowConfirmPassword(true)} />
           )}
         </div>
-        <Tooltip id="password_confirm-tooltip" />
+        <Tooltip id="password_confirm-tooltip" className={styles.tooltip}/>
       </div>
       <button className={styles.btnRegister} type="submit">
         Finalizar cadastro
