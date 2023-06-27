@@ -51,10 +51,11 @@ Este projeto foi realizado em equipe, seguindo o método Scrum, com o objetivo d
 </ul>
 
 ## 🌎 Equipe
-<p> - Mayson Petherson Reis Azevedo</p>
-<p> - Renan Giareta</p>
-<p> - Christiano Kayky de Oliveira Pontes</p>
+- [Mayson Petherson Reis Azevedo](https://github.com/M4Y50N)
+- [Renan Giareta](https://github.com/renangiaretta)
+- [Christiano Kayky de Oliveira Pontes](https://github.com/Christiano-K-Oliveira)
 - [Junior Santos](https://github.com/JuniorSantos05)
+
 
 
 
