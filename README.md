@@ -3,8 +3,8 @@
 
 ### 💻 Link da página
 
-### 💻 Link do repositório Back-end
-[Link para o repositório do projeto](https://bit.ly/3h7fWgw)
+### 💻 Link do repositório Back-end: [Clique aqui](https://bit.ly/3h7fWgw)
+
 
 ## 🚀 Principais Tecnologias
 <div>
