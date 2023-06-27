@@ -1,12 +1,18 @@
 # MotorsShop - E-Commerce (Front-End)
-![Badge em Desenvolvimento](http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=GREEN&style=for-the-badge)
-
 ![Badge Tecnologias](https://img.shields.io/badge/Tecnologias-ReactJS%20|%20Sass%20|%20Typescript%20-informational)
 
 
-### 💻 Link da página
+Este projeto é um E-Commerce (loja virtual) desenvolvido em grupo como um projeto FullStack. O MotorsShop é uma plataforma que permite aos usuários comprar e vender veículos online.
 
-### 💻 Link do repositório Back-end: [Clique aqui](https://bit.ly/3h7fWgw)
+O objetivo principal do projeto é criar uma experiência de compra e venda de veículos de forma prática e segura. Os usuários podem se cadastrar, fazer login e navegar pelo catálogo de veículos disponíveis. Eles também podem cadastrar seus próprios veículos para venda, editar as informações dos anúncios e excluir anúncios existentes.
+
+O projeto foi desenvolvido utilizando tecnologias modernas de desenvolvimento web, como React, TypeScript, Context API e React Router Dom. Também utilizamos bibliotecas como React Hook Form, React Toastify, React Tooltip, React Icons, Zod e Axios para aprimorar a experiência do usuário e facilitar a integração com a API do backend.
+
+Este projeto foi realizado em equipe, seguindo o método Scrum, com o objetivo de simular um ambiente de desenvolvimento colaborativo. A proteção de rotas foi implementada para garantir a segurança e privacidade dos usuários, enquanto a responsividade foi priorizada para oferecer uma experiência consistente em diferentes dispositivos.
+
+### 💻 Link da página: [Clique aqui](https://github.com/Projeto-FullStack-M6-Grupo-2-T14/E-Commerce-FrontEnd)
+
+### 💻 Link do repositório Back-end: [Clique aqui](https://github.com/Projeto-FullStack-M6-Grupo-2-T14/E-Commerce-BackEnd)
 <br>
 
 
@@ -45,10 +51,10 @@
 </ul>
 
 ## 🌎 Equipe
-<p>Mayson Petherson Reis Azevedo</p>
-<p>Renan Giareta</p>
-<p>Christiano Kayky de Oliveira Pontes</p>
-<p>Junior Santos</p>
+<p> - Mayson Petherson Reis Azevedo</p>
+<p> - Renan Giareta</p>
+<p> - Christiano Kayky de Oliveira Pontes</p>
+- [Junior Santos](https://github.com/JuniorSantos05)
 
 
 
