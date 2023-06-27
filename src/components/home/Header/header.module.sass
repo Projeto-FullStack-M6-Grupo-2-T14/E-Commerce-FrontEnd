@@ -8,9 +8,10 @@ svg
   justify-content: space-between
   align-items: center
   background-color: $grey-10
-  padding: 2rem
+  padding: 0 2rem
   border-bottom: 2px solid $grey-6
   width: 100vw
+  height: 100px
 
   h1
     background: linear-gradient(90deg, #0B0D0D -1.61%, #4529E6 100.99%)
@@ -59,10 +60,48 @@ svg
   column-gap: 1.6rem
 
 .buttonContainer
-  margin-right: 10%
 
   a
     font-size: 2rem
+  
+.logout
+  background-color: $alert-3 
+  padding: 10px
+  width: 120px
+  border-radius: 5px
+  display: flex
+  align-items: center
+  justify-content: center
+  color: $grey-2
+  font-size: 1.8rem
+  font-weight: 500
+  transition: 0.3s ease
+
+.figureContainer, .figureContainerMobile
+  display: flex
+  align-items: center
+  column-gap: 1.7rem 
+      
+  figure
+    display: flex
+    align-items: center
+    gap: 10px
+
+    .hr
+      background-color: $grey-6
+      padding: 1.5px
+      height: 100px
+      margin-right: 20px
+
+    .iconProfile
+      padding: 1rem 1.5rem
+      color: $white-fixed
+      background-color: $brand-1
+      border-radius: 50%
+
+    figcaption
+      a
+        color: inherit
 
 .mobileMenu
   display: flex
@@ -88,13 +127,10 @@ svg
 
 
 @media screen and (max-width: 560px)
-  .buttonContainer
-    display: none
+  .buttonContainer, .figureContainer
+      display: none
 
-  .mobileMenuIcon
-    display: block
-
-  .visible
+  .mobileMenuIcon, .visible
     display: block
 
 @media (max-width: 800px)
@@ -109,5 +145,3 @@ svg
   #container
     margin-left: 0
 
-.logoContainer
-  margin-left: 4%

@@ -1,15 +1,19 @@
+import { useContext, useState } from 'react';
 import { VscMenu } from 'react-icons/vsc';
 import { AiOutlineCloseSquare } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 
 import styles from "./header.module.sass"
+import { UserContext } from 'src/contexts/userContext';
 
-interface HeaderProps {
-  isMobileMenuOpen: boolean;
-  setIsMobileMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
 
-const Header = ({ isMobileMenuOpen, setIsMobileMenuOpen }: HeaderProps) => {
+
+const Header = () => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
+  const { userLogout, user, isSeller, sellerProfile, seller } = useContext(UserContext)
+
+
   const handleMobileMenuClick = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
@@ -25,10 +29,25 @@ const Header = ({ isMobileMenuOpen, setIsMobileMenuOpen }: HeaderProps) => {
             </h1>
           </Link>
         </div>
-        <div className={styles.buttonContainer}>
-          <Link to="/login" className={styles.linkLogin}>Fazer Login</Link>
-          <Link to="/register" className={styles.linkRegister}>Cadastrar</Link>
-        </div>
+        {!user ?
+          <div className={styles.buttonContainer}>
+            <Link to="/login" className={styles.linkLogin}>Fazer Login</Link>
+            <Link to="/register" className={styles.linkRegister}>Cadastrar</Link>
+          </div> :
+          <div className={styles.figureContainer}>
+            <figure>
+              <div className={styles.hr}></div>
+              <div className={`heading-6-600 ${styles.iconProfile}`}>
+                {user.name[0]}
+              </div>
+              <figcaption className="heading-6-500">
+                <Link to={isSeller ? '/profile/seller' : '/'} onClick={sellerProfile}>{user.name}</Link>
+              </figcaption>
+            </figure>
+
+            <button className={styles.logout} onClick={userLogout}>Saída</button>
+          </div>
+        }
         <div
           className={`${styles.mobileMenuIcon} ${styles.closeIcon}`}
           onClick={handleMobileMenuClick}
@@ -38,10 +57,23 @@ const Header = ({ isMobileMenuOpen, setIsMobileMenuOpen }: HeaderProps) => {
       </header>
       <div className={styles.mobileMenuContainer}>
         <div className={`${styles.mobileMenu} ${isMobileMenuOpen ? styles.open : ''}`}>
-          <div className={styles.buttonContainerMobile}>
-            <Link to="/login" className={styles.linkLogin}>Fazer Login</Link>
-            <Link to="/register" className={styles.linkRegister}>Cadastrar</Link>
-          </div>
+          {!user ?
+            <div className={styles.buttonContainerMobile}>
+              <Link to="/login" className={styles.linkLogin}>Fazer Login</Link>
+              <Link to="/register" className={styles.linkRegister}>Cadastrar</Link>
+            </div> :
+            <div className={styles.figureContainerMobile}>
+              <figure>
+                <div className={`heading-6-600 ${styles.iconProfile}`}>
+                  {user.name[0]}
+                </div>
+                <figcaption className="heading-6-500">
+                  <Link to={isSeller ? '/profile/seller' : '/'}>{user.name}</Link>
+                </figcaption>
+              </figure>
+
+              <button className={styles.logout} onClick={userLogout}>Saída</button>
+            </div>}
         </div>
       </div>
     </>

@@ -2,15 +2,14 @@ import { Dispatch, SetStateAction } from 'react';
 import styles from './sectionProfile.module.sass';
 
 interface iSectionProfile {
-    initial_name: string,
+    initial_name: string | undefined,
     name: string,
     description: string,
     open_modal: Dispatch<SetStateAction<boolean>>,
+    selelr: any
 }
 
-const SectionProfile = ({initial_name, name, description, open_modal}: iSectionProfile) => {
-    const url = window.location.href
-    const findUrl = url.includes('admin')
+const SectionProfile = ({ initial_name, name, description, open_modal, seller }: iSectionProfile) => {
 
     return (
         <>
@@ -30,7 +29,7 @@ const SectionProfile = ({initial_name, name, description, open_modal}: iSectionP
                         <p className='heading-7-500'>{description}</p>
 
                         {
-                            findUrl && <button id={styles.btn_create} className='heading-7-600' onClick={() => open_modal(true)}>Criar anúncio</button>
+                            !seller && <button id={styles.btn_create} className='heading-7-600' onClick={() => open_modal(true)}>Criar anúncio</button>
                         }
                     </div>
                 </div>

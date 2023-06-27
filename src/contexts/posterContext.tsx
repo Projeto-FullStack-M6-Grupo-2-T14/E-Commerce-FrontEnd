@@ -18,6 +18,7 @@ interface IPosterContext {
 
 export type TPosterCardList = z.infer<typeof posterCardListSchema>
 const posterCardUserSchema = z.object({
+    id: z.number(),
     name: z.string(),
     email: z.string(),
     cpf: z.string(),

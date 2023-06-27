@@ -18,7 +18,7 @@ interface IUserProviderProps {
 interface IUserContext {
   userRegister: (userData: TRegisterData) => Promise<void>;
   login: (loginData: TLoginData) => Promise<void>;
-  // anuncio: (anuncioData: TAnuncioData) => Promise<void>;
+  sellerProfile: () => Promise<any>;
   isSeller: boolean;
   successfullyCreated: boolean;
   setSuccessfullyCreated: Dispatch<SetStateAction<boolean>>;
@@ -26,8 +26,9 @@ interface IUserContext {
   updatePassword: (newPassData: TNewPass) => Promise<void>;
   userLogout: () => void;
   user: IUser | null;
-  getInitials: (name: string | undefined) => string;
-  retrieveUser: (userId: number, token: string) => Promise<void>;
+  seller: IUser | null;
+  // getInitials: (name: string | undefined) => string;
+  // retrieveUser: (userId: number, token: string) => Promise<void>;
 }
 
 interface IUser {
@@ -56,42 +57,18 @@ interface ILoginResponse {
   token: string;
 }
 
-// interface IAnuncioResponse {
-//   marca: string;
-//   modelo: string;
-//   ano: string;
-//   combustivel: string;
-//   quilometragem: string;
-//   cor: string;
-//   precoFipe: string;
-//   preco: string;
-//   descricao: string;
-//   imagemCapa: string;
-//   imagemGaleria: string;
-// }
-
-
 
 export const UserContext = createContext({} as IUserContext);
 
 const UserProvider = ({ children }: IUserProviderProps) => {
   const [user, setUser] = useState<IUser | null>(null)
+  const [seller, setSeller] = useState<IUser | null>(null)
   const [isSeller, setIsSeller] = useState(false);
   const [successfullyCreated, setSuccessfullyCreated] = useState(false);
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
-
-  const userRegister = async (userData: TRegisterData): Promise<void> => {
-    try {
-      await ApiShop.post<IUser>("/users", userData);
-      setSuccessfullyCreated(true);
-    } catch (error) {
-      const axiosError = error as AxiosError;
-      console.log(axiosError.message);
-    }
-  };
-
+  //local function
   const retrieveUser = async (userId: number, token: string) => {
     try {
       const response = await ApiShop.get(`/users/${userId}`, {
@@ -117,6 +94,7 @@ const UserProvider = ({ children }: IUserProviderProps) => {
 
 
       setIsSeller(decodedToken.is_seller)
+      retrieveUser(userId, token)
 
       localStorage.setItem("@TOKEN", token);
       localStorage.setItem("@USER_ID", String(userId));
@@ -124,19 +102,35 @@ const UserProvider = ({ children }: IUserProviderProps) => {
     } catch (error) {
       console.log(error);
     } finally {
-      navigate("/home", { replace: true });
+      navigate("/", { replace: true });
     }
   };
 
-  // const anuncio = async (anuncioData: TAnuncioData): Promise<void> => {
-  //   try {
-  //     console.log(anuncioData);
-  //   } catch (error) {
-  //     console.log(error);
-  //   } finally {
-  //     navigate("/dashboard", { replace: true });
-  //   }
-  // };
+  const userRegister = async (userData: TRegisterData): Promise<void> => {
+    try {
+      await ApiShop.post<IUser>("/users", userData);
+      setSuccessfullyCreated(true);
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      console.log(axiosError.message);
+    }
+  };
+
+  const sellerProfile = async (): Promise<void> => {
+    try {
+      const sellerId = searchParams.get('seller_id')
+
+      const response = sellerId && await ApiShop.get(`/users/${sellerId}`)
+
+      setSeller(response?.data)
+
+    } catch (error) {
+      console.log(error);
+    }
+    finally {
+      // navigate("/", { replace: true });
+    }
+  };
 
   const updatePassword = async (newPassData: TNewPass): Promise<void> => {
     try {
@@ -173,29 +167,30 @@ const UserProvider = ({ children }: IUserProviderProps) => {
     navigate("/");
   };
 
-  const getInitials = (name: string | undefined): string => {
-    if (!name) return "";
+  // const getInitials = (name: string | undefined): string => {
+  //   if (!name) return "";
 
-    const names = name.split(" ");
-    const initials = names.map((name) => name.charAt(0));
-    return initials.join("");
-  };
+  //   const names = name.split(" ");
+  //   const initials = names.map((name) => name.charAt(0));
+  //   return initials.join("");
+  // };
 
   return (
     <UserContext.Provider
       value={{
         userRegister,
         login,
+        sellerProfile,
+        seller,
         isSeller,
         successfullyCreated,
         setSuccessfullyCreated,
         sendEmail,
-
         updatePassword,
         userLogout,
         user,
-        getInitials,
-        retrieveUser
+        // getInitials,
+        // retrieveUser
       }}
     >
       {children}

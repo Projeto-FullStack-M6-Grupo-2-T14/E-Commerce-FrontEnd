@@ -1,18 +1,23 @@
 // import card1 from '../../../assets/images/card1.png'
-import { TPostUserSchema } from 'src/contexts/posterContext'
+import { TPosterUser } from 'src/contexts/posterContext'
 import styles from './card.module.sass'
+import { Link } from 'react-router-dom'
+import { useContext } from 'react'
+import { UserContext } from 'src/contexts/userContext'
 
 export interface iCardElements {
     cover_image: string,
     title: string,
     description: string,
-    user: TPostUserSchema,
+    user: TPosterUser,
     mileage: string,
     year: string,
     price: string
 }
 
 const Card = ({ cover_image, title, description, user, mileage, year, price }: iCardElements) => {
+    const { sellerProfile } = useContext(UserContext)
+
     function generateColor() {
         const letters = '0123456789ABCDEF'
         let color = '#'
@@ -45,7 +50,9 @@ const Card = ({ cover_image, title, description, user, mileage, year, price }: i
 
             <figure>
                 <div style={{ 'backgroundColor': `${generateColor()}` }} className='body-1-600'>{`${generateNameImg()}`}</div>
-                <figcaption className='body-1-600'>{userName}</figcaption>
+                <figcaption className='body-1-600'>
+                    <Link onClick={sellerProfile} to={`/profile/seller?seller_id=${user.id}`}>{userName}</Link>
+                </figcaption>
             </figure>
 
             <div className={styles.boxInfocar}>

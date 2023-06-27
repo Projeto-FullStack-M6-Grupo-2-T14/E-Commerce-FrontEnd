@@ -13,7 +13,6 @@ import styles from "./home.module.sass"
 
 const HomePage = () => {
     const [showFilters, setShowFilter] = useState(false)
-    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
     const { filteredPosters, setFilteredPosters, getPosters, allPosters } = useContext(PosterContext)
     const toggleFilters = () => {
         setShowFilter(!showFilters)
@@ -72,7 +71,7 @@ const HomePage = () => {
     }
     const sortByPrice = (priceOption: string) => {
         if (priceOption === 'min') {
-            const filtered = [...filteredPosters].sort((a,b) => {
+            const filtered = [...filteredPosters].sort((a, b) => {
                 return parseInt(a.price) - parseInt(b.price)
             })
             const returnFiltered = posterCardListSchema.safeParse(filtered)
@@ -81,7 +80,7 @@ const HomePage = () => {
             }
         }
         if (priceOption === 'max') {
-            const filtered = [...filteredPosters].sort((a,b) => {
+            const filtered = [...filteredPosters].sort((a, b) => {
                 return parseInt(b.price) - parseInt(a.price)
             })
             const returnFiltered = posterCardListSchema.safeParse(filtered)
@@ -92,14 +91,14 @@ const HomePage = () => {
     }
     const sortByKm = (mileageOption: string) => {
         if (mileageOption === 'min') {
-            const filtered = [...filteredPosters].sort((a,b) => {
+            const filtered = [...filteredPosters].sort((a, b) => {
                 return parseInt(a.mileage) - parseInt(b.mileage)
             })
             const returnFiltered = posterCardListSchema.parse(filtered)
             setFilteredPosters(returnFiltered)
         }
         if (mileageOption === 'max') {
-            const filtered = [...filteredPosters].sort((a,b) => {
+            const filtered = [...filteredPosters].sort((a, b) => {
                 return parseInt(b.mileage) - parseInt(a.mileage)
             })
             const returnFiltered = posterCardListSchema.parse(filtered)
@@ -109,8 +108,8 @@ const HomePage = () => {
 
     return (
         <>
-            <Header isMobileMenuOpen={isMobileMenuOpen} setIsMobileMenuOpen={setIsMobileMenuOpen} />
-            <BackgroundImage isMobileMenuOpen={isMobileMenuOpen} />
+            <Header />
+            <BackgroundImage />
             <main className={styles.main}>
                 <aside id={styles.mainAside}>
                     <button onClick={filterAll} className="heading-4-600">Todos</button>
@@ -124,7 +123,7 @@ const HomePage = () => {
                 </aside>
                 <ul className="list-cards">
                     {
-                        filteredPosters.map(poster => <Card {...poster} />)
+                        filteredPosters.map((poster, i) => <Card key={i} {...poster} />)
                     }
                 </ul>
                 <button className={styles.outAside} onClick={toggleFilters}>Filtros</button>
