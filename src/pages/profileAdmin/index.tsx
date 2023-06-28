@@ -10,6 +10,8 @@ import ModalConfUpdate from "src/components/profile/Modals/modalConfUpdate"
 import ModalCreatePoster from "src/components/profile/Modals/modalCreate"
 import ModalDelete from "src/components/profile/Modals/modalDelete"
 import ModalUpdate from "src/components/profile/Modals/modalUpdate"
+import ModalUpdateUser from "src/components/profile/Modals/modalUpdateUser"
+import ModalUpdateAddress from "src/components/profile/Modals/modalUpdateAddress"
 
 const ProfileAdminPage = () => {
     const [openCreate, setOpenCreate] = useState(false)
@@ -17,7 +19,10 @@ const ProfileAdminPage = () => {
     const [openUpdate, setOpenUpdate] = useState(false)
     const [openConfUpdate, setOpenConfUpdate] = useState(false)
     const [openExclude, setOpenExclude] = useState(false)
-
+    const [openUpdateUser, setOpenUpdateUser] = useState(false)
+    const [openUpdateAddress, setOpenUpdateAddress] = useState(false)
+    const [idCard, setIdCard] = useState('')
+    const userId = localStorage.getItem("@USER_ID");
     const { user, getInitials, retrieveUser } = useContext(UserContext)
 
     useEffect(() => {
@@ -32,10 +37,10 @@ const ProfileAdminPage = () => {
 
     return (
         <>
-            <HeaderProfile initial_name={getInitials(user?.name)} name={user?.name ?? ""}/>
+            <HeaderProfile initial_name={getInitials(user?.name)} name={user?.name ?? ""} open_modal={setOpenUpdateUser}/>
             <main>
                 <SectionProfile open_modal={setOpenCreate} initial_name={getInitials(user?.name)} name={user?.name ?? ""} description={user?.description ?? ""} />
-                <SectionPosters open_update={setOpenUpdate}/>
+                <SectionPosters open_update={setOpenUpdate} setCard={setIdCard}/>
             </main>
             <FooterProfile />
 
@@ -46,13 +51,19 @@ const ProfileAdminPage = () => {
                 openConfCreate && <ModalConfCreate close_modal={setOpenConfCreate}/>
             }
             {
-                openUpdate && <ModalUpdate open_modal={setOpenConfUpdate} close_modal={setOpenUpdate} open_exclude={setOpenExclude}/>
+                openUpdate && <ModalUpdate open_modal={setOpenConfUpdate} close_modal={setOpenUpdate} open_exclude={setOpenExclude} cardId={idCard}/>
             }
             {
                 openConfUpdate && <ModalConfUpdate close_modal={setOpenConfUpdate}/>
             }
             {
-                openExclude && <ModalDelete close_modal={setOpenExclude}/>
+                openExclude && <ModalDelete close_modal={setOpenExclude} cardId={idCard}/>
+            }
+            {
+                openUpdateUser && <ModalUpdateUser close_modal={setOpenUpdateUser} open_modal={setOpenUpdateAddress} userId={userId !== null ? userId : ""}/>
+            }
+            {
+                openUpdateAddress && <ModalUpdateAddress close_modal={setOpenUpdateAddress} userId={userId !== null ? userId : ""}/>
             }
         </>
     )

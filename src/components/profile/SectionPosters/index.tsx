@@ -6,9 +6,10 @@ import { Dispatch, SetStateAction } from 'react';
 
 interface iSectionPoster {
     open_update: Dispatch<SetStateAction<boolean>>,
+    setCard?: Dispatch<SetStateAction<string>>
 }
 
-const SectionPosters = ({open_update}: iSectionPoster) => {
+const SectionPosters = ({open_update, setCard}: iSectionPoster) => {
     const url = window.location.href
     const findUrl = url.includes('admin')
 
@@ -30,6 +31,8 @@ const SectionPosters = ({open_update}: iSectionPoster) => {
                     price='120.000'
                     open_update={open_update}
                     poster_active={true}
+                    id='1dad'
+                    setCard={setCard}
                 />
                 <CardProfile  
                     img={car1} 
@@ -42,6 +45,8 @@ const SectionPosters = ({open_update}: iSectionPoster) => {
                     price='120.000'
                     open_update={open_update}
                     poster_active={false}
+                    id='5das'
+                    setCard={setCard}
                 />
                 <CardProfile  
                     img={car1} 
@@ -54,6 +59,8 @@ const SectionPosters = ({open_update}: iSectionPoster) => {
                     price='120.000'
                     open_update={open_update}
                     poster_active={false}
+                    id='d5ku'
+                    setCard={setCard}
                 />
                 <CardProfile  
                     img={car1} 
@@ -66,6 +73,8 @@ const SectionPosters = ({open_update}: iSectionPoster) => {
                     price='120.000'
                     open_update={open_update}
                     poster_active={true}
+                    id='d654'
+                    setCard={setCard}
                 />
                 <CardProfile  
                     img={car1} 
@@ -78,6 +87,8 @@ const SectionPosters = ({open_update}: iSectionPoster) => {
                     price='120.000'
                     open_update={open_update}
                     poster_active={true}
+                    id='f4dsf'
+                    setCard={setCard}
                 />
                 <CardProfile  
                     img={car1} 
@@ -90,6 +101,8 @@ const SectionPosters = ({open_update}: iSectionPoster) => {
                     price='120.000'
                     open_update={open_update}
                     poster_active={false}
+                    id='45fa'
+                    setCard={setCard}
                 />
                 
             </ul>
