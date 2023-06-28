@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react"
+import { useContext } from "react"
 import FooterProfile from "src/components/profile/FooterProfile"
 import HeaderProfile from "src/components/profile/Header"
 import ModalUpdateAddress from "src/components/profile/Modals/modalUpdateAddress"
@@ -23,6 +24,8 @@ const ProfileUserPage = () => {
           retrieveUser(userId, token);
         }
       }, [retrieveUser]);
+  
+    const { user, getInitials } = useContext(UserContext)
 
     return (
         <>

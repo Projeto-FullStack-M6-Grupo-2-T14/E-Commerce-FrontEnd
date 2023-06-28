@@ -1,19 +1,21 @@
+import { ToastContainer } from "react-toastify";
 import PosterProvider from "./contexts/posterContext"
 import UserProvider from "./contexts/userContext"
 import RoutesMain from "./routes"
-import { Suspense } from "react";
+import "react-toastify/dist/ReactToastify.css";
 
 
 function App() {
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <>
+    <ToastContainer />
     <UserProvider>
       <PosterProvider>
         <RoutesMain />
       </PosterProvider>
     </UserProvider>
-    </Suspense>
+    </>
   )
 }
 

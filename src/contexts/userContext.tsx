@@ -1,15 +1,15 @@
 import { AxiosError } from "axios";
 import { Dispatch, SetStateAction, createContext, useState } from "react";
+import { Dispatch, SetStateAction, createContext, useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { TLoginData } from "src/components/forms/loginForm/loginFormSchema";
-import { TRegisterData } from "src/components/forms/registerForm/registerFormSchema";
+import { TLoginData } from "src/components/forms/LoginForm/loginFormSchema";
+import { TRegisterData } from "src/components/forms/RegisterForm/registerFormSchema";
 import { TNewPass } from "src/pages/newPassword/newPasswordSchema";
 import { ApiShop } from "src/services/Api";
 import jwt_decode from "jwt-decode";
 import { TSendEmail } from "src/pages/sendEmail/sendEmailSchema";
 import { iUpdateUser } from "src/components/profile/Modals/modalUpdateUser/modalUpdateUser.schema";
-
-
+import { toast } from "react-toastify";
 
 interface IUserProviderProps {
   children: React.ReactNode;
@@ -83,6 +83,16 @@ const UserProvider = ({ children }: IUserProviderProps) => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
+  useEffect(() => {
+    const storedUserId = localStorage.getItem("@USER_ID");
+    const token = localStorage.getItem("@TOKEN");
+    const userId = storedUserId ? parseInt(storedUserId) : null;
+  
+    if (userId && token) {
+      retrieveUser(userId, token);
+    }
+  }, []);
+
 
   const userRegister = async (userData: TRegisterData): Promise<void> => {
     try {
@@ -90,6 +100,7 @@ const UserProvider = ({ children }: IUserProviderProps) => {
       setSuccessfullyCreated(true);
     } catch (error) {
       const axiosError = error as AxiosError;
+      toast.error(`Ops, algo deu errado! ${axiosError.message}`)
       console.log(axiosError.message);
     }
   };
@@ -124,8 +135,11 @@ const UserProvider = ({ children }: IUserProviderProps) => {
       localStorage.setItem("@USER_ID", String(userId));
 
     } catch (error) {
-      console.log(error);
+      const axiosError = error as AxiosError;
+      toast.error(`Ops, algo deu errado! ${axiosError.message}`)
+      console.log(axiosError.message);
     } finally {
+      toast.success("Login realizado com sucesso!")
       navigate("/home", { replace: true });
     }
   };

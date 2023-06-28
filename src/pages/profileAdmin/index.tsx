@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useContext, useEffect, useState } from "react"
+import { useContext, useState } from "react"
 import { UserContext } from "src/contexts/userContext"
 import FooterProfile from "src/components/profile/FooterProfile"
 import HeaderProfile from "src/components/profile/Header"
@@ -34,6 +34,8 @@ const ProfileAdminPage = () => {
           retrieveUser(userId, token);
         }
       }, []);
+
+    const { user, getInitials } = useContext(UserContext)    
 
     return (
         <>
