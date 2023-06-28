@@ -2,6 +2,8 @@ import { Context, Dispatch, ReactNode, SetStateAction, createContext, useState }
 import { ApiShop } from "src/services/Api"
 import { AxiosError } from "axios"
 import { z } from 'zod'
+import { iCreatePoster } from "src/components/profile/Modals/modalCreate/modalCreate.schema"
+import { iUpdatePoster } from "src/components/profile/Modals/modalUpdate/modalUpdate.schema"
 
 
 interface IPosterProviderProps {
@@ -14,6 +16,9 @@ interface IPosterContext {
     setFilteredPosters: Dispatch<SetStateAction<TPosterCardList>>
     allPosters: TAllPosterList | []
     setAllPosters: Dispatch<SetStateAction<TAllPosterList>>
+    createPosterAndImgs: (data: iCreatePoster) => Promise<void>;
+    updatePosterAndImgs: (data: iUpdatePoster, idCard: string) => Promise<void>;
+    excludePoster: (id: string) => Promise<void>;
 }
 
 export type TPosterCardList = z.infer<typeof posterCardListSchema>
@@ -94,8 +99,119 @@ const PosterProvider = ({ children }: IPosterProviderProps) => {
         }
     }
 
+    const createPosterAndImgs = async (data: iCreatePoster) => {
+        const token = localStorage.getItem('@TOKEN')
+    
+        try {
+          const posterData = {
+            brand: data.brand,
+            model: data.model,
+            year: data.year,
+            fuel: data.fuel,
+            mileage: data.mileage,
+            color: data.color,
+            fipe_price: data.fipe_price,
+            price: data.price,
+            description: data.description,
+            cover_image: data.cover_image,
+            is_active: data.is_active,   
+          }
+          const dataKeys = Object.keys(data)
+          const dataValues = Object.values(data)
+    
+          dataKeys.forEach(async (img, index) => {
+            if (img.includes('image') && !img.includes('cover_image')) {
+              const img = {
+                image: dataValues[index]
+              }
+    
+              await ApiShop.post('/image', img, {
+                headers: {
+                  Authorization: `Bearer ${token}`
+                },
+              });
+            }
+          })
+          await ApiShop.post('/posters', posterData, {
+            headers: {
+              Authorization: `Bearer ${token}`
+            },
+          });
+        }
+        catch (error) { console.log(error) }
+      }
+    
+      const updatePosterAndImgs = async (data: iUpdatePoster, idCard: string) => {
+        const token = localStorage.getItem("@TOKEN")
+    
+        try {
+          const obj = {
+            brand: data.brand,
+            model: data.model,
+            year: data.year,
+            fuel: data.fuel,
+            mileage: data.mileage,
+            color: data.color,
+            fipe_price: data.fipe_price,
+            price: data.price,
+            description: data.description,
+            cover_image: data.cover_image,
+            is_active: data.is_active,  
+          }
+          const dataPoster = Object.fromEntries(
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            Object.entries(obj).filter(([_, v]) => v != null && v !== "")
+          );
+    
+          await ApiShop.patch(`/posters/${idCard}`, dataPoster, {
+            headers: {
+              Authorization: `Bearer ${token}`
+            },
+          });
+    
+          const dataKeys = Object.keys(data)
+          const dataValues = Object.values(data)
+    
+          dataKeys.forEach(async (img, index) => {
+            if (img.includes('image') && !img.includes('cover_image')) {
+              const img = {
+                image: dataValues[index]
+              }
+    
+              await ApiShop.patch(`/image/${idCard}`, img, {
+                headers: {
+                  Authorization: `Bearer ${token}`
+                },
+              });
+            }
+          })
+    
+        }
+        catch (err) { console.log(err) }
+      }
+    
+      const excludePoster = async (id: string) => {
+        const token = localStorage.getItem("@TOKEN")
+    
+        await ApiShop.delete(`/posters/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+      }
+
     return (
-        <PosterContext.Provider value={{ getPosters, filteredPosters, setFilteredPosters, allPosters, setAllPosters }} >
+        <PosterContext.Provider 
+        value={{ 
+            getPosters, 
+            filteredPosters, 
+            setFilteredPosters, 
+            allPosters, 
+            setAllPosters,
+            createPosterAndImgs,
+            updatePosterAndImgs,
+            excludePoster,
+        }} >
             {children}
         </PosterContext.Provider>
     )

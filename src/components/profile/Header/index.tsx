@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import styles from './header.module.sass';
 import { Link } from 'react-router-dom';
 import { BiMenu } from 'react-icons/bi'
@@ -9,9 +9,10 @@ import { UserContext } from 'src/contexts/userContext';
 interface iHeaderProfile {
     initial_name: string,
     name: string,
+    open_modal: Dispatch<SetStateAction<boolean>>
 }
 
-const HeaderProfile = ({initial_name, name}: iHeaderProfile) => {
+const HeaderProfile = ({initial_name, name, open_modal}: iHeaderProfile) => {
     const [openMenuMobile, setOpenMenuMobile] = useState(false)
     const { userLogout } = useContext(UserContext)
 
@@ -23,8 +24,8 @@ const HeaderProfile = ({initial_name, name}: iHeaderProfile) => {
                 <div>
                     <figure>
                         <div id={styles.barra}></div>
-                        <div className="heading-6-600" id={styles.icon_profile}>{initial_name}</div>
-                        <figcaption className="heading-6-500">{name}</figcaption>
+                        <div className="heading-6-600" id={styles.icon_profile} onClick={() => open_modal(true)}>{initial_name}</div>
+                        <figcaption className="heading-6-500" onClick={() => open_modal(true)}>{name}</figcaption>
                     </figure>
 
                     <Link to="/" onClick={userLogout}>Saída</Link>

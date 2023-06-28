@@ -3,6 +3,7 @@ import styles from './card.module.sass';
 // import { Link } from 'react-router-dom';
 
 interface iSectionPosters {
+    id: string,
     img: string,
     car_name: string,
     description: string,
@@ -13,11 +14,17 @@ interface iSectionPosters {
     price: string,
     poster_active: boolean,
     open_update: Dispatch<SetStateAction<boolean>>,
+    setCard?: Dispatch<SetStateAction<string>>,
 }
 
-const CardProfile = ({img, car_name, description, initial_name, name_profile, km, year, price, poster_active, open_update}: iSectionPosters) => {
+const CardProfile = ({id, img, car_name, description, initial_name, name_profile, km, year, price, poster_active, open_update, setCard}: iSectionPosters) => {
     const url = window.location.href
     const findUrl = url.includes('admin')
+
+    function openUpdate() {
+        setCard ? setCard(id) : null
+        open_update(true)
+    }
 
     return (
         <li className={styles.card}>
@@ -44,7 +51,7 @@ const CardProfile = ({img, car_name, description, initial_name, name_profile, km
             </div>
                 {
                     findUrl && <div className={styles.box_btns}>
-                        <button className='heading-7-600' onClick={() => open_update(true)}>Editar</button>
+                        <button className='heading-7-600' onClick={() => openUpdate()}>Editar</button>
                         <button className='heading-7-600'>Ver detalhes</button>
                     </div>
                 }

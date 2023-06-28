@@ -1,6 +1,6 @@
 import { AxiosError } from "axios";
+import { Dispatch, SetStateAction, createContext, useState } from "react";
 import { Dispatch, SetStateAction, createContext, useEffect, useState } from "react";
-
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { TLoginData } from "src/components/forms/LoginForm/loginFormSchema";
 import { TRegisterData } from "src/components/forms/RegisterForm/registerFormSchema";
@@ -8,9 +8,8 @@ import { TNewPass } from "src/pages/newPassword/newPasswordSchema";
 import { ApiShop } from "src/services/Api";
 import jwt_decode from "jwt-decode";
 import { TSendEmail } from "src/pages/sendEmail/sendEmailSchema";
+import { iUpdateUser } from "src/components/profile/Modals/modalUpdateUser/modalUpdateUser.schema";
 import { toast } from "react-toastify";
-
-
 
 interface IUserProviderProps {
   children: React.ReactNode;
@@ -29,6 +28,8 @@ interface IUserContext {
   user: IUser | null;
   getInitials: (name: string | undefined) => string;
   retrieveUser: (userId: number, token: string) => Promise<void>;
+  excludeUser: (id: string) => Promise<void>;
+  updateUser: (data: iUpdateUser, idUser: string) => Promise<void>;
 }
 
 interface IUser {
@@ -196,6 +197,26 @@ const UserProvider = ({ children }: IUserProviderProps) => {
     return initials.join("");
   };
 
+  const excludeUser = async (id: string) => {
+    const token = localStorage.getItem("@TOKEN")
+
+    await ApiShop.delete(`/users/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+  }
+
+  const updateUser = async (data: iUpdateUser, idUser: string) => {
+    const token = localStorage.getItem("@TOKEN")
+
+    await ApiShop.patch(`/users/${idUser}`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+  }
+
   return (
     <UserContext.Provider
       value={{
@@ -205,12 +226,13 @@ const UserProvider = ({ children }: IUserProviderProps) => {
         successfullyCreated,
         setSuccessfullyCreated,
         sendEmail,
-
         updatePassword,
         userLogout,
         user,
         getInitials,
-        retrieveUser
+        retrieveUser,
+        excludeUser,
+        updateUser
       }}
     >
       {children}
