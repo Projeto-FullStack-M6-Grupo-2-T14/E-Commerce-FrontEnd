@@ -5,7 +5,7 @@ import ButtonFilter from "src/components/home/ButtonFilter"
 import Footer from "src/components/home/Footer"
 import Header from "src/components/home/Header"
 import BackgroundImage from "src/components/home/BackgroundImage"
-import Card from "src/components/home/Card"
+import Card from "src/components/Card"
 import { PosterContext } from "src/contexts/posterContext"
 import { z } from 'zod'
 import styles from "./home.module.sass"

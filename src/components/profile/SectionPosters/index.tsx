@@ -1,6 +1,6 @@
 import styles from './sectionPoster.module.sass';
 import { Dispatch, SetStateAction, useContext } from 'react';
-import Card from 'src/components/home/Card';
+import Card from 'src/components/Card';
 import { UserContext } from 'src/contexts/userContext';
 
 interface iSectionPoster {
