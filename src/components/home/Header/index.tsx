@@ -11,8 +11,7 @@ import { UserContext } from 'src/contexts/userContext';
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
-  const { userLogout, user, isSeller, sellerProfile, seller } = useContext(UserContext)
-
+  const { userLogout, user, isSeller, sellerProfile } = useContext(UserContext)
 
   const handleMobileMenuClick = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -41,7 +40,7 @@ const Header = () => {
                 {user.name[0]}
               </div>
               <figcaption className="heading-6-500">
-                <Link to={isSeller ? '/profile/seller' : '/'} onClick={sellerProfile}>{user.name}</Link>
+                <Link to={isSeller ? `/profile/seller?seller_id=${user.id}` : '/'} onClick={sellerProfile} >{user.name}</Link>
               </figcaption>
             </figure>
 
@@ -68,7 +67,7 @@ const Header = () => {
                   {user.name[0]}
                 </div>
                 <figcaption className="heading-6-500">
-                  <Link to={isSeller ? '/profile/seller' : '/'}>{user.name}</Link>
+                  <Link to={isSeller ? `/profile/seller?seller_id=${user.id}` : '/'} onClick={sellerProfile}>{user.name}</Link>
                 </figcaption>
               </figure>
 

@@ -86,7 +86,6 @@ const ModalUpdateUser = ({ close_modal, open_modal, userId }: iModalUpdateUser) 
                         </div>
 
                         <button className={`${style.btn_add} body-2-500`} style={{ fontWeight: 600 }} type='button' onClick={() => {
-                            close_modal(false)
                             open_modal(true)
                         }}>Editar endereço</button>
 
