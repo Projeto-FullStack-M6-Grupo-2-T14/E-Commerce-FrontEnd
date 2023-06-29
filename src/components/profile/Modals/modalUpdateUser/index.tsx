@@ -12,17 +12,17 @@ import { useNavigate } from "react-router-dom";
 interface iModalUpdateUser {
     close_modal: Dispatch<SetStateAction<boolean>>,
     open_modal: Dispatch<SetStateAction<boolean>>,
-    userId: string
+    userId: number | null
 }
 
-const ModalUpdateUser = ({close_modal, open_modal, userId}: iModalUpdateUser) => {
+const ModalUpdateUser = ({ close_modal, open_modal, userId }: iModalUpdateUser) => {
     const { updateUser, excludeUser } = useContext(UserContext)
     const navigate = useNavigate()
 
     function closeModal(element: React.MouseEvent<HTMLDivElement, MouseEvent>) {
         const target = element.target as HTMLDivElement
 
-        if(target.className.includes('container_modal')) {
+        if (target.className.includes('container_modal')) {
             close_modal(false)
         }
     }
@@ -40,7 +40,7 @@ const ModalUpdateUser = ({close_modal, open_modal, userId}: iModalUpdateUser) =>
 
     const submitDeleteUser = () => {
         localStorage.removeItem("@TOKEN")
-        localStorage.removeItem("@USER_ID")       
+        localStorage.removeItem("@USER_ID")
         excludeUser(userId)
         close_modal(false)
         navigate("/")
@@ -55,7 +55,7 @@ const ModalUpdateUser = ({close_modal, open_modal, userId}: iModalUpdateUser) =>
                         <h2 className='heading-6-600'>Editar perfil</h2>
 
                         <figure onClick={() => close_modal(false)}>
-                            <AiOutlineClose size='30' className={styles.icon}/>
+                            <AiOutlineClose size='30' className={styles.icon} />
                         </figure>
                     </div>
 
@@ -64,28 +64,28 @@ const ModalUpdateUser = ({close_modal, open_modal, userId}: iModalUpdateUser) =>
 
                         <div className={styles.box_input_med}>
                             <label htmlFor="name" className={`heading-7-500 ${styles.label_med}`}>Nome</label>
-                            <input type="text" placeholder="Junior Santos" id="name" className={`${styles.input_med} heading-7-500`} {...register('name')}/>
-                            { errors.name?.message ? <span className={styles.span_error}>{ errors.name.message }</span> : null }
+                            <input type="text" placeholder="Junior Santos" id="name" className={`${styles.input_med} heading-7-500`} {...register('name')} />
+                            {errors.name?.message ? <span className={styles.span_error}>{errors.name.message}</span> : null}
                         </div>
 
                         <div className={styles.box_input_med}>
                             <label htmlFor="email" className={`heading-7-500 ${styles.label_med}`}>Email</label>
-                            <input type="email" placeholder="junior@mail.com" id="email" className={`${styles.input_med} heading-7-500`} {...register('email')}/>
-                            { errors.email?.message ? <span className={styles.span_error}>{ errors.email.message }</span> : null }
+                            <input type="email" placeholder="junior@mail.com" id="email" className={`${styles.input_med} heading-7-500`} {...register('email')} />
+                            {errors.email?.message ? <span className={styles.span_error}>{errors.email.message}</span> : null}
                         </div>
 
                         <div className={styles.box_input_med}>
                             <label htmlFor="cpf" className={`heading-7-500 ${styles.label_med}`}>CPF</label>
-                            <input type="text" placeholder="900.880.090-00" id="cpf" className={`${styles.input_med} heading-7-500`} {...register('cpf')}/>
+                            <input type="text" placeholder="900.880.090-00" id="cpf" className={`${styles.input_med} heading-7-500`} {...register('cpf')} />
                         </div>
 
                         <div className={styles.box_text}>
                             <label htmlFor="description" className='heading-7-500'>Descrição</label>
                             <textarea id="description" placeholder='Descrição do usuário' className='heading-7-500' {...register('description')}></textarea>
-                            { errors.description?.message ? <span className={styles.span_error}>{ errors.description.message }</span> : null }
+                            {errors.description?.message ? <span className={styles.span_error}>{errors.description.message}</span> : null}
                         </div>
 
-                        <button className={`${style.btn_add} body-2-500`} style={{fontWeight: 600}} type='button' onClick={() => {
+                        <button className={`${style.btn_add} body-2-500`} style={{ fontWeight: 600 }} type='button' onClick={() => {
                             close_modal(false)
                             open_modal(true)
                         }}>Editar endereço</button>
@@ -99,7 +99,7 @@ const ModalUpdateUser = ({close_modal, open_modal, userId}: iModalUpdateUser) =>
 
                 </div>
             </div>
-        </div>    )
+        </div>)
 }
 
 export default ModalUpdateUser
