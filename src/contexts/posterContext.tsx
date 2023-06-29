@@ -1,4 +1,4 @@
-import { Context, Dispatch, ReactNode, SetStateAction, createContext, useContext, useState } from "react"
+import { Context, Dispatch, ReactNode, SetStateAction, createContext, useState } from "react"
 import { ApiShop } from "src/services/Api"
 import { AxiosError } from "axios"
 import { z } from 'zod'
@@ -34,13 +34,15 @@ const posterCardUserSchema = z.object({
 })
 export type TPosterUser = z.infer<typeof posterCardUserSchema>
 const posterCardSchema = z.object({
+  id: z.number(),
   cover_image: z.string(),
   title: z.string(),
   description: z.string(),
-  user: posterCardUserSchema,
   mileage: z.string(),
   year: z.string(),
   price: z.string(),
+  is_active: z.boolean(),
+  user: posterCardUserSchema,
 })
 
 export type TAllPosterUser = z.infer<typeof allPosterUserSchema>

@@ -9,10 +9,13 @@ import Card from "src/components/Card"
 import { PosterContext } from "src/contexts/posterContext"
 import { z } from 'zod'
 import styles from "./home.module.sass"
+import { UserContext } from "src/contexts/userContext"
 
 const HomePage = () => {
     const [showFilters, setShowFilter] = useState(false)
+    const { getInitials, user } = useContext(UserContext)
     const { filteredPosters, setFilteredPosters, getPosters, allPosters } = useContext(PosterContext)
+
     const toggleFilters = () => {
         setShowFilter(!showFilters)
     }
@@ -44,9 +47,7 @@ const HomePage = () => {
         color: z.string(),
         fuel: z.string()
     })
-
     const posterCardListSchema = z.array(posterCardSchema)
-
     const filter = (filterName: string, propertyName: keyof TPosterCard) => {
         const filtered = allPosters.filter(poster => poster[propertyName] === filterName)
         const returnFiltered = posterCardListSchema.safeParse(filtered)
@@ -62,7 +63,6 @@ const HomePage = () => {
         const returnFiltered = posterCardListSchema.parse(filtered)
         setFilteredPosters(returnFiltered)
     }
-
     const filterList = (property: keyof TPosterCard) => {
         const listSet = new Set(allPosters.map((poster) => poster[property]))
         const list = Array.from(listSet).filter((item) => typeof item === 'string')
@@ -105,6 +105,7 @@ const HomePage = () => {
         }
     }
 
+
     return (
         <>
             <Header />
@@ -120,9 +121,14 @@ const HomePage = () => {
                     <ButtonFilter sortByPrice={sortByPrice} title="Preço" />
                     <ButtonFilter sortByKm={sortByKm} title="Km" />
                 </aside>
-                <ul className="list-cards">
+                <ul className={styles.listCards}>
                     {
-                        filteredPosters.map((poster, i) => <Card key={i} {...poster} />)
+                        filteredPosters.map((poster, i) =>
+                            <Card key={i}
+                                initial_name={getInitials(poster.user.name)}
+                                name_profile={poster.user.name ?? ""}
+                                user_id={poster.user.id}
+                                {...poster} />)
                     }
                 </ul>
                 <button className={styles.outAside} onClick={toggleFilters}>Filtros</button>

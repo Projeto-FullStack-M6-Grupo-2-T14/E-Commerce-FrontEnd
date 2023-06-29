@@ -6,11 +6,12 @@ interface iSectionProfile {
     initial_name: string | undefined,
     name: string,
     description: string,
-    open_modal: Dispatch<SetStateAction<boolean>>,
+    open_update_user: Dispatch<SetStateAction<boolean>>,
+    open_create_poster: Dispatch<SetStateAction<boolean>>,
     seller?: any
 }
 
-const SectionProfile = ({ initial_name, name, description, open_modal, seller }: iSectionProfile) => {
+const SectionProfile = ({ initial_name, name, description, open_update_user, open_create_poster, seller }: iSectionProfile) => {
     const { user } = useContext(UserContext)
 
     return (
@@ -29,10 +30,14 @@ const SectionProfile = ({ initial_name, name, description, open_modal, seller }:
                         </div>
 
                         <p className='heading-7-500'>{description}</p>
-
-                        {
-                            seller?.id == user?.id && <button id={styles.btn_create} className='heading-7-600' onClick={() => open_modal(true)}>Criar anúncio</button>
-                        }
+                        <div>
+                            {
+                                seller?.id == user?.id && <button id={styles.btn_create} className='heading-7-600' onClick={() => open_update_user(true)}>Editar perfil</button>
+                            }
+                            {
+                                seller?.id == user?.id && <button id={styles.btn_create} className='heading-7-600' onClick={() => open_create_poster(true)}>Criar anúncio</button>
+                            }
+                        </div>
                     </div>
                 </div>
             </section>
