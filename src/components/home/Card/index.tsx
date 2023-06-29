@@ -51,7 +51,7 @@ const Card = ({ cover_image, title, description, user, mileage, year, price }: i
             <figure>
                 <div style={{ 'backgroundColor': `${generateColor()}` }} className='body-1-600'>{`${generateNameImg()}`}</div>
                 <figcaption className='body-1-600'>
-                    <Link onClick={sellerProfile} to={`/profile/seller?seller_id=${user.id}`}>{userName}</Link>
+                    <Link to={`/profile/seller?seller_id=${user.id}`}>{userName}</Link>
                 </figcaption>
             </figure>
 

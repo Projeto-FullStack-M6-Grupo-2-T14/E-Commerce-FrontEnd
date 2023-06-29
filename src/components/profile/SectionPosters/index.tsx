@@ -1,35 +1,28 @@
-import CardProfile from '../Card';
 import styles from './sectionPoster.module.sass';
-import car1 from '../../../assets/images/car-2.png'
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useContext } from 'react';
+import Card from 'src/components/home/Card';
+import { UserContext } from 'src/contexts/userContext';
 
 interface iSectionPoster {
     open_update: Dispatch<SetStateAction<boolean>>,
+    setCard?: Dispatch<SetStateAction<string>>
 }
 
-const SectionPosters = ({ open_update }: iSectionPoster) => {
-    const url = window.location.href
-    const findUrl = url.includes('seller')
+const SectionPosters = ({ open_update, setCard }: iSectionPoster) => {
+
+    const { seller } = useContext(UserContext)
+
+    console.log(open_update, setCard)
 
     return (
         <section id={styles.section_posters}>
-            {
-                findUrl && <h2 className='heading-5-600'>Anúncios</h2>
-            }
+            <h2 className='heading-5-600'>Anúncios</h2>
+
 
             <ul>
-                <CardProfile
-                    img={car1}
-                    car_name='Maserati - Gilbi'
-                    description='Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem...'
-                    initial_name='SL'
-                    name_profile='Samuel Leão'
-                    km='20.000'
-                    year='2019'
-                    price='120.000'
-                    open_update={open_update}
-                    poster_active={true}
-                />
+                {
+                    seller?.posters.map((poster: any, i: number) => <Card key={i} {...poster} />)
+                }
             </ul>
         </section>
     )

@@ -10,7 +10,6 @@ import { PosterContext } from "src/contexts/posterContext"
 import { z } from 'zod'
 import styles from "./home.module.sass"
 
-
 const HomePage = () => {
     const [showFilters, setShowFilter] = useState(false)
     const { filteredPosters, setFilteredPosters, getPosters, allPosters } = useContext(PosterContext)

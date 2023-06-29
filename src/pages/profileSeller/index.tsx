@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useState } from "react"
 import { UserContext } from "src/contexts/userContext"
 import SectionPosters from "src/components/profile/SectionPosters"
@@ -7,8 +8,12 @@ import ModalConfUpdate from "src/components/profile/Modals/modalConfUpdate"
 import ModalCreatePoster from "src/components/profile/Modals/modalCreate"
 import ModalDelete from "src/components/profile/Modals/modalDelete"
 import ModalUpdate from "src/components/profile/Modals/modalUpdate"
+
 import Header from "src/components/home/Header"
 import Footer from "src/components/home/Footer"
+
+import ModalUpdateUser from "src/components/profile/Modals/modalUpdateUser"
+import ModalUpdateAddress from "src/components/profile/Modals/modalUpdateAddress"
 
 const ProfileSellerPage = () => {
     const [openCreate, setOpenCreate] = useState(false)
@@ -17,14 +22,18 @@ const ProfileSellerPage = () => {
     const [openConfUpdate, setOpenConfUpdate] = useState(false)
     const [openExclude, setOpenExclude] = useState(false)
 
+
     const { user, seller, sellerProfile } = useContext(UserContext)
 
-    // sellerProfile()
+    const [openUpdateUser, setOpenUpdateUser] = useState(false)
+    const [openUpdateAddress, setOpenUpdateAddress] = useState(false)
+    const [idCard, setIdCard] = useState('')
+
     useEffect(() => {
         sellerProfile()
     }, []);
 
-    console.log(seller)
+    const userId = user && user.id
 
     return (
         <>
@@ -47,13 +56,19 @@ const ProfileSellerPage = () => {
                 openConfCreate && <ModalConfCreate close_modal={setOpenConfCreate} />
             }
             {
-                openUpdate && <ModalUpdate open_modal={setOpenConfUpdate} close_modal={setOpenUpdate} open_exclude={setOpenExclude} />
+                openUpdate && <ModalUpdate open_modal={setOpenConfUpdate} close_modal={setOpenUpdate} open_exclude={setOpenExclude} cardId={idCard} />
             }
             {
                 openConfUpdate && <ModalConfUpdate close_modal={setOpenConfUpdate} />
             }
             {
-                openExclude && <ModalDelete close_modal={setOpenExclude} />
+                openExclude && <ModalDelete close_modal={setOpenExclude} cardId={idCard} />
+            }
+            {
+                openUpdateUser && <ModalUpdateUser close_modal={setOpenUpdateUser} open_modal={setOpenUpdateAddress} userId={userId} />
+            }
+            {
+                openUpdateAddress && <ModalUpdateAddress close_modal={setOpenUpdateAddress} userId={userId} />
             }
         </>
     )

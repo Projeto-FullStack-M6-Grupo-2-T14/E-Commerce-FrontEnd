@@ -6,7 +6,7 @@ const ProtectedRoutes = () => {
   const { seller } = useContext(UserContext);
   const token = localStorage.getItem('@TOKEN')
 
-  if (!token) {
+  if (!token && !seller) {
     return <Navigate to="/login" replace />;
   }
 

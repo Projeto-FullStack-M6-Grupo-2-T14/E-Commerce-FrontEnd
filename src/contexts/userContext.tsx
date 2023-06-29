@@ -1,6 +1,5 @@
 import { AxiosError } from "axios";
-import { Dispatch, SetStateAction, createContext, useState } from "react";
-
+import { Dispatch, SetStateAction, createContext, useContext, useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { TLoginData } from "src/components/forms/loginForm/loginFormSchema";
 import { TRegisterData } from "src/components/forms/registerForm/registerFormSchema";
@@ -8,8 +7,9 @@ import { TNewPass } from "src/pages/newPassword/newPasswordSchema";
 import { ApiShop } from "src/services/Api";
 import jwt_decode from "jwt-decode";
 import { TSendEmail } from "src/pages/sendEmail/sendEmailSchema";
-
-
+import { iUpdateUser } from "src/components/profile/Modals/modalUpdateUser/modalUpdateUser.schema";
+import { toast } from "react-toastify";
+import { PosterContext } from "./posterContext";
 
 interface IUserProviderProps {
   children: React.ReactNode;
@@ -26,9 +26,10 @@ interface IUserContext {
   updatePassword: (newPassData: TNewPass) => Promise<void>;
   userLogout: () => void;
   user: IUser | null;
-  seller: IUser | null;
-  // getInitials: (name: string | undefined) => string;
-  // retrieveUser: (userId: number, token: string) => Promise<void>;
+  seller: any | null;
+  getInitials: (name: string | undefined) => string;
+  excludeUser: (id: number | null) => void;
+  updateUser: (data: iUpdateUser, idUser: number | null) => void
 }
 
 interface IUser {
@@ -62,22 +63,41 @@ export const UserContext = createContext({} as IUserContext);
 
 const UserProvider = ({ children }: IUserProviderProps) => {
   const [user, setUser] = useState<IUser | null>(null)
-  const [seller, setSeller] = useState<IUser | null>(null)
+  const [seller, setSeller] = useState<any | null>(null)
   const [isSeller, setIsSeller] = useState(false);
   const [successfullyCreated, setSuccessfullyCreated] = useState(false);
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
-  //local function
-  const retrieveUser = async (userId: number, token: string) => {
+  useEffect(() => {
+    const storedUserId = localStorage.getItem("@USER_ID");
+    const token = localStorage.getItem("@TOKEN");
+    const userId = storedUserId ? parseInt(storedUserId) : null;
+
+
+    if (userId && token) {
+      retrieveUser(userId);
+    }
+  }, []);
+
+
+  const userRegister = async (userData: TRegisterData): Promise<void> => {
     try {
-      const response = await ApiShop.get(`/users/${userId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      await ApiShop.post<IUser>("/users", userData);
+      setSuccessfullyCreated(true);
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      toast.error(`Ops, algo deu errado! ${axiosError.message}`)
+      console.log(axiosError.message);
+    }
+  };
+
+  const retrieveUser = async (userId: number) => {
+    try {
+      const response = await ApiShop.get(`/users/${userId}`);
       const userData = response.data;
-      setUser(userData);
+
+      return userData
 
     } catch (error) {
       console.log(error);
@@ -92,27 +112,20 @@ const UserProvider = ({ children }: IUserProviderProps) => {
       const decodedToken = jwt_decode<{ id: number, is_seller: boolean }>(token)
       const userId = decodedToken.id;
 
-
       setIsSeller(decodedToken.is_seller)
-      retrieveUser(userId, token)
+      const userData = await retrieveUser(userId)
+      setUser(userData);
 
       localStorage.setItem("@TOKEN", token);
       localStorage.setItem("@USER_ID", String(userId));
 
     } catch (error) {
-      console.log(error);
-    } finally {
-      navigate("/", { replace: true });
-    }
-  };
-
-  const userRegister = async (userData: TRegisterData): Promise<void> => {
-    try {
-      await ApiShop.post<IUser>("/users", userData);
-      setSuccessfullyCreated(true);
-    } catch (error) {
       const axiosError = error as AxiosError;
+      toast.error(`Ops, algo deu errado! ${axiosError.message}`)
       console.log(axiosError.message);
+    } finally {
+      toast.success("Login realizado com sucesso!")
+      navigate("/", { replace: true });
     }
   };
 
@@ -120,9 +133,18 @@ const UserProvider = ({ children }: IUserProviderProps) => {
     try {
       const sellerId = searchParams.get('seller_id')
 
-      const response = sellerId && await ApiShop.get(`/users/${sellerId}`)
+      if (sellerId) {
+        const sellerRes = await retrieveUser(parseInt(sellerId))
 
-      setSeller(response?.data)
+        const allUsersPosters = await ApiShop.get(`/users/posters/${sellerId}`)
+
+        setSeller({ ...sellerRes, posters: [...allUsersPosters.data] })
+      } else {
+        const allUsersPosters = await ApiShop.get(`/users/posters/${user?.id}`)
+
+        setSeller({ ...user, posters: [...allUsersPosters.data] })
+      }
+
 
     } catch (error) {
       console.log(error);
@@ -167,13 +189,33 @@ const UserProvider = ({ children }: IUserProviderProps) => {
     navigate("/");
   };
 
-  // const getInitials = (name: string | undefined): string => {
-  //   if (!name) return "";
+  const getInitials = (name: string | undefined): string => {
+    if (!name) return "";
 
-  //   const names = name.split(" ");
-  //   const initials = names.map((name) => name.charAt(0));
-  //   return initials.join("");
-  // };
+    const names = name.split(" ");
+    const initials = names.map((name) => name.charAt(0));
+    return initials.join("");
+  };
+
+  const excludeUser = async (id: number | null) => {
+    const token = localStorage.getItem("@TOKEN")
+
+    await ApiShop.delete(`/users/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+  }
+
+  const updateUser = async (data: iUpdateUser, idUser: number | null) => {
+    const token = localStorage.getItem("@TOKEN")
+
+    await ApiShop.patch(`/users/${idUser}`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+  }
 
   return (
     <UserContext.Provider
@@ -189,8 +231,9 @@ const UserProvider = ({ children }: IUserProviderProps) => {
         updatePassword,
         userLogout,
         user,
-        // getInitials,
-        // retrieveUser
+        getInitials,
+        excludeUser,
+        updateUser
       }}
     >
       {children}
