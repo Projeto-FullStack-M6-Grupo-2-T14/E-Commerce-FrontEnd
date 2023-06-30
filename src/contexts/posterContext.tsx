@@ -4,6 +4,7 @@ import { AxiosError } from "axios"
 import { z } from 'zod'
 import { iCreatePoster } from "src/components/profile/Modals/modalCreate/modalCreate.schema"
 import { iUpdatePoster } from "src/components/profile/Modals/modalUpdate/modalUpdate.schema"
+import { TComment, TDetailPoster } from "src/components/DetailPoster/schemas"
 
 
 interface IPosterProviderProps {
@@ -19,6 +20,10 @@ interface IPosterContext {
   createPosterAndImgs: (data: iCreatePoster) => Promise<void>;
   updatePosterAndImgs: (data: iUpdatePoster, idCard: string) => Promise<void>;
   excludePoster: (id: string) => Promise<void>;
+  posterData: TDetailPoster | null;
+  setPosterData: Dispatch<SetStateAction<TDetailPoster | null>>;
+  comments: TComment[];
+  setComments: Dispatch<SetStateAction<TComment[]>>;
 }
 
 export type TPosterCardList = z.infer<typeof posterCardListSchema>
@@ -83,6 +88,8 @@ const PosterProvider = ({ children }: IPosterProviderProps) => {
   const [filteredPosters, setFilteredPosters] = useState<TPosterCardList>([])
   const [loadPosters, setLoadPosters] = useState(true)
   const [allPosters, setAllPosters] = useState<TAllPosterList>([])
+  const [ posterData, setPosterData ] = useState<TDetailPoster | null>(null)
+  const [ comments, setComments ] = useState<TComment[]>([])
 
 
   // const getAllUsersPosters = async (): Promise<void> => {
@@ -217,7 +224,11 @@ const PosterProvider = ({ children }: IPosterProviderProps) => {
         setAllPosters,
         createPosterAndImgs,
         updatePosterAndImgs,
-        excludePoster
+        excludePoster,
+        posterData,
+        setPosterData,
+        comments,
+        setComments
       }} >
       {children}
     </PosterContext.Provider>
