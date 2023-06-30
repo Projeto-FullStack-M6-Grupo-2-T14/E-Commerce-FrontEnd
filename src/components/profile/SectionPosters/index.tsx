@@ -1,5 +1,5 @@
 import styles from './sectionPoster.module.sass';
-import { Dispatch, SetStateAction, useContext } from 'react';
+import { Dispatch, SetStateAction, useContext, useState } from 'react';
 import Card from 'src/components/Card';
 import { UserContext } from 'src/contexts/userContext';
 
@@ -8,11 +8,10 @@ interface iSectionPoster {
     setCard?: Dispatch<SetStateAction<string>>
 }
 
+
 const SectionPosters = ({ open_update, setCard }: iSectionPoster) => {
 
-    const { seller } = useContext(UserContext)
-
-    console.log(open_update, setCard)
+    const { seller, getInitials } = useContext(UserContext)
 
     return (
         <section id={styles.section_posters}>
@@ -21,7 +20,12 @@ const SectionPosters = ({ open_update, setCard }: iSectionPoster) => {
 
             <ul>
                 {
-                    seller?.posters.map((poster: any, i: number) => <Card key={i} {...poster} />)
+                    seller?.posters.map((poster: any, i: number) => <Card key={i}
+                        initial_name={getInitials(poster.user.name)}
+                        name_profile={poster.user.name ?? ""}
+                        user_id={poster.user.id}
+                        open_update={open_update}
+                        setCard={setCard} {...poster} />)
                 }
             </ul>
         </section>
