@@ -7,8 +7,8 @@ import jwt_decode from "jwt-decode";
 import { TSendEmail } from "src/pages/sendEmail/sendEmailSchema";
 import { iUpdateUser } from "src/components/profile/Modals/modalUpdateUser/modalUpdateUser.schema";
 import { toast } from "react-toastify";
-import { TRegisterData } from "src/components/forms/RegisterForm/registerFormSchema";
-import { TLoginData } from "src/components/forms/LoginForm/loginFormSchema";
+import { TRegisterData } from "src/components/forms/registerForm/registerFormSchema";
+import { TLoginData } from "src/components/forms/loginForm/loginFormSchema";
 
 interface IUserProviderProps {
   children: React.ReactNode;
