@@ -11,7 +11,7 @@ import { UserContext } from 'src/contexts/userContext';
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
-  const { userLogout, user, isSeller, sellerProfile } = useContext(UserContext)
+  const { userLogout, user, isSeller, sellerProfile, getInitials } = useContext(UserContext)
 
   const handleMobileMenuClick = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -37,7 +37,7 @@ const Header = () => {
             <figure>
               <div className={styles.hr}></div>
               <div className={`heading-6-600 ${styles.iconProfile}`}>
-                {user.name[0]}
+                {getInitials(user.name)}
               </div>
               <figcaption className="heading-6-500">
                 <Link to={isSeller ? `/profile/seller?seller_id=${user.id}` : '/'} onClick={sellerProfile} >{user.name}</Link>
