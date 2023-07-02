@@ -2,11 +2,11 @@ import { useContext, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Tooltip } from "react-tooltip";
 import { UserContext } from "src/contexts/userContext";
-import { TRegisterData, registerFormSchema } from "./registerFormSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 
 import styles from "./registerForm.module.sass";
+import { TRegisterData, registerFormSchema } from "./registerFormSchema";
 
 
 const RegisterForm = () => {
