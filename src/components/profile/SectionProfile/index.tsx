@@ -12,7 +12,7 @@ interface iSectionProfile {
 }
 
 const SectionProfile = ({ initial_name, name, description, open_update_user, open_create_poster, seller }: iSectionProfile) => {
-    const { user } = useContext(UserContext)
+    const { user, getInitials } = useContext(UserContext)
 
     return (
         <>
@@ -21,7 +21,7 @@ const SectionProfile = ({ initial_name, name, description, open_update_user, ope
                 <div className={styles.container_profile}>
                     <div className={styles.box_container}>
                         <figure className='heading-3-500'>
-                            {initial_name}
+                            {getInitials(initial_name)}
                         </figure>
 
                         <div>

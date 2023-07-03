@@ -1,14 +1,14 @@
 import { AxiosError } from "axios";
 import { Dispatch, SetStateAction, createContext, useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { TLoginData } from "src/components/forms/loginForm/loginFormSchema";
-import { TRegisterData } from "src/components/forms/registerForm/registerFormSchema";
 import { TNewPass } from "src/pages/newPassword/newPasswordSchema";
 import { ApiShop } from "src/services/Api";
 import jwt_decode from "jwt-decode";
 import { TSendEmail } from "src/pages/sendEmail/sendEmailSchema";
 import { iUpdateUser } from "src/components/profile/Modals/modalUpdateUser/modalUpdateUser.schema";
 import { toast } from "react-toastify";
+import { TRegisterData } from "src/components/forms/registerForm/registerFormSchema";
+import { TLoginData } from "src/components/forms/loginForm/loginFormSchema";
 
 interface IUserProviderProps {
   children: React.ReactNode;
@@ -17,7 +17,7 @@ interface IUserProviderProps {
 interface IUserContext {
   userRegister: (userData: TRegisterData) => Promise<void>;
   login: (loginData: TLoginData) => Promise<void>;
-  sellerProfile: () => Promise<any>;
+  sellerProfile: () => Promise<void>
   isSeller: boolean;
   successfullyCreated: boolean;
   setSuccessfullyCreated: Dispatch<SetStateAction<boolean>>;
@@ -121,14 +121,14 @@ const UserProvider = ({ children }: IUserProviderProps) => {
       localStorage.setItem("@TOKEN", token);
       localStorage.setItem("@USER_ID", String(userId));
 
+      toast.success("Login realizado com sucesso!")
+      navigate("/", { replace: true });
+
     } catch (error) {
       const axiosError = error as AxiosError;
       toast.error(`Ops, algo deu errado! ${axiosError.message}`)
       console.log(axiosError.message);
-    } finally {
-      toast.success("Login realizado com sucesso!")
-      navigate("/", { replace: true });
-    }
+    } 
   };
 
   const sellerProfile = async (): Promise<void> => {

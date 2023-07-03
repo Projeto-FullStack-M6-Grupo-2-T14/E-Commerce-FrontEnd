@@ -29,7 +29,6 @@ const ModalUpdateAddress = ({ close_modal, userId }: iModalUpdateAddress) => {
     });
 
     const submitUpdateAddress: SubmitHandler<iUpdateAddress> = (addressData: iUpdateAddress) => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const data = Object.fromEntries(Object.entries(addressData).filter(([_, v]) => v != null && v !== ""))
         updateAddress(data, userId)
         close_modal(false)
