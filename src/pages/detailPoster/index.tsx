@@ -1,4 +1,3 @@
-import Header from 'src/components/home/Header'
 import styles from './detailPoster.module.sass'
 import { useContext, useEffect, useState } from 'react'
 import { ApiShop } from 'src/services/Api'
@@ -10,7 +9,8 @@ import photos from './../../assets/images/Frame 41.png'
 import SellerInfo from 'src/components/SellerInfo'
 import { TSellerInfo } from 'src/components/SellerInfo/sellerInfo.schemas'
 import { useNavigate } from 'react-router-dom'
-import Footer from 'src/components/home/Footer'
+import Header from 'src/components/Header'
+import Footer from 'src/components/Footer'
 
 
 const DetailPosterPage = () => {
