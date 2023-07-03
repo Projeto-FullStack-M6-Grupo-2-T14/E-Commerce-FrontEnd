@@ -32,6 +32,7 @@ const HomePage = () => {
     })
     type TPosterCard = z.infer<typeof posterCardSchema>
     const posterCardSchema = z.object({
+        id: z.number(),
         cover_image: z.string(),
         title: z.string(),
         description: z.string(),

@@ -24,6 +24,8 @@ interface IPosterContext {
   setPosterData: Dispatch<SetStateAction<TDetailPoster | null>>;
   comments: TComment[];
   setComments: Dispatch<SetStateAction<TComment[]>>;
+  posterId: number
+  setPosterId: Dispatch<SetStateAction<number>>;
 }
 
 export type TPosterCardList = z.infer<typeof posterCardListSchema>
@@ -39,6 +41,7 @@ const posterCardUserSchema = z.object({
 })
 export type TPosterUser = z.infer<typeof posterCardUserSchema>
 const posterCardSchema = z.object({
+  id: z.number(),
   cover_image: z.string(),
   title: z.string(),
   description: z.string(),
@@ -90,21 +93,7 @@ const PosterProvider = ({ children }: IPosterProviderProps) => {
   const [allPosters, setAllPosters] = useState<TAllPosterList>([])
   const [ posterData, setPosterData ] = useState<TDetailPoster | null>(null)
   const [ comments, setComments ] = useState<TComment[]>([])
-
-
-  // const getAllUsersPosters = async (): Promise<void> => {
-  //   try {
-  //     const response = await ApiShop.get(`/users/posters/${seller?.id}`)
-  //     const postersList = posterCardListSchema.parse(response.data)
-
-  //     console.log(postersList)
-
-  //     setFilteredPosters(postersList)
-  //   } catch (error) {
-  //     const axiosError = error as AxiosError
-  //     console.error(axiosError.message)
-  //   }
-  // }
+  const [ posterId, setPosterId ] = useState<number>(0)
 
 
   const getPosters = async (): Promise<void> => {
@@ -228,7 +217,9 @@ const PosterProvider = ({ children }: IPosterProviderProps) => {
         posterData,
         setPosterData,
         comments,
-        setComments
+        setComments,
+        posterId,
+        setPosterId
       }} >
       {children}
     </PosterContext.Provider>

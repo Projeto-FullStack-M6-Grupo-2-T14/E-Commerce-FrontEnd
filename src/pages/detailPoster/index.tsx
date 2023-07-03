@@ -6,18 +6,38 @@ import Comment from 'src/components/Comments/ListComments'
 import DetailPoster from 'src/components/DetailPoster'
 import CreateComment from 'src/components/Comments/CreateComment'
 import { PosterContext } from 'src/contexts/posterContext'
+import photos from './../../assets/images/Frame 41.png'
+import SellerInfo from 'src/components/SellerInfo'
+import { TSellerInfo } from 'src/components/SellerInfo/sellerInfo.schemas'
+import { UserContext } from 'src/contexts/userContext'
+import { useNavigate } from 'react-router-dom'
+import Footer from 'src/components/home/Footer'
 
 
 const DetailPosterPage = () => {
-    const {  posterData, setPosterData, comments, setComments  } = useContext(PosterContext)
-    const [ posterId, setPosterId ] = useState<number>(0)
+    const emptySeller = {
+        id: '',
+        name: '',
+        description: ''
+    }
+    const { user } = useContext(UserContext)
+    const [ loading, setLoading ] = useState(true)
+    const {  posterData, setPosterData, comments, setComments, posterId, setPosterId  } = useContext(PosterContext)
+    const [ sellerInfo, setSellerInfo ] = useState<TSellerInfo>(emptySeller)
+    const navigate = useNavigate()
     useEffect(() => {
         const getPosterData = async () => {
             try {
-                const response = await ApiShop.get('/posters/28')
+                const response = await ApiShop.get(`/posters/${posterId}`)
                 setPosterData(response.data)
                 setComments(response.data.comments)
                 setPosterId(response.data.id)
+                setSellerInfo(response.data.user)
+                const token = localStorage.getItem('@TOKEN')
+                if (!token) {
+                    navigate('/')
+                }
+                setLoading(false)
             } catch (error) {
                 console.error(error)
             }
@@ -25,27 +45,45 @@ const DetailPosterPage = () => {
         getPosterData()
     },[setPosterData, setComments])
 
-    return (
+
+
+return (
+    <div>
+        {loading ? (
+        <div>LOADING...</div>
+        ) : (
         <>
             <Header />
             <main className={styles.detpostMain}>
-                <div className={styles.detpostContainer}>
-                    <div className={styles.detpostLeftContainer}>
-                        {posterData !== null && <DetailPoster posterData={posterData} />}
-                        <div className={styles.detpostComments}>
-                            <h2 className='heading-4-600'>Comentários</h2>
-                            {comments.map((comment) => <Comment key={comment.id} comment={comment} />)}
-                        </div>
-                        <CreateComment posterId={posterId}/>
+            <div className={styles.detpostContainer}>
+                <div className={styles.detpostLeftContainer}>
+                {posterData && <DetailPoster posterData={posterData} />}
+                <div className={styles.detpostComments}>
+                    <div className={styles.commentsTitle}>
+                    <h2 className="heading-6-600">Comentários</h2>
                     </div>
-                    <div className={styles.detpostRightContainer}>
-                        <div className={styles.detpostOtherImgs}></div>
-                        <div className={styles.detpostSellerInfo}></div>
-                    </div>
+                    {comments.map((comment) => (
+                    <Comment key={comment.id} comment={comment} />
+                    ))}
                 </div>
+                <CreateComment posterId={posterId} />
+                </div>
+                <div className={styles.detpostRightContainer}>
+                <div className={styles.detpostOtherImgs}>
+                    <img className={styles.otherImgs} src={photos} alt="" />
+                </div>
+                <div className={styles.detpostSellerInfo}>
+                    <SellerInfo sellerInfo={sellerInfo} />
+                </div>
+                </div>
+            </div>
             </main>
+            <Footer />
         </>
-    )
+        )}
+    </div>
+    );
+    
 }
 
 export default DetailPosterPage

@@ -1,11 +1,12 @@
 // import card1 from '../../../assets/images/card1.png'
-import { TPosterUser } from 'src/contexts/posterContext'
+import { PosterContext, TPosterUser } from 'src/contexts/posterContext'
 import styles from './card.module.sass'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useContext } from 'react'
 import { UserContext } from 'src/contexts/userContext'
 
 export interface iCardElements {
+    id: number,
     cover_image: string,
     title: string,
     description: string,
@@ -15,8 +16,10 @@ export interface iCardElements {
     price: string
 }
 
-const Card = ({ cover_image, title, description, user, mileage, year, price }: iCardElements) => {
+const Card = ({ id, cover_image, title, description, user, mileage, year, price }: iCardElements) => {
     const { sellerProfile } = useContext(UserContext)
+    const { posterId, setPosterId } = useContext(PosterContext)
+    const navigate = useNavigate()
 
     function generateColor() {
         const letters = '0123456789ABCDEF'
@@ -41,8 +44,13 @@ const Card = ({ cover_image, title, description, user, mileage, year, price }: i
         return userName
     }
 
+    const detail = () => {
+        setPosterId(id)
+        navigate(`/product/${id}`)
+    }
+
     return (
-        <li className={styles.card}>
+        <li onClick={detail}  className={styles.card}>
             <img src={cover_image} alt={title} />
             <h3 className='heading-5-600'>{title}</h3>
 
