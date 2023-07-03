@@ -1,8 +1,10 @@
 // import card1 from '../../../assets/images/card1.png'
 import styles from './card.module.sass'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Dispatch, SetStateAction, useContext } from 'react'
 import { UserContext } from 'src/contexts/userContext'
+import { PosterContext, TPosterUser } from 'src/contexts/posterContext'
+
 
 interface iSectionPosters {
     id: number,
@@ -23,15 +25,27 @@ const Card = ({ id, cover_image, title, description, initial_name, name_profile,
     const url = window.location.href
     const findUrl = url.includes('profile')
 
-    const { user } = useContext(UserContext)
+    const { user, sellerProfile } = useContext(UserContext)
+    const { posterId, setPosterId } = useContext(PosterContext)
+    const navigate = useNavigate()
 
     function openUpdate() {
         setCard ? setCard(id) : null
         open_update && open_update(true)
     }
 
+    const detail = () => {
+        setPosterId(id)
+        navigate(`/product/${id}`)
+    }
+
     return (
-        <li className={styles.card}>
+        <li onClick={detail}  className={styles.card}>
+            <img src={cover_image} alt={title} />
+            <h3 className='heading-5-600'>{title}</h3>
+
+            <p className='body-1-400'>{description}</p>
+
             <figure>
                 <img src={cover_image} alt={title} />
                 {!findUrl ? <></> : <span className={`heading-7-500`} style={is_active === true ? { backgroundColor: '#4529E6' } : { backgroundColor: '#adb5bd' }}>{is_active === true ? 'Ativo' : 'Inativo'}</span>}

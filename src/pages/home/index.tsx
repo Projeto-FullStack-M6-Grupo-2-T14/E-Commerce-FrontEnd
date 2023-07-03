@@ -26,6 +26,7 @@ const HomePage = () => {
     }, [setFilteredPosters])
 
     const posterCardUserSchema = z.object({
+        id: z.number(),
         name: z.string(),
         email: z.string(),
         cpf: z.string(),
@@ -36,6 +37,7 @@ const HomePage = () => {
     })
     type TPosterCard = z.infer<typeof posterCardSchema>
     const posterCardSchema = z.object({
+        id: z.number(),
         cover_image: z.string(),
         title: z.string(),
         description: z.string(),
@@ -46,7 +48,10 @@ const HomePage = () => {
         brand: z.string(),
         model: z.string(),
         color: z.string(),
-        fuel: z.string()
+        fuel: z.string(),
+        fipe_price: z.string(),
+        is_active: z.boolean(),
+        created_at: z.string()
     })
     const posterCardListSchema = z.array(posterCardSchema)
     const filter = (filterName: string, propertyName: keyof TPosterCard) => {

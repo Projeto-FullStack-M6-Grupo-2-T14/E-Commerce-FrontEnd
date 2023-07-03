@@ -4,6 +4,7 @@ import { AxiosError } from "axios"
 import { z } from 'zod'
 import { iCreatePoster } from "src/pages/profileSeller/components/Modals/modalCreate/modalCreate.schema"
 import { iUpdatePoster } from "src/pages/profileSeller/components/Modals/modalUpdate/modalUpdate.schema"
+import { TComment, TDetailPoster } from "src/components/DetailPoster/schemas"
 
 
 interface IPosterProviderProps {
@@ -19,6 +20,12 @@ interface IPosterContext {
   createPosterAndImgs: (data: iCreatePoster) => Promise<void>;
   updatePosterAndImgs: (data: iUpdatePoster, idCard: string) => Promise<void>;
   excludePoster: (id: string) => Promise<void>;
+  posterData: TDetailPoster | null;
+  setPosterData: Dispatch<SetStateAction<TDetailPoster | null>>;
+  comments: TComment[];
+  setComments: Dispatch<SetStateAction<TComment[]>>;
+  posterId: number
+  setPosterId: Dispatch<SetStateAction<number>>;
 }
 
 export type TPosterCardList = z.infer<typeof posterCardListSchema>
@@ -41,8 +48,12 @@ const posterCardSchema = z.object({
   mileage: z.string(),
   year: z.string(),
   price: z.string(),
+  created_at: z.string(),
+  model: z.string(),
+  color: z.string(),
+  fuel: z.string(),
+  fipe_price: z.string(),
   is_active: z.boolean(),
-  user: posterCardUserSchema,
 })
 
 export type TAllPosterUser = z.infer<typeof allPosterUserSchema>
@@ -64,7 +75,7 @@ const allPosterSchema = z.object({
   title: z.string().max(120),
   brand: z.string().max(120),
   model: z.string().max(300),
-  year: z.string().or(z.date()),
+  year: z.string(),
   fuel: z.string().max(80),
   mileage: z.string().max(20),
   color: z.string().max(120),
@@ -85,21 +96,9 @@ const PosterProvider = ({ children }: IPosterProviderProps) => {
   const [filteredPosters, setFilteredPosters] = useState<TPosterCardList>([])
   const [loadPosters, setLoadPosters] = useState(true)
   const [allPosters, setAllPosters] = useState<TAllPosterList>([])
-
-
-  // const getAllUsersPosters = async (): Promise<void> => {
-  //   try {
-  //     const response = await ApiShop.get(`/users/posters/${seller?.id}`)
-  //     const postersList = posterCardListSchema.parse(response.data)
-
-  //     console.log(postersList)
-
-  //     setFilteredPosters(postersList)
-  //   } catch (error) {
-  //     const axiosError = error as AxiosError
-  //     console.error(axiosError.message)
-  //   }
-  // }
+  const [ posterData, setPosterData ] = useState<TDetailPoster | null>(null)
+  const [ comments, setComments ] = useState<TComment[]>([])
+  const [ posterId, setPosterId ] = useState<number>(0)
 
 
   const getPosters = async (): Promise<void> => {
@@ -219,7 +218,13 @@ const PosterProvider = ({ children }: IPosterProviderProps) => {
         setAllPosters,
         createPosterAndImgs,
         updatePosterAndImgs,
-        excludePoster
+        excludePoster,
+        posterData,
+        setPosterData,
+        comments,
+        setComments,
+        posterId,
+        setPosterId
       }} >
       {children}
     </PosterContext.Provider>

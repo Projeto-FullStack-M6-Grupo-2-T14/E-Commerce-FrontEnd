@@ -31,7 +31,7 @@ interface IUserContext {
   updateUser: (data: iUpdateUser, idUser: number | null) => void
 }
 
-interface IUser {
+export interface IUser {
   id: number;
   name: string;
   email: string;

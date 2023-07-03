@@ -30,7 +30,7 @@ const ModalUpdateAddress = ({ close_modal, userId }: iModalUpdateAddress) => {
 
     const submitUpdateAddress: SubmitHandler<iUpdateAddress> = (addressData: iUpdateAddress) => {
         const data = Object.fromEntries(Object.entries(addressData).filter(([_, v]) => v != null && v !== ""))
-        updateAddress(data, userId)
+        updateAddress(data, String(userId))
         close_modal(false)
     };
 
