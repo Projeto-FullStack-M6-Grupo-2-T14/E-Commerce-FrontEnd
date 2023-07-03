@@ -5,23 +5,24 @@ import { ApiShop } from "src/services/Api"
 import { useCallback, useContext, useEffect, useState } from "react"
 import { PosterContext } from "src/contexts/posterContext"
 import styles from './createComment.module.sass'
+import { useNavigate } from "react-router-dom"
 
 
 const CreateComment = ({posterId }: { posterId: number }) => {
     const { comments, setComments } = useContext(PosterContext)
     const [ loggedUserName, setLoggedUserName ] = useState('')
+    const navigate = useNavigate()
     const {
         register,
         handleSubmit,
-        formState: { errors },
         getValues,
+        reset
     } = useForm({
         resolver: zodResolver(createCommentSchema),
     })
     const retrieveUserName = async (userId: number) => {
         try {
         const response = await ApiShop.get(`/users/${userId}`)
-        const userData = response.data
         setLoggedUserName(response.data.name)
         } catch (error) {
         console.log(error)
@@ -44,6 +45,9 @@ const CreateComment = ({posterId }: { posterId: number }) => {
 
         try {
             const token = localStorage.getItem('@TOKEN')
+            if(!token){
+                navigate('/')
+            }
             const response = await ApiShop.post(`/comments/${posterId}`, data, {
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -53,11 +57,11 @@ const CreateComment = ({posterId }: { posterId: number }) => {
                 ...comments,
                 response.data
             ])
-            console.log(response)
+            reset()
         } catch (error) {
             console.error(error)
         }
-    }, [posterId, getValues])
+    }, [posterId, getValues, comments, reset])
     function generateColor() {
         const letters = '0123456789ABCDEF'
         let color = '#'

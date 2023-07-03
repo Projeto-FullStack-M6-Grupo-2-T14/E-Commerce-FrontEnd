@@ -23,7 +23,7 @@ const ProfileSellerPage = () => {
     const [openExclude, setOpenExclude] = useState(false)
 
 
-    const { user, seller, sellerProfile } = useContext(UserContext)
+    const { user, seller, sellerProfile, getInitials } = useContext(UserContext)
 
     const [openUpdateUser, setOpenUpdateUser] = useState(false)
     const [openUpdateAddress, setOpenUpdateAddress] = useState(false)
@@ -43,7 +43,7 @@ const ProfileSellerPage = () => {
                     seller ?
                         <SectionProfile seller={seller} open_modal={setOpenCreate} initial_name={seller?.name} name={seller?.name ?? ""} description={seller?.description ?? ""} />
                         :
-                        <SectionProfile open_modal={setOpenCreate} initial_name={user?.name} name={user?.name ?? ""} description={user?.description ?? ""} />
+                        <SectionProfile open_modal={setOpenCreate} initial_name={getInitials(user?.name)} name={user?.name ?? ""} description={user?.description ?? ""} />
                 }
                 <SectionPosters open_update={setOpenUpdate} />
             </main>

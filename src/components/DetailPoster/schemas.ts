@@ -9,6 +9,7 @@ export const detPostUserSchema = z.object({
 export const commentSchema = z.object({
     id: z.number(),
     text: z.string(),
+	created_at: z.string(),
     user: detPostUserSchema
 })
 

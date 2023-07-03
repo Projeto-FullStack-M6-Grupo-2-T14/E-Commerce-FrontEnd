@@ -32,6 +32,18 @@ const ListComments = ({comment}: { comment: TComment }) => {
 
     return initials;
   }
+  const commentDate = () => {
+    const dateString: string = comment.created_at
+    const dateCommented = new Date(dateString)
+    const currentDate = new Date()
+    const differenceInMiliseconds = currentDate.getTime() - dateCommented.getTime()
+    const timeDifference = Math.floor(differenceInMiliseconds / (1000 * 60 * 60 * 24))
+    if(timeDifference < 1) {
+      return `- hoje`
+    } else {
+      return `- há ${timeDifference} dias`
+    }
+  }
 
   return (
     <div className={styles.commentContainer}>
@@ -40,8 +52,8 @@ const ListComments = ({comment}: { comment: TComment }) => {
             <figcaption className='body-2-500'>
                 <Link to={`/profile/seller?seller_id=${comment.user.id}`}>{userName}</Link>
             </figcaption>
+        <span className={styles.commentDate}>{commentDate()}</span>
         </figure>
-
       <div className={styles.commentText}>
         <p className="body-2-400">{comment.text}</p>
       </div>

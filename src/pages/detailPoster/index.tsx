@@ -9,7 +9,6 @@ import { PosterContext } from 'src/contexts/posterContext'
 import photos from './../../assets/images/Frame 41.png'
 import SellerInfo from 'src/components/SellerInfo'
 import { TSellerInfo } from 'src/components/SellerInfo/sellerInfo.schemas'
-import { UserContext } from 'src/contexts/userContext'
 import { useNavigate } from 'react-router-dom'
 import Footer from 'src/components/home/Footer'
 
@@ -20,7 +19,6 @@ const DetailPosterPage = () => {
         name: '',
         description: ''
     }
-    const { user } = useContext(UserContext)
     const [ loading, setLoading ] = useState(true)
     const {  posterData, setPosterData, comments, setComments, posterId, setPosterId  } = useContext(PosterContext)
     const [ sellerInfo, setSellerInfo ] = useState<TSellerInfo>(emptySeller)
@@ -54,6 +52,7 @@ return (
         ) : (
         <>
             <Header />
+            <div className={styles.blueBackground}>TESTE</div>
             <main className={styles.detpostMain}>
             <div className={styles.detpostContainer}>
                 <div className={styles.detpostLeftContainer}>

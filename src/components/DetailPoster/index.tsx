@@ -27,7 +27,7 @@ const DetailPoster = ({posterData}: {posterData: TDetailPoster}) => {
                                     </div>
                                     <div>
                                         <button className = {styles.detpostBtn}>
-                                            Comprar
+                                        <a className={styles.buy} href="https://wa.me/5545999302865" target='_blank' rel="noreferrer noopener">Comprar</a>
                                         </button>
                                     </div>
                                 </div>

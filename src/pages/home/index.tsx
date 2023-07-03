@@ -22,6 +22,7 @@ const HomePage = () => {
     }, [setFilteredPosters])
 
     const posterCardUserSchema = z.object({
+        id: z.number(),
         name: z.string(),
         email: z.string(),
         cpf: z.string(),
@@ -43,7 +44,10 @@ const HomePage = () => {
         brand: z.string(),
         model: z.string(),
         color: z.string(),
-        fuel: z.string()
+        fuel: z.string(),
+        fipe_price: z.string(),
+        is_active: z.boolean(),
+        created_at: z.string()
     })
 
     const posterCardListSchema = z.array(posterCardSchema)
