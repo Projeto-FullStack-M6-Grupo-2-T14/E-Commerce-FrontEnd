@@ -1,19 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useState } from "react"
+import Footer from "src/components/Footer"
+import Header from "src/components/Header"
 import { UserContext } from "src/contexts/userContext"
-import SectionPosters from "src/components/profile/SectionPosters"
-import SectionProfile from "src/components/profile/SectionProfile"
-import ModalConfCreate from "src/components/profile/Modals/modalConfCreate"
-import ModalConfUpdate from "src/components/profile/Modals/modalConfUpdate"
-import ModalCreatePoster from "src/components/profile/Modals/modalCreate"
-import ModalDelete from "src/components/profile/Modals/modalDelete"
-import ModalUpdate from "src/components/profile/Modals/modalUpdate"
 
-import Header from "src/components/home/Header"
-import Footer from "src/components/home/Footer"
+import ModalConfCreate from "./components/Modals/modalConfCreate"
+import ModalConfUpdate from "./components/Modals/modalConfUpdate"
+import ModalCreatePoster from "./components/Modals/modalCreate"
+import ModalDelete from "./components/Modals/modalDelete"
+import ModalUpdate from "./components/Modals/modalUpdate"
+import ModalUpdateAddress from "./components/Modals/modalUpdateAddress"
+import ModalUpdateUser from "./components/Modals/modalUpdateUser"
+import SectionPosters from "./components/SectionPosters"
+import SectionProfile from "./components/SectionProfile"
 
-import ModalUpdateUser from "src/components/profile/Modals/modalUpdateUser"
-import ModalUpdateAddress from "src/components/profile/Modals/modalUpdateAddress"
+
+
 
 const ProfileSellerPage = () => {
     const [openCreate, setOpenCreate] = useState(false)

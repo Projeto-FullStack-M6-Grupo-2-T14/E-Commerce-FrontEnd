@@ -2,8 +2,8 @@ import { Context, Dispatch, ReactNode, SetStateAction, createContext, useState }
 import { ApiShop } from "src/services/Api"
 import { AxiosError } from "axios"
 import { z } from 'zod'
-import { iCreatePoster } from "src/components/profile/Modals/modalCreate/modalCreate.schema"
-import { iUpdatePoster } from "src/components/profile/Modals/modalUpdate/modalUpdate.schema"
+import { iCreatePoster } from "src/pages/profileSeller/components/Modals/modalCreate/modalCreate.schema"
+import { iUpdatePoster } from "src/pages/profileSeller/components/Modals/modalUpdate/modalUpdate.schema"
 
 
 interface IPosterProviderProps {

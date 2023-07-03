@@ -1,15 +1,16 @@
 import { useContext, useEffect, useState } from "react"
 import { AiOutlineCloseSquare } from "react-icons/ai"
-import ListFilter from "../../components/home/ListFilter"
-import ButtonFilter from "src/components/home/ButtonFilter"
-import Footer from "src/components/home/Footer"
-import Header from "src/components/home/Header"
-import BackgroundImage from "src/components/home/BackgroundImage"
+
 import Card from "src/components/Card"
 import { PosterContext } from "src/contexts/posterContext"
 import { z } from 'zod'
 import styles from "./home.module.sass"
 import { UserContext } from "src/contexts/userContext"
+import Header from "src/components/Header"
+import BackgroundImage from "./components/BackgroundImage"
+import Footer from "src/components/Footer"
+import ButtonFilter from "./components/ButtonFilter"
+import ListFilter from "./components/ListFilter"
 
 const HomePage = () => {
     const [showFilters, setShowFilter] = useState(false)

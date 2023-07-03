@@ -1,4 +1,4 @@
-import logo from './../../../assets/images/mshoplogo.png'
+import logo from 'src/assets/images/mshoplogo.png'
 import styles from './footer.module.sass'
 
 
