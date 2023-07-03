@@ -1,15 +1,14 @@
 import { AxiosError } from "axios";
-import { Dispatch, SetStateAction, createContext, useContext, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, createContext, useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { TLoginData } from "src/components/forms/loginForm/loginFormSchema";
-import { TRegisterData } from "src/components/forms/registerForm/registerFormSchema";
 import { TNewPass } from "src/pages/newPassword/newPasswordSchema";
 import { ApiShop } from "src/services/Api";
 import jwt_decode from "jwt-decode";
 import { TSendEmail } from "src/pages/sendEmail/sendEmailSchema";
 import { iUpdateUser } from "src/components/profile/Modals/modalUpdateUser/modalUpdateUser.schema";
 import { toast } from "react-toastify";
-import { PosterContext } from "./posterContext";
+import { TRegisterData } from "src/components/forms/registerForm/registerFormSchema";
+import { TLoginData } from "src/components/forms/loginForm/loginFormSchema";
 
 interface IUserProviderProps {
   children: React.ReactNode;
@@ -18,7 +17,7 @@ interface IUserProviderProps {
 interface IUserContext {
   userRegister: (userData: TRegisterData) => Promise<void>;
   login: (loginData: TLoginData) => Promise<void>;
-  sellerProfile: () => Promise<any>;
+  sellerProfile: () => Promise<void>
   isSeller: boolean;
   successfullyCreated: boolean;
   setSuccessfullyCreated: Dispatch<SetStateAction<boolean>>;
@@ -73,9 +72,10 @@ const UserProvider = ({ children }: IUserProviderProps) => {
     const storedUserId = localStorage.getItem("@USER_ID");
     const token = localStorage.getItem("@TOKEN");
     const userId = storedUserId ? parseInt(storedUserId) : null;
-
-
     if (userId && token) {
+      const decodedToken = jwt_decode<{ id: number, is_seller: boolean }>(token)
+
+      setIsSeller(decodedToken.is_seller)
       retrieveUser(userId);
     }
   }, []);
@@ -92,10 +92,12 @@ const UserProvider = ({ children }: IUserProviderProps) => {
     }
   };
 
-  const retrieveUser = async (userId: number) => {
+  const retrieveUser = async (id: number) => {
     try {
-      const response = await ApiShop.get(`/users/${userId}`);
+      const response = await ApiShop.get(`/users/${id}`);
       const userData = response.data;
+
+      setUser(userData)
 
       return userData
 
@@ -119,14 +121,14 @@ const UserProvider = ({ children }: IUserProviderProps) => {
       localStorage.setItem("@TOKEN", token);
       localStorage.setItem("@USER_ID", String(userId));
 
+      toast.success("Login realizado com sucesso!")
+      navigate("/", { replace: true });
+
     } catch (error) {
       const axiosError = error as AxiosError;
       toast.error(`Ops, algo deu errado! ${axiosError.message}`)
       console.log(axiosError.message);
-    } finally {
-      toast.success("Login realizado com sucesso!")
-      navigate("/", { replace: true });
-    }
+    } 
   };
 
   const sellerProfile = async (): Promise<void> => {
@@ -134,11 +136,13 @@ const UserProvider = ({ children }: IUserProviderProps) => {
       const sellerId = searchParams.get('seller_id')
 
       if (sellerId) {
-        const sellerRes = await retrieveUser(parseInt(sellerId))
+        const sellerRes = await ApiShop.get(`/users/${sellerId}`)
 
-        const allUsersPosters = await ApiShop.get(`/users/posters/${sellerId}`)
+        if (sellerRes.data) {
+          const allUsersPosters = await ApiShop.get(`/users/posters/${sellerId}`)
 
-        setSeller({ ...sellerRes, posters: [...allUsersPosters.data] })
+          setSeller({ ...sellerRes.data, posters: [...allUsersPosters.data] })
+        }
       } else {
         const allUsersPosters = await ApiShop.get(`/users/posters/${user?.id}`)
 
@@ -149,9 +153,7 @@ const UserProvider = ({ children }: IUserProviderProps) => {
     } catch (error) {
       console.log(error);
     }
-    finally {
-      // navigate("/", { replace: true });
-    }
+
   };
 
   const updatePassword = async (newPassData: TNewPass): Promise<void> => {

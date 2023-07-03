@@ -1,6 +1,6 @@
-import LoginForm from "src/components/forms/LoginForm";
-import Header from "src/components/home/Header";
+import LoginForm from "src/components/forms/loginForm";
 import styles from "./login.module.sass"
+import Header from "src/components/Header";
 
 
 const LoginPage = () => {

@@ -1,0 +1,40 @@
+@import "../../../../styles/_colors.sass"
+
+#section_posters
+    display: flex
+    flex-direction: column
+    background-color: transparent
+    width: 90vw
+    height: fit-content
+    margin: 0 auto
+    text-align: left
+    justify-content: initial
+    margin-top: 80px
+
+    ul
+        display: flex
+        flex-wrap: wrap
+        gap: 35px
+        margin-left: 3%
+        margin-top: 5%
+
+.noPosters
+    margin: 0 0 10rem
+    display: flex
+    // flex-direction: column
+    justify-content: center
+    align-items: center
+    flex-wrap: wrap
+    row-gap: 1.6rem
+
+    img
+        width: 20rem
+    
+    h2
+        text-align: center
+        font-size: 3rem
+        color: $grey-3
+
+@media (max-width: 800px)
+    #section_posters
+        margin-top: 60px

@@ -1,19 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useState } from "react"
+import Footer from "src/components/Footer"
+import Header from "src/components/Header"
 import { UserContext } from "src/contexts/userContext"
-import SectionPosters from "src/components/profile/SectionPosters"
-import SectionProfile from "src/components/profile/SectionProfile"
-import ModalConfCreate from "src/components/profile/Modals/modalConfCreate"
-import ModalConfUpdate from "src/components/profile/Modals/modalConfUpdate"
-import ModalCreatePoster from "src/components/profile/Modals/modalCreate"
-import ModalDelete from "src/components/profile/Modals/modalDelete"
-import ModalUpdate from "src/components/profile/Modals/modalUpdate"
 
-import Header from "src/components/home/Header"
-import Footer from "src/components/home/Footer"
+import ModalConfCreate from "./components/Modals/modalConfCreate"
+import ModalConfUpdate from "./components/Modals/modalConfUpdate"
+import ModalCreatePoster from "./components/Modals/modalCreate"
+import ModalDelete from "./components/Modals/modalDelete"
+import ModalUpdate from "./components/Modals/modalUpdate"
+import ModalUpdateAddress from "./components/Modals/modalUpdateAddress"
+import ModalUpdateUser from "./components/Modals/modalUpdateUser"
+import SectionPosters from "./components/SectionPosters"
+import SectionProfile from "./components/SectionProfile"
 
-import ModalUpdateUser from "src/components/profile/Modals/modalUpdateUser"
-import ModalUpdateAddress from "src/components/profile/Modals/modalUpdateAddress"
+
+
 
 const ProfileSellerPage = () => {
     const [openCreate, setOpenCreate] = useState(false)
@@ -31,7 +33,7 @@ const ProfileSellerPage = () => {
 
     useEffect(() => {
         sellerProfile()
-    }, []);
+    }, [])
 
     const userId = user && user.id
 
@@ -41,11 +43,11 @@ const ProfileSellerPage = () => {
             <main>
                 {
                     seller ?
-                        <SectionProfile seller={seller} open_modal={setOpenCreate} initial_name={seller?.name} name={seller?.name ?? ""} description={seller?.description ?? ""} />
+                        <SectionProfile seller={seller} open_create_poster={setOpenCreate} open_update_user={setOpenUpdateUser} initial_name={seller?.name} name={seller?.name ?? ""} description={seller?.description ?? ""} />
                         :
-                        <SectionProfile open_modal={setOpenCreate} initial_name={getInitials(user?.name)} name={user?.name ?? ""} description={user?.description ?? ""} />
+                        <SectionProfile open_create_poster={setOpenCreate} open_update_user={setOpenUpdateUser} initial_name={user?.name} name={user?.name ?? ""} description={user?.description ?? ""} />
                 }
-                <SectionPosters open_update={setOpenUpdate} />
+                <SectionPosters open_update={setOpenUpdate} setCard={setIdCard} />
             </main>
             <Footer />
 
@@ -64,6 +66,7 @@ const ProfileSellerPage = () => {
             {
                 openExclude && <ModalDelete close_modal={setOpenExclude} cardId={idCard} />
             }
+            //edit user
             {
                 openUpdateUser && <ModalUpdateUser close_modal={setOpenUpdateUser} open_modal={setOpenUpdateAddress} userId={userId} />
             }

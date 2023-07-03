@@ -1,26 +1,20 @@
-import { useContext } from "react";
-import { Navigate, Outlet } from "react-router-dom";
-import { UserContext } from "src/contexts/userContext";
+import { Navigate, Outlet, useSearchParams } from "react-router-dom";
+
 
 const ProtectedRoutes = () => {
-  const { seller } = useContext(UserContext);
-  const token = localStorage.getItem('@TOKEN')
+  const [searchParams] = useSearchParams();
 
-  if (!token && !seller) {
+  // const { seller } = useContext(UserContext);
+  // const token = localStorage.getItem('@TOKEN')
+
+  const sellerId = searchParams.get('seller_id')
+
+  if (!sellerId) {
     return <Navigate to="/login" replace />;
   }
 
-  // if (!seller) {
-  //   return <Navigate to="/" replace />;
-  // }
-
-
-
-  // if (isSeller) {
-  //   return <Navigate to="/admin" replace />;
-  // } else {
   return <Outlet />;
-  // }
+
 };
 
 export default ProtectedRoutes;

@@ -1,69 +1,91 @@
 @import "./../../styles/_colors"
 
 .card
-    width: 310px
     display: flex
-    flex-direction: column 
-    gap: 1%
-    border-radius: 8px
-    border: 2px solid transparent
-    transition: 0.3s ease
-    padding: 8px
-    height: 400px
-
-    h3
-        color:$grey-1
-        margin: 2% 0
-
-    p
-        color:$grey-2
-
-    img
-        width: 100%
-        height: 152px
-        background:$grey-7
-    
-    figure
-        display: flex
-        align-items: center
-        gap: 1.5%
-        margin-top: 5%
-        margin-bottom: 3%
-
-        div
-            border-radius: 50%
-            width: 40px
-            height: 40px
-            color:$white-fixed
-            text-align: center
-            display: flex
-            align-items: center
-            justify-content: center
-        
-        figcaption
-            color:$grey-2
-
-    .boxInfocar
-        display: flex
-        justify-content: space-between
-        color:$grey-1
-        margin-top: 4%
-        align-items: center
-
-        div
-            display: flex
-
-        div .spanInfocar
-            background-color:$brand-4
-            border-radius: 4px
-            margin-right: 12px
-            padding: 6px
-            color:$brand-1
-
-.card:hover
-    border: 2px solid$brand-1
+    flex-direction: column
+    gap: 15px
+    width: 300px
     cursor: pointer
     transition: 0.3s ease
+    border: 3px solid transparent
+    padding: 5px
+    border-radius: 5px
+
+    figure
+        background-color: $grey-7
+        border-radius: 5px
+        width: 285px
+        height: 170px
+
+        img
+            width: 285px
+            height: 170px
+            position: absolute
+        
+        span
+            display: flex
+            position: relative
+            top: 15px
+            left: 15px
+            padding: 5px
+            background-color: $brand-1
+            color: $white-fixed
+            width: fit-content
+
+.card:hover
+    transition: 0.3s ease
+    border: 3px solid $brand-1
+
+.boxProfile
+    display: flex
+    align-items: center
+    gap: 10px
+
+    span
+        display: flex
+        justify-content: center
+        align-items: center
+        border-radius: 50%
+        background-color: $brand-1
+        width: 40px
+        height: 40px
+        color: $white-fixed
+
+.boxInfo
+    display: flex
+    justify-content: space-between
+    align-items: center
+    margin-top: 2%
+
+    div
+        display: flex
+        gap: 10px
+
+        span
+            color: $brand-1
+            background-color: $brand-4
+            border-radius: 5px
+            padding: 4px
+
+.boxBtns
+    display: flex
+    align-items: center
+    gap: 15px
+
+    button
+        display: flex
+        justify-contetn: center
+        align-items: center
+        border: 3px solid $grey-5
+        border-radius: 5px
+        background-color: $grey-8
+        transition: 0.3s ease
+    
+    button:hover
+        color: $white-fixed
+        border: 3px solid $grey-0
+        background-color: $grey-0
+
 
 
 @media (max-width: 800px)
