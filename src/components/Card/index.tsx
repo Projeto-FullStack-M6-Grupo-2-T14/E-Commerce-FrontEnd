@@ -41,11 +41,7 @@ const Card = ({ id, cover_image, title, description, initial_name, name_profile,
 
     return (
         <li onClick={detail}  className={styles.card}>
-            <img src={cover_image} alt={title} />
-            <h3 className='heading-5-600'>{title}</h3>
-
-            <p className='body-1-400'>{description}</p>
-
+            
             <figure>
                 <img src={cover_image} alt={title} />
                 {!findUrl ? <></> : <span className={`heading-7-500`} style={is_active === true ? { backgroundColor: '#4529E6' } : { backgroundColor: '#adb5bd' }}>{is_active === true ? 'Ativo' : 'Inativo'}</span>}
