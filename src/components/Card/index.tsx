@@ -17,9 +17,9 @@ interface iSectionPosters {
     year: string,
     price: string,
     is_active: boolean,
-    user_id: number,
+    user_id: number | undefined,
     open_update?: Dispatch<SetStateAction<boolean>>,
-    setCard?: Dispatch<SetStateAction<number | null>>,
+    setCard?: Dispatch<SetStateAction<number | null | undefined>>,
 }
 const Card = ({ id, cover_image, title, description, initial_name, name_profile, mileage, year, price, is_active, user_id, open_update, setCard }: iSectionPosters) => {
     const url = window.location.href

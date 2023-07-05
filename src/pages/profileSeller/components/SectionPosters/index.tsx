@@ -7,7 +7,7 @@ import semanuncio from 'src/assets/images/semanuncio.png'
 
 interface iSectionPoster {
     open_update: Dispatch<SetStateAction<boolean>>,
-    setCard?: Dispatch<SetStateAction<string>>
+    setCard?: Dispatch<SetStateAction<string | number | null | undefined>>
 }
 
 
@@ -28,10 +28,10 @@ const SectionPosters = ({ open_update, setCard }: iSectionPoster) => {
 
                         <ul>
                             {
-                                seller?.posters.map((poster: any, i: number) => <Card key={i}
-                                    initial_name={getInitials(poster.user.name)}
-                                    name_profile={poster.user.name ?? ""}
-                                    user_id={poster.user.id}
+                                seller?.posters.map((poster, i: number) => <Card key={i}
+                                    initial_name={getInitials(seller.name)}
+                                    name_profile={seller.name ?? ""}
+                                    user_id={seller.id}
                                     open_update={open_update}
                                     setCard={setCard} {...poster} />)
                             }

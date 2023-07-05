@@ -54,11 +54,16 @@ const posterCardSchema = z.object({
   fuel: z.string(),
   fipe_price: z.string(),
   is_active: z.boolean(),
+  user: z.object({
+    id: z.number(),
+    name: z.string()
+  })
 })
 
 export type TAllPosterUser = z.infer<typeof allPosterUserSchema>
 
 const allPosterUserSchema = z.object({
+  id: z.number(),
   name: z.string().max(100),
   email: z.string().max(60),
   cpf: z.string().max(11),
@@ -96,9 +101,9 @@ const PosterProvider = ({ children }: IPosterProviderProps) => {
   const [filteredPosters, setFilteredPosters] = useState<TPosterCardList>([])
   const [loadPosters, setLoadPosters] = useState(true)
   const [allPosters, setAllPosters] = useState<TAllPosterList>([])
-  const [ posterData, setPosterData ] = useState<TDetailPoster | null>(null)
-  const [ comments, setComments ] = useState<TComment[]>([])
-  const [ posterId, setPosterId ] = useState<number>(0)
+  const [posterData, setPosterData] = useState<TDetailPoster | null>(null)
+  const [comments, setComments] = useState<TComment[]>([])
+  const [posterId, setPosterId] = useState<number>(0)
 
 
   const getPosters = async (): Promise<void> => {
