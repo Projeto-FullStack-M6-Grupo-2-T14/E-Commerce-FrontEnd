@@ -1,19 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useState } from "react"
+import Footer from "src/components/Footer"
+import Header from "src/components/Header"
 import { UserContext } from "src/contexts/userContext"
-import SectionPosters from "src/components/profile/SectionPosters"
-import SectionProfile from "src/components/profile/SectionProfile"
-import ModalConfCreate from "src/components/profile/Modals/modalConfCreate"
-import ModalConfUpdate from "src/components/profile/Modals/modalConfUpdate"
-import ModalCreatePoster from "src/components/profile/Modals/modalCreate"
-import ModalDelete from "src/components/profile/Modals/modalDelete"
-import ModalUpdate from "src/components/profile/Modals/modalUpdate"
 
-import Header from "src/components/home/Header"
-import Footer from "src/components/home/Footer"
-
-import ModalUpdateUser from "src/components/profile/Modals/modalUpdateUser"
-import ModalUpdateAddress from "src/components/profile/Modals/modalUpdateAddress"
+import ModalConfCreate from "./components/Modals/modalConfCreate"
+import ModalConfUpdate from "./components/Modals/modalConfUpdate"
+import ModalCreatePoster from "./components/Modals/modalCreate"
+import ModalDelete from "./components/Modals/modalDelete"
+import ModalUpdate from "./components/Modals/modalUpdate"
+import ModalUpdateAddress from "./components/Modals/modalUpdateAddress"
+import ModalUpdateUser from "./components/Modals/modalUpdateUser"
+import SectionPosters from "./components/SectionPosters"
+import SectionProfile from "./components/SectionProfile"
 
 const ProfileSellerPage = () => {
     const [openCreate, setOpenCreate] = useState(false)
@@ -21,11 +20,10 @@ const ProfileSellerPage = () => {
     const [openUpdate, setOpenUpdate] = useState(false)
     const [openConfUpdate, setOpenConfUpdate] = useState(false)
     const [openExclude, setOpenExclude] = useState(false)
+    const { user, seller, sellerProfile, getInitials } = useContext(UserContext)
     const [openUpdateUser, setOpenUpdateUser] = useState(false)
     const [openUpdateAddress, setOpenUpdateAddress] = useState(false)
-    const [idCard, setIdCard] = useState('')
-
-    const { user, seller, sellerProfile } = useContext(UserContext)
+    const [idCard, setIdCard] = useState<string | undefined>('');
 
     useEffect(() => {
         sellerProfile()
@@ -41,7 +39,7 @@ const ProfileSellerPage = () => {
                     seller ?
                         <SectionProfile seller={seller} open_create_poster={setOpenCreate} open_update_user={setOpenUpdateUser} initial_name={seller?.name} name={seller?.name ?? ""} description={seller?.description ?? ""} />
                         :
-                        <SectionProfile open_create_poster={setOpenCreate} open_update_user={setOpenUpdateUser} initial_name={user?.name} name={user?.name ?? ""} description={user?.description ?? ""} />
+                        <SectionProfile open_create_poster={setOpenCreate} open_update_user={setOpenUpdateUser} initial_name={getInitials(user?.name)} name={user?.name ?? ""} description={user?.description ?? ""} />
                 }
                 <SectionPosters open_update={setOpenUpdate} setCard={setIdCard} />
             </main>
@@ -54,13 +52,13 @@ const ProfileSellerPage = () => {
                 openConfCreate && <ModalConfCreate close_modal={setOpenConfCreate} />
             }
             {
-                openUpdate && <ModalUpdate open_modal={setOpenConfUpdate} close_modal={setOpenUpdate} open_exclude={setOpenExclude} cardId={idCard} />
+                openUpdate && <ModalUpdate open_modal={setOpenConfUpdate} close_modal={setOpenUpdate} open_exclude={setOpenExclude} cardId={idCard ?? ''} />
             }
             {
                 openConfUpdate && <ModalConfUpdate close_modal={setOpenConfUpdate} />
             }
             {
-                openExclude && <ModalDelete close_modal={setOpenExclude} cardId={idCard} />
+                openExclude && <ModalDelete close_modal={setOpenExclude} cardId={idCard ?? ''} />
             }
             //edit user
             {

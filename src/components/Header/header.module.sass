@@ -1,0 +1,149 @@
+@import "../../styles/_colors.sass"
+
+svg
+  font-size: 3rem !important
+
+#container
+  display: flex
+  justify-content: space-between
+  align-items: center
+  background-color: $grey-10
+  padding: 0 2rem
+  border-bottom: 2px solid $grey-6
+  width: 100vw
+  height: 100px
+
+  h1
+    background: linear-gradient(90deg, #0B0D0D -1.61%, #4529E6 100.99%)
+    -webkit-background-clip: text
+    -webkit-text-fill-color: transparent
+    display: flex
+    margin-left: 4%
+    align-items: center
+    justify-content: center
+    gap: 3%
+  h1 > span
+    display: flex
+    width: 80px
+    margin-top: 2%
+
+
+.linkLogin, .linkRegister
+  cursor: pointer
+  font-size: 1.6rem
+  font-weight: 600
+  transition: 0.3s ease
+
+.linkLogin
+    color: $brand-1
+
+    &:hover
+      color: $brand-3
+
+.linkRegister
+  padding: 1.2rem 2.8rem
+  border-radius: 4px
+  border: 2px solid $grey-4
+  color: $grey-1
+  background-color: $grey-9
+
+  &:hover
+    color: $white-fixed
+    background-color: $grey-1
+    border: 2px solid $grey-1
+
+
+.buttonContainer, .buttonContainerMobile
+  display: flex
+  align-items: center
+  justify-content: space-between
+  column-gap: 1.6rem
+
+.buttonContainer
+
+  a
+    font-size: 2rem
+  
+.logout
+  background-color: $alert-3 
+  padding: 10px
+  width: 120px
+  border-radius: 5px
+  display: flex
+  align-items: center
+  justify-content: center
+  color: $grey-2
+  font-size: 1.8rem
+  font-weight: 500
+  transition: 0.3s ease
+
+.figureContainer, .figureContainerMobile
+  display: flex
+  align-items: center
+  column-gap: 1.7rem 
+      
+  figure
+    display: flex
+    align-items: center
+    gap: 10px
+
+    .hr
+      background-color: $grey-6
+      padding: 1.5px
+      height: 100px
+      margin-right: 20px
+      
+      
+
+    .iconProfile
+      padding: 1rem 1.5rem
+      color: $white-fixed
+      background-color: $brand-1
+      border-radius: 50%
+
+    figcaption
+      a
+        color: inherit
+
+.mobileMenu
+  display: flex
+  justify-content: center
+  position: absolute
+  width: 100vw
+  height: 100px
+  top: -100px
+  transition: 0.3s ease
+  background-color: $white-fixed
+  z-index: 1
+
+  &.open
+    top: 7.5rem
+    @media screen and (max-width: 315px)
+
+
+.mobileMenuIcon
+  display: none
+
+.hidden
+  display: none
+
+
+@media screen and (max-width: 560px)
+  .buttonContainer, .figureContainer
+      display: none
+
+  .mobileMenuIcon, .visible
+    display: block
+
+@media (max-width: 800px)
+  #container h1
+    font-size: 3rem
+    font-weight: 700
+
+  #container h1 > span
+    font-size: 2.5rem
+    font-weight: 600
+  
+  #container
+    margin-left: 0
+

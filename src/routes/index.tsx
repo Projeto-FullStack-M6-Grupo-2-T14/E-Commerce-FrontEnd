@@ -6,6 +6,7 @@ import NewPasswordPage from 'src/pages/newPassword'
 import ProtectedRoutes from 'src/components/protectedRoutes'
 import SendEmailPage from 'src/pages/sendEmail'
 import ProfileSellerPage from 'src/pages/profileSeller'
+import DetailPoster from 'src/pages/detailPoster'
 
 
 const RoutesMain = () => (
@@ -15,6 +16,7 @@ const RoutesMain = () => (
         <Route path='/login' element={<LoginPage />} />
         <Route path='/login/newPassword' element={<NewPasswordPage />} />
         <Route path='/login/sendEmail' element={<SendEmailPage />} />
+        <Route path='/product/:id' element={<DetailPoster />} />
         <Route path='/profile' element={<ProtectedRoutes />}>
             <Route path='/profile/seller' element={<ProfileSellerPage />} />
         </Route>

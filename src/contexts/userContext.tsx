@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { AxiosError } from "axios";
 import { Dispatch, SetStateAction, createContext, useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -5,10 +6,10 @@ import { TNewPass } from "src/pages/newPassword/newPasswordSchema";
 import { ApiShop } from "src/services/Api";
 import jwt_decode from "jwt-decode";
 import { TSendEmail } from "src/pages/sendEmail/sendEmailSchema";
-import { iUpdateUser } from "src/components/profile/Modals/modalUpdateUser/modalUpdateUser.schema";
 import { toast } from "react-toastify";
 import { TRegisterData } from "src/components/forms/registerForm/registerFormSchema";
 import { TLoginData } from "src/components/forms/loginForm/loginFormSchema";
+import { iUpdateUser } from "src/pages/profileSeller/components/Modals/modalUpdateUser/modalUpdateUser.schema";
 
 interface IUserProviderProps {
   children: React.ReactNode;
@@ -25,13 +26,13 @@ interface IUserContext {
   updatePassword: (newPassData: TNewPass) => Promise<void>;
   userLogout: () => void;
   user: IUser | null;
-  seller: any | null;
+  seller: TAllUserPoster | null;
   getInitials: (name: string | undefined) => string;
   excludeUser: (id: number | null) => void;
   updateUser: (data: iUpdateUser, idUser: number | null) => void
 }
 
-interface IUser {
+export interface IUser {
   id: number;
   name: string;
   email: string;
@@ -43,6 +44,64 @@ interface IUser {
   is_seller: boolean;
   address: IAddress;
 }
+
+interface posters {
+  id?: number,
+  cover_image?: string,
+  title?: string,
+  description?: string,
+  mileage?: string,
+  year?: string,
+  price?: string,
+  created_at?: string,
+  model?: string,
+  color?: string,
+  fuel?: string,
+  fipe_price?: string,
+  is_active?: boolean,
+}
+
+
+export interface TAllUserPoster {
+  id?: number,
+  name?: string,
+  email?: string,
+  password?: string,
+  cpf?: string,
+  phone?: string,
+  birthday?: string,
+  description?: string,
+  is_seller?: boolean,
+  posters: posters[]
+}
+
+
+// const allUserPosters = z.object({
+//   id: z.number(),
+//   name: z.string(),
+//   email: z.string(),
+//   password: z.string(),
+//   cpf: z.string(),
+//   phone: z.string(),
+//   birthday: z.string(),
+//   description: z.string(),
+//   is_seller: z.boolean(),
+//   posters: z.object({
+//     id: z.number(),
+//     cover_image: z.string(),
+//     title: z.string(),
+//     description: z.string(),
+//     mileage: z.string(),
+//     year: z.string(),
+//     price: z.string(),
+//     created_at: z.string(),
+//     model: z.string(),
+//     color: z.string(),
+//     fuel: z.string(),
+//     fipe_price: z.string(),
+//     is_active: z.boolean(),
+//   }).array()
+// })
 
 interface IAddress {
   cep: string;
@@ -62,7 +121,7 @@ export const UserContext = createContext({} as IUserContext);
 
 const UserProvider = ({ children }: IUserProviderProps) => {
   const [user, setUser] = useState<IUser | null>(null)
-  const [seller, setSeller] = useState<any | null>(null)
+  const [seller, setSeller] = useState<TAllUserPoster | null>(null)
   const [isSeller, setIsSeller] = useState(false);
   const [successfullyCreated, setSuccessfullyCreated] = useState(false);
   const navigate = useNavigate();
@@ -128,7 +187,7 @@ const UserProvider = ({ children }: IUserProviderProps) => {
       const axiosError = error as AxiosError;
       toast.error(`Ops, algo deu errado! ${axiosError.message}`)
       console.log(axiosError.message);
-    } 
+    }
   };
 
   const sellerProfile = async (): Promise<void> => {

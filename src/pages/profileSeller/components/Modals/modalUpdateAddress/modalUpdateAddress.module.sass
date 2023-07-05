@@ -1,0 +1,31 @@
+@import "../../../../../styles/_colors.sass"
+
+.box_btns
+    button
+        border-radius: 5px
+        font-weight: 600
+        transition: 0.3s ease
+
+    .btn_exit
+       background-color: $grey-6
+       color: $grey-2    
+
+    .btn_save
+       background-color: $brand-3
+       color: $white-fixed
+    
+    .btn_exit:hover
+       background-color: $grey-2
+       color: $white-fixed   
+
+    .btn_save:hover
+       background-color: $brand-1
+       color: $white-fixed
+
+@media (max-width: 800px) 
+    .box_btns button
+        font-size: 13px
+        padding: 10px
+    
+    .box_btns
+        max-width: 95%

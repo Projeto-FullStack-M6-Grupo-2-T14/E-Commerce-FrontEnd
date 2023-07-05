@@ -1,10 +1,10 @@
 import { useContext } from "react";
 import RegisterForm from "src/components/forms/registerForm";
-import Header from "src/components/home/Header";
 import SuccessfullyCreatedModal from "src/components/modals/created_successfully_modal";
 import { UserContext } from "src/contexts/userContext";
 
 import styles from "./register.module.sass"
+import Header from "src/components/Header";
 
 const RegisterPage = () => {
     const { successfullyCreated, setSuccessfullyCreated } = useContext(UserContext)
