@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useContext, useEffect, useState } from "react"
 import { AiOutlineCloseSquare } from "react-icons/ai"
 
@@ -131,9 +133,9 @@ const HomePage = () => {
                     {
                         filteredPosters.map((poster, i) =>
                             <Card key={i}
-                                initial_name={getInitials(poster.user.name)}
-                                name_profile={poster.user.name ?? ""}
-                                user_id={poster.user.id}
+                                initial_name={getInitials(poster.user?.name)}
+                                name_profile={poster.user?.name ?? ""}
+                                user_id={poster.user?.id}
                                 {...poster} />)
                     }
                 </ul>
