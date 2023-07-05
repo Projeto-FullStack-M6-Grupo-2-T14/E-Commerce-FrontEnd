@@ -3,7 +3,7 @@ import styles from './card.module.sass'
 import { Link, useNavigate } from 'react-router-dom'
 import { Dispatch, SetStateAction, useContext } from 'react'
 import { UserContext } from 'src/contexts/userContext'
-import { PosterContext, TPosterUser } from 'src/contexts/posterContext'
+import { PosterContext } from 'src/contexts/posterContext'
 
 
 interface iSectionPosters {
@@ -25,8 +25,8 @@ const Card = ({ id, cover_image, title, description, initial_name, name_profile,
     const url = window.location.href
     const findUrl = url.includes('profile')
 
-    const { user, sellerProfile } = useContext(UserContext)
-    const { posterId, setPosterId } = useContext(PosterContext)
+    const { user } = useContext(UserContext)
+    const { setPosterId } = useContext(PosterContext)
     const navigate = useNavigate()
 
     function openUpdate() {

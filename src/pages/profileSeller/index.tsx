@@ -14,9 +14,6 @@ import ModalUpdateUser from "./components/Modals/modalUpdateUser"
 import SectionPosters from "./components/SectionPosters"
 import SectionProfile from "./components/SectionProfile"
 
-
-
-
 const ProfileSellerPage = () => {
     const [openCreate, setOpenCreate] = useState(false)
     const [openConfCreate, setOpenConfCreate] = useState(false)
@@ -45,7 +42,7 @@ const ProfileSellerPage = () => {
                     seller ?
                         <SectionProfile seller={seller} open_create_poster={setOpenCreate} open_update_user={setOpenUpdateUser} initial_name={seller?.name} name={seller?.name ?? ""} description={seller?.description ?? ""} />
                         :
-                        <SectionProfile open_create_poster={setOpenCreate} open_update_user={setOpenUpdateUser} initial_name={user?.name} name={user?.name ?? ""} description={user?.description ?? ""} />
+                        <SectionProfile open_create_poster={setOpenCreate} open_update_user={setOpenUpdateUser} initial_name={getInitials(user?.name)} name={user?.name ?? ""} description={user?.description ?? ""} />
                 }
                 <SectionPosters open_update={setOpenUpdate} setCard={setIdCard} />
             </main>
