@@ -10,7 +10,6 @@ import { toast } from "react-toastify";
 import { TRegisterData } from "src/components/forms/registerForm/registerFormSchema";
 import { TLoginData } from "src/components/forms/loginForm/loginFormSchema";
 import { iUpdateUser } from "src/pages/profileSeller/components/Modals/modalUpdateUser/modalUpdateUser.schema";
-import { z } from "zod";
 
 interface IUserProviderProps {
   children: React.ReactNode;

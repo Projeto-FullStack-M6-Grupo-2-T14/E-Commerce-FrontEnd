@@ -7,20 +7,21 @@ import { PosterContext } from 'src/contexts/posterContext'
 
 
 interface iSectionPosters {
-    id: number,
-    cover_image: string,
-    title: string,
-    description: string,
-    initial_name: string,
-    name_profile: string,
-    mileage: string,
-    year: string,
-    price: string,
-    is_active: boolean,
-    user_id: number | undefined,
-    open_update?: Dispatch<SetStateAction<boolean>>,
-    setCard?: Dispatch<SetStateAction<number | null | undefined>>,
-}
+    id: number;
+    cover_image: string;
+    title: string;
+    description: string;
+    initial_name: string;
+    name_profile: string;
+    mileage: string;
+    year: string;
+    price: string;
+    is_active: boolean;
+    user_id: number | undefined;
+    open_update?: Dispatch<SetStateAction<boolean>>;
+    setCard: Dispatch<SetStateAction<number | null | undefined>>;
+  }
+
 const Card = ({ id, cover_image, title, description, initial_name, name_profile, mileage, year, price, is_active, user_id, open_update, setCard }: iSectionPosters) => {
     const url = window.location.href
     const findUrl = url.includes('profile')
