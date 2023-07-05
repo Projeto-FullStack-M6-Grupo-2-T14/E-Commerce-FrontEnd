@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { AxiosError } from "axios";
 import { Dispatch, SetStateAction, createContext, useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -5,10 +6,10 @@ import { TNewPass } from "src/pages/newPassword/newPasswordSchema";
 import { ApiShop } from "src/services/Api";
 import jwt_decode from "jwt-decode";
 import { TSendEmail } from "src/pages/sendEmail/sendEmailSchema";
-import { iUpdateUser } from "src/components/profile/Modals/modalUpdateUser/modalUpdateUser.schema";
 import { toast } from "react-toastify";
 import { TRegisterData } from "src/components/forms/registerForm/registerFormSchema";
 import { TLoginData } from "src/components/forms/loginForm/loginFormSchema";
+import { iUpdateUser } from "src/pages/profileSeller/components/Modals/modalUpdateUser/modalUpdateUser.schema";
 
 interface IUserProviderProps {
   children: React.ReactNode;
