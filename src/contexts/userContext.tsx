@@ -18,7 +18,7 @@ interface IUserProviderProps {
 interface IUserContext {
   userRegister: (userData: TRegisterData) => Promise<void>;
   login: (loginData: TLoginData) => Promise<void>;
-  sellerProfile: () => Promise<void>
+  // sellerProfile: () => Promise<void>
   isSeller: boolean;
   successfullyCreated: boolean;
   setSuccessfullyCreated: Dispatch<SetStateAction<boolean>>;
@@ -190,30 +190,33 @@ const UserProvider = ({ children }: IUserProviderProps) => {
     }
   };
 
-  const sellerProfile = async (): Promise<void> => {
-    try {
-      const sellerId = searchParams.get('seller_id')
-
-      if (sellerId) {
-        const sellerRes = await ApiShop.get(`/users/${sellerId}`)
-
-        if (sellerRes.data) {
-          const allUsersPosters = await ApiShop.get(`/users/posters/${sellerId}`)
-
-          setSeller({ ...sellerRes.data, posters: [...allUsersPosters.data] })
+  useEffect(() => {    
+    const sellerProfile = async (): Promise<void> => {
+      try {
+        const sellerId = searchParams.get('seller_id')
+  
+        if (sellerId) {
+          const sellerRes = await ApiShop.get(`/users/${sellerId}`)
+  
+          if (sellerRes.data) {
+            const allUsersPosters = await ApiShop.get(`/users/posters/${sellerId}`)
+  
+            setSeller({ ...sellerRes.data, posters: [...allUsersPosters.data] })
+          }
+        } else {
+          const allUsersPosters = await ApiShop.get(`/users/posters/${user?.id}`)
+  
+          setSeller({ ...user, posters: [...allUsersPosters.data] })
         }
-      } else {
-        const allUsersPosters = await ApiShop.get(`/users/posters/${user?.id}`)
-
-        setSeller({ ...user, posters: [...allUsersPosters.data] })
+  
+  
+      } catch (error) {
+        console.log(error);
       }
+    };
 
-
-    } catch (error) {
-      console.log(error);
-    }
-
-  };
+    sellerProfile()
+  }, [searchParams, seller, setSeller, user])
 
   const updatePassword = async (newPassData: TNewPass): Promise<void> => {
     try {
@@ -283,7 +286,6 @@ const UserProvider = ({ children }: IUserProviderProps) => {
       value={{
         userRegister,
         login,
-        sellerProfile,
         seller,
         isSeller,
         successfullyCreated,

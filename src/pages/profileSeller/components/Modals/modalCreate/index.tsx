@@ -31,8 +31,8 @@ const ModalCreatePoster = ({close_modal, open_modal}: iModalCreatePoster) => {
 
     const submitRegisterPoster: SubmitHandler<iCreatePoster> = (posterData: iCreatePoster) => {
         createPosterAndImgs(posterData)
-        close_modal(true)
-        open_modal(false)      
+        close_modal(false)
+        open_modal(true)      
     };
 
     return (

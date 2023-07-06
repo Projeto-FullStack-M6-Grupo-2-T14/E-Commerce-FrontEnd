@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useContext } from 'react';
 import styles from './sectionProfile.module.sass';
-import { UserContext } from 'src/contexts/userContext';
+import { TAllUserPoster, UserContext } from 'src/contexts/userContext';
 
 interface iSectionProfile {
     initial_name: string | undefined,
@@ -8,7 +8,7 @@ interface iSectionProfile {
     description: string,
     open_update_user: Dispatch<SetStateAction<boolean>>,
     open_create_poster: Dispatch<SetStateAction<boolean>>,
-    seller?: any
+    seller?: TAllUserPoster
 }
 
 const SectionProfile = ({ initial_name, name, description, open_update_user, open_create_poster, seller }: iSectionProfile) => {

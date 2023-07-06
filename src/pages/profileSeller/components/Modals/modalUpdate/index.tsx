@@ -37,7 +37,6 @@ const ModalUpdate = ({close_modal, open_modal, open_exclude, cardId}: iModalUpda
         updatePosterAndImgs(posterData, cardId)
         close_modal(false)
         open_modal(true)
-        window.location.reload()      
     };
 
     return (
