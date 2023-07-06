@@ -35,8 +35,8 @@ const ModalUpdate = ({close_modal, open_modal, open_exclude, cardId}: iModalUpda
     const submitUpdatePoster: SubmitHandler<iUpdatePoster> = (posterData: iUpdatePoster) => {
         posterData.is_active = !activePubButton
         updatePosterAndImgs(posterData, cardId)
-        close_modal(true)
-        open_modal(false)      
+        close_modal(false)
+        open_modal(true)
     };
 
     return (
@@ -151,7 +151,7 @@ const ModalUpdate = ({close_modal, open_modal, open_exclude, cardId}: iModalUpda
                                 open_exclude(true)
                                 }}>
                                     Excluir anúncio</button>
-                            <button className={`${style.btn_save} body-2-500`} type='submit'>Salvar alterações</button>
+                            <button id='bclose' className={`${style.btn_save} body-2-500`} type='submit'>Salvar alterações</button>
                         </div>
                     </form>
 

@@ -9,30 +9,63 @@
     border-radius: 4px
     background-color: #FDFDFD
 
+
+.titleContainer
+    display: flex
+    justify-content: space-between
+    align-items: center
+
     figure
         display: flex
+        justify-content: center
         align-items: center
-        gap: 1.5%
-        margin-top: 5%
-        margin-bottom: 3%
+        gap: 1rem
 
-        div
-            border-radius: 50%
-            width: 40px
-            height: 40px
-            color:$white-fixed
-            text-align: center
-            display: flex
-            align-items: center
-            justify-content: center
-            
-        figcaption
-            color:$grey-2
+    div
+        border-radius: 50%
+        width: 4rem
+        height: 4rem
+        line-height: 4rem
+        color:$white-fixed
+        text-align: center
+    
+    .commentDate
+        font-size: 12px
+        line-height: 24px
+        font-weight: 400
+        color: #868E96
 
-.commentDate
-    font-size: 12px
-    line-height: 24px
-    font-weight: 400
-    color: #868E96
+.titleBtnContainer
+    display: flex
+    gap: 1rem
+    > button
+        display: flex
+        justify-content: center
+        align-items: center
+        width: 3.5rem
+        height: 3.5rem
+        padding: 1rem 1rem
+        > svg
+            font-size: 3rem
 
-// .commentText
+.editForm
+    display: flex
+    width: 100%
+    > textarea
+        padding: 1.5rem
+        border: 1px solid $grey-6
+        border-radius: 4px
+
+.editComment
+    display: flex
+    width: 100%
+    min-height: 10rem
+
+.editBtnsContainer
+    display: flex
+    justify-content: flex-end
+    align-items: center
+    gap: 2rem
+
+
+

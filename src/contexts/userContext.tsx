@@ -18,7 +18,6 @@ interface IUserProviderProps {
 interface IUserContext {
   userRegister: (userData: TRegisterData) => Promise<void>;
   login: (loginData: TLoginData) => Promise<void>;
-  sellerProfile: () => Promise<void>
   isSeller: boolean;
   successfullyCreated: boolean;
   setSuccessfullyCreated: Dispatch<SetStateAction<boolean>>;
@@ -27,6 +26,7 @@ interface IUserContext {
   userLogout: () => void;
   user: IUser | null;
   seller: TAllUserPoster | null;
+  sellerProfile: () => Promise<void>;
   getInitials: (name: string | undefined) => string;
   excludeUser: (id: number | null) => void;
   updateUser: (data: iUpdateUser, idUser: number | null) => void
@@ -75,34 +75,6 @@ export interface TAllUserPoster {
   posters: posters[]
 }
 
-
-// const allUserPosters = z.object({
-//   id: z.number(),
-//   name: z.string(),
-//   email: z.string(),
-//   password: z.string(),
-//   cpf: z.string(),
-//   phone: z.string(),
-//   birthday: z.string(),
-//   description: z.string(),
-//   is_seller: z.boolean(),
-//   posters: z.object({
-//     id: z.number(),
-//     cover_image: z.string(),
-//     title: z.string(),
-//     description: z.string(),
-//     mileage: z.string(),
-//     year: z.string(),
-//     price: z.string(),
-//     created_at: z.string(),
-//     model: z.string(),
-//     color: z.string(),
-//     fuel: z.string(),
-//     fipe_price: z.string(),
-//     is_active: z.boolean(),
-//   }).array()
-// })
-
 interface IAddress {
   cep: string;
   state: string;
@@ -137,8 +109,35 @@ const UserProvider = ({ children }: IUserProviderProps) => {
       setIsSeller(decodedToken.is_seller)
       retrieveUser(userId);
     }
-  }, []);
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [setSeller]);
+
+
+  const sellerProfile = async (): Promise<void> => {
+    try {
+      const sellerId = searchParams.get('seller_id')
+
+      if (sellerId) {
+        const sellerRes = await ApiShop.get(`/users/${sellerId}`)
+
+        if (sellerRes.data) {
+          const allUsersPosters = await ApiShop.get(`/users/posters/${sellerId}`)
+
+          setSeller({ ...sellerRes.data, posters: [...allUsersPosters.data] })
+        }
+      }
+      else {
+        const allUsersPosters = await ApiShop.get(`/users/posters/${user?.id}`)
+
+        setSeller({ ...user, posters: [...allUsersPosters.data] })
+      }
+
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const userRegister = async (userData: TRegisterData): Promise<void> => {
     try {
@@ -188,31 +187,6 @@ const UserProvider = ({ children }: IUserProviderProps) => {
       toast.error(`Ops, algo deu errado! ${axiosError.message}`)
       console.log(axiosError.message);
     }
-  };
-
-  const sellerProfile = async (): Promise<void> => {
-    try {
-      const sellerId = searchParams.get('seller_id')
-
-      if (sellerId) {
-        const sellerRes = await ApiShop.get(`/users/${sellerId}`)
-
-        if (sellerRes.data) {
-          const allUsersPosters = await ApiShop.get(`/users/posters/${sellerId}`)
-
-          setSeller({ ...sellerRes.data, posters: [...allUsersPosters.data] })
-        }
-      } else {
-        const allUsersPosters = await ApiShop.get(`/users/posters/${user?.id}`)
-
-        setSeller({ ...user, posters: [...allUsersPosters.data] })
-      }
-
-
-    } catch (error) {
-      console.log(error);
-    }
-
   };
 
   const updatePassword = async (newPassData: TNewPass): Promise<void> => {
@@ -283,8 +257,8 @@ const UserProvider = ({ children }: IUserProviderProps) => {
       value={{
         userRegister,
         login,
-        sellerProfile,
         seller,
+        sellerProfile,
         isSeller,
         successfullyCreated,
         setSuccessfullyCreated,

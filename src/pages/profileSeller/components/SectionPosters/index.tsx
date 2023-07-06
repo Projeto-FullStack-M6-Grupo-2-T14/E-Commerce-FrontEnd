@@ -6,8 +6,8 @@ import { UserContext } from 'src/contexts/userContext';
 import semanuncio from 'src/assets/images/semanuncio.png'
 
 interface iSectionPoster {
-    open_update?: Dispatch<SetStateAction<boolean>>;
-    setCard: Dispatch<SetStateAction<number | null | undefined>>;
+    open_update: Dispatch<SetStateAction<boolean>>;
+    setCard: Dispatch<SetStateAction<undefined | string>>;
 }
 
 
@@ -30,15 +30,22 @@ const SectionPosters = ({ open_update, setCard }: iSectionPoster) => {
                             {
                                 seller?.posters.map((poster, i) => (
                                     <Card
-                                      key={i}
-                                      initial_name={getInitials(seller.name)}
-                                      name_profile={seller.name ?? ""}
-                                      user_id={seller.id ?? undefined}
-                                      open_update={open_update}
-                                      setCard={setCard}
-                                      {...poster}
+                                        key={i}
+                                        initial_name={getInitials(seller.name)}
+                                        name_profile={seller.name ?? ""}
+                                        user_id={seller.id ?? undefined}
+                                        open_update={open_update}
+                                        setCard={setCard}
+                                        cover_image={poster.cover_image ? poster.cover_image : ''}
+                                        description={poster.description ? poster.description : ''}
+                                        id={poster.id ? +poster.id : 10}
+                                        title={poster.model ? poster.model : ''}
+                                        is_active={poster.is_active ? poster.is_active : false}
+                                        mileage={poster.mileage ? poster.mileage : ''}
+                                        price={poster.price ? poster.price : ''}
+                                        year={poster.year ? poster.year : ''}
                                     />
-                                  ))
+                                ))
                             }
                         </ul>
                     </>
