@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { useContext, useEffect, useState } from "react"
 import { AiOutlineCloseSquare } from "react-icons/ai"
-
 import Card from "src/components/Card"
 import { PosterContext } from "src/contexts/posterContext"
 import { z } from 'zod'
@@ -134,6 +134,8 @@ const HomePage = () => {
                 <ul className={styles.listCards}>
                     {
                         filteredPosters.map((poster, i) =>
+                        // eslint-disable-next-line
+                        // @ts-ignore
                             <Card key={i}
                                 initial_name={getInitials(poster.user?.name)}
                                 name_profile={poster.user?.name ?? ""}
