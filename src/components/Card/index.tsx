@@ -20,7 +20,7 @@ interface iSectionPosters {
     user_id: number | undefined;
     open_update: Dispatch<SetStateAction<boolean>>;
     setCard: Dispatch<SetStateAction<string | undefined>>;
-  }
+}
 
 const Card = ({ id, cover_image, title, description, initial_name, name_profile, mileage, year, price, is_active, user_id, open_update, setCard }: iSectionPosters) => {
     const url = window.location.href
@@ -41,7 +41,7 @@ const Card = ({ id, cover_image, title, description, initial_name, name_profile,
     }
 
     return (
-        <li onClick={detail} className={styles.card}>
+        <li className={styles.card}>
 
             <figure>
                 <img src={cover_image} alt={title} />
@@ -69,9 +69,9 @@ const Card = ({ id, cover_image, title, description, initial_name, name_profile,
             {
                 findUrl && user_id == user?.id && <div className={styles.boxBtns}>
                     <button className='heading-7-600' onClick={() => openUpdate()}>Editar</button>
-                    <button className='heading-7-600'>Ver detalhes</button>
                 </div>
             }
+            <button className='heading-7-600' onClick={detail}>Ver detalhes</button>
         </li>
     )
 }
