@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import Footer from "src/components/Footer"
 import Header from "src/components/Header"
 import { UserContext } from "src/contexts/userContext"
@@ -20,12 +20,16 @@ const ProfileSellerPage = () => {
     const [openUpdate, setOpenUpdate] = useState(false)
     const [openConfUpdate, setOpenConfUpdate] = useState(false)
     const [openExclude, setOpenExclude] = useState(false)
-    const { user, seller, getInitials } = useContext(UserContext)
+    const { user, seller, getInitials, sellerProfile } = useContext(UserContext)
     const [openUpdateUser, setOpenUpdateUser] = useState(false)
     const [openUpdateAddress, setOpenUpdateAddress] = useState(false)
     const [idCard, setIdCard] = useState<string | undefined>('');
 
     const userId = user && user.id
+
+    useEffect(() => {
+        sellerProfile()
+    }, [])
 
     return (
         <>

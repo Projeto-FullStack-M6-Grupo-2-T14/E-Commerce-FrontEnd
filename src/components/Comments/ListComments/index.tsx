@@ -7,9 +7,9 @@ import { PosterContext } from "src/contexts/posterContext"
 import { FiEdit, FiTrash2 } from "react-icons/fi"
 
 
-const ListComments = ({comment}: { comment: TComment }) => {
+const ListComments = ({ comment }: { comment: TComment }) => {
   const { setComments, posterId } = useContext(PosterContext)
-  const [ showEditModal, setShowEditModal ] = useState(false)
+  const [showEditModal, setShowEditModal] = useState(false)
   const [editedText, setEditedText] = useState(comment.text)
   const storedUserId = localStorage.getItem("@USER_ID");
 
@@ -18,7 +18,7 @@ const ListComments = ({comment}: { comment: TComment }) => {
     let color = '#'
 
     for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)]
+      color += letters[Math.floor(Math.random() * 16)]
     }
 
     return color
@@ -46,7 +46,7 @@ const ListComments = ({comment}: { comment: TComment }) => {
     const currentDate = new Date()
     const differenceInMiliseconds = currentDate.getTime() - dateCommented.getTime()
     const timeDifference = Math.floor(differenceInMiliseconds / (1000 * 60 * 60 * 24))
-    if(timeDifference < 1) {
+    if (timeDifference < 1) {
       return `- hoje`
     } else if (timeDifference === 1) {
       return '- ontem'
@@ -113,37 +113,37 @@ const ListComments = ({comment}: { comment: TComment }) => {
       <div className={styles.titleContainer}>
         <figure>
           <div style={{ 'backgroundColor': generateColor }} className='heading-7-500'>{`${generateNameImg()}`}</div>
-            <figcaption className='body-2-500'>
-                <Link to={`/profile/seller?seller_id=${comment.user.id}`}>{userName}</Link>
-            </figcaption>
-          <span className={styles.commentDate}>{commentDate()}</span>
+          <figcaption className='body-2-500'>
+            <Link to={`/profile/seller?seller_id=${comment.user.id}`}>{userName}</Link>
+          </figcaption>
+          <p className={styles.commentDate}>{commentDate()}</p>
         </figure>
-        {storedUserId === String(comment.user.id) ? 
-        <div className={styles.titleBtnContainer}>
-        <button onClick={editComment}><FiEdit /></button>
-        <button onClick={() => deleteComment(comment.id)}><FiTrash2 /></button>
-      </div> 
-      : null}
-          
+        {storedUserId === String(comment.user.id) ?
+          <div className={styles.titleBtnContainer}>
+            <button onClick={editComment}><FiEdit /></button>
+            <button onClick={() => deleteComment(comment.id)}><FiTrash2 /></button>
+          </div>
+          : null}
 
-      
+
+
       </div>
       <div className={styles.commentText}>
         {
           !showEditModal
-          ? <p className="body-2-400">{comment.text}</p>
-          : <>
+            ? <p className="body-2-400">{comment.text}</p>
+            : <>
               <form className={styles.editForm}>
-                <textarea className={`${styles.editComment} body-2-400`} id="" defaultValue={comment.text} onChange={handleTextareaChange}/>
+                <textarea className={`${styles.editComment} body-2-400`} id="" defaultValue={comment.text} onChange={handleTextareaChange} />
                 <div className={styles.editBtnsContainer}>
                   <button onClick={editComment}>cancelar</button>
                   <button onClick={saveEditedComment}>salvar</button>
                 </div>
               </form>
             </>
-          
+
         }
-        
+
       </div>
     </div>
   )

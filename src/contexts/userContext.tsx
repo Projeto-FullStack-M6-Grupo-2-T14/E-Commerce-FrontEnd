@@ -110,8 +110,6 @@ const UserProvider = ({ children }: IUserProviderProps) => {
       retrieveUser(userId);
     }
 
-
-    sellerProfile()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setSeller]);
 
