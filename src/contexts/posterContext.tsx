@@ -198,22 +198,23 @@ const PosterProvider = ({ children }: IPosterProviderProps) => {
         },
       });
 
-      const dataKeys = Object.keys(data)
-      const dataValues = Object.values(data)
 
-      dataKeys.forEach(async (img, index) => {
-        if (img.includes('image') && !img.includes('cover_image')) {
-          const img = {
-            image: dataValues[index]
-          }
+      // const dataKeys = Object.keys(data)
+      // const dataValues = Object.values(data)
 
-          await ApiShop.patch(`/image/${idCard}`, img, {
-            headers: {
-              Authorization: `Bearer ${token}`
-            },
-          });
-        }
-      })
+      // dataKeys.forEach(async (img, index) => {
+      //   if (img.includes('image') && !img.includes('cover_image')) {
+      //     const img = {
+      //       image: dataValues[index]
+      //     }
+
+      //     await ApiShop.patch(`/image/${idCard}`, img, {
+      //       headers: {
+      //         Authorization: `Bearer ${token}`
+      //       },
+      //     });
+      //   }
+      // })
 
     }
     catch (err) { console.log(err) }

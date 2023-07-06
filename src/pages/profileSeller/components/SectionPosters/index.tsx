@@ -39,7 +39,7 @@ const SectionPosters = ({ open_update, setCard }: iSectionPoster) => {
                                         cover_image={poster.cover_image ? poster.cover_image : ''}
                                         description={poster.description ? poster.description : ''}
                                         id={poster.id ? +poster.id : 10}
-                                        title={poster.title ? poster.title : ''}
+                                        title={poster.model ? poster.model : ''}
                                         is_active={poster.is_active ? poster.is_active : false}
                                         mileage={poster.mileage ? poster.mileage : ''}
                                         price={poster.price ? poster.price : ''}
