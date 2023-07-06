@@ -9,25 +9,59 @@
     border-radius: 4px
     background-color: #FDFDFD
 
-    figure
-        display: flex
-        align-items: center
-        gap: 1.5%
-        margin-top: 5%
-        margin-bottom: 3%
 
-        div
-            border-radius: 50%
-            width: 40px
-            height: 40px
-            color:$white-fixed
-            text-align: center
-            display: flex
-            align-items: center
-            justify-content: center
-            
-        figcaption
-            color:$grey-2
+.titleContainer
+    display: flex
+    justify-content: space-between
+    align-items: center
+    width: 100%
+
+.titleBtnContainer
+    display: flex
+    gap: 1rem
+    > button
+        display: flex
+        justify-content: center
+        align-items: center
+        width: 3.5rem
+        height: 3.5rem
+        padding: 1rem 1rem
+        > svg
+            font-size: 3rem
+
+.editForm
+    display: flex
+    width: 100%
+    > textarea
+        padding: 1.5rem
+        border: 1px solid $grey-6
+        border-radius: 4px
+
+.editComment
+    display: flex
+    width: 100%
+    min-height: 10rem
+
+.editBtnsContainer
+    display: flex
+    justify-content: flex-end
+    align-items: center
+    gap: 2rem
+
+figure
+    display: flex
+    align-items: center
+    gap: 1.5%
+    margin-top: 5%
+    margin-bottom: 3%
+
+    div
+        border-radius: 50%
+        width: 40px
+        height: 40px
+        color:$white-fixed
+        text-align: center
+
 
 .commentDate
     font-size: 12px
@@ -35,4 +69,3 @@
     font-weight: 400
     color: #868E96
 
-// .commentText

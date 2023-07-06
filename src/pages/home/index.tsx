@@ -16,7 +16,9 @@ import ListFilter from "./components/ListFilter"
 
 const HomePage = () => {
     const [showFilters, setShowFilter] = useState(false)
+
     const { getInitials } = useContext(UserContext)
+
     const { filteredPosters, setFilteredPosters, getPosters, allPosters } = useContext(PosterContext)
 
     const toggleFilters = () => {

@@ -54,10 +54,7 @@ const posterCardSchema = z.object({
   fuel: z.string(),
   fipe_price: z.string(),
   is_active: z.boolean(),
-  user: z.object({
-    id: z.number(),
-    name: z.string()
-  })
+  user: posterCardUserSchema
 })
 
 export type TAllPosterUser = z.infer<typeof allPosterUserSchema>
