@@ -99,7 +99,7 @@ const ModalCreatePoster = ({close_modal, open_modal}: iModalCreatePoster) => {
                             </div>
                             <div className={styles.box_input_small}>
                                 <label htmlFor="color" className='heading-7-500'>Preço</label>
-                                <input type="text" placeholder="Branco" id="color" className='heading-7-500' {...register("price")}/>
+                                <input type="text" placeholder="R$50.000,00" id="color" className='heading-7-500' {...register("price")}/>
                                 { errors.price?.message ? <span className={styles.span_error}>{ errors.price.message }</span> : null }
                             </div>
                         </div>

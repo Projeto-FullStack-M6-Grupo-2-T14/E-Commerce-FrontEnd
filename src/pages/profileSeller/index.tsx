@@ -14,22 +14,16 @@ import ModalUpdateUser from "./components/Modals/modalUpdateUser"
 import SectionPosters from "./components/SectionPosters"
 import SectionProfile from "./components/SectionProfile"
 
-
-
-
 const ProfileSellerPage = () => {
     const [openCreate, setOpenCreate] = useState(false)
     const [openConfCreate, setOpenConfCreate] = useState(false)
     const [openUpdate, setOpenUpdate] = useState(false)
     const [openConfUpdate, setOpenConfUpdate] = useState(false)
     const [openExclude, setOpenExclude] = useState(false)
-
-
     const { user, seller, sellerProfile, getInitials } = useContext(UserContext)
-
     const [openUpdateUser, setOpenUpdateUser] = useState(false)
     const [openUpdateAddress, setOpenUpdateAddress] = useState(false)
-    const [idCard, setIdCard] = useState('')
+    const [idCard, setIdCard] = useState<string | undefined>('');
 
     useEffect(() => {
         sellerProfile()
@@ -45,7 +39,7 @@ const ProfileSellerPage = () => {
                     seller ?
                         <SectionProfile seller={seller} open_create_poster={setOpenCreate} open_update_user={setOpenUpdateUser} initial_name={seller?.name} name={seller?.name ?? ""} description={seller?.description ?? ""} />
                         :
-                        <SectionProfile open_create_poster={setOpenCreate} open_update_user={setOpenUpdateUser} initial_name={user?.name} name={user?.name ?? ""} description={user?.description ?? ""} />
+                        <SectionProfile open_create_poster={setOpenCreate} open_update_user={setOpenUpdateUser} initial_name={getInitials(user?.name)} name={user?.name ?? ""} description={user?.description ?? ""} />
                 }
                 <SectionPosters open_update={setOpenUpdate} setCard={setIdCard} />
             </main>
@@ -58,13 +52,13 @@ const ProfileSellerPage = () => {
                 openConfCreate && <ModalConfCreate close_modal={setOpenConfCreate} />
             }
             {
-                openUpdate && <ModalUpdate open_modal={setOpenConfUpdate} close_modal={setOpenUpdate} open_exclude={setOpenExclude} cardId={idCard} />
+                openUpdate && <ModalUpdate open_modal={setOpenConfUpdate} close_modal={setOpenUpdate} open_exclude={setOpenExclude} cardId={idCard ?? ''} />
             }
             {
                 openConfUpdate && <ModalConfUpdate close_modal={setOpenConfUpdate} />
             }
             {
-                openExclude && <ModalDelete close_modal={setOpenExclude} cardId={idCard} />
+                openExclude && <ModalDelete close_modal={setOpenExclude} cardId={idCard ?? ''} />
             }
             //edit user
             {

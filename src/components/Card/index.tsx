@@ -3,35 +3,36 @@ import styles from './card.module.sass'
 import { Link, useNavigate } from 'react-router-dom'
 import { Dispatch, SetStateAction, useContext } from 'react'
 import { UserContext } from 'src/contexts/userContext'
-import { PosterContext, TPosterUser } from 'src/contexts/posterContext'
+import { PosterContext } from 'src/contexts/posterContext'
 
 
 interface iSectionPosters {
-    id: number,
-    cover_image: string,
-    title: string,
-    description: string,
-    initial_name: string,
-    name_profile: string,
-    mileage: string,
-    year: string,
-    price: string,
-    is_active: boolean,
-    user_id: number,
-    open_update?: Dispatch<SetStateAction<boolean>>,
-    setCard?: Dispatch<SetStateAction<number | null>>,
-}
+    id: number;
+    cover_image: string;
+    title: string;
+    description: string;
+    initial_name: string;
+    name_profile: string;
+    mileage: string;
+    year: string;
+    price: string;
+    is_active: boolean;
+    user_id: number | undefined;
+    open_update: Dispatch<SetStateAction<boolean>>;
+    setCard: Dispatch<SetStateAction<string | undefined>>;
+  }
+
 const Card = ({ id, cover_image, title, description, initial_name, name_profile, mileage, year, price, is_active, user_id, open_update, setCard }: iSectionPosters) => {
     const url = window.location.href
     const findUrl = url.includes('profile')
 
-    const { user, sellerProfile } = useContext(UserContext)
-    const { posterId, setPosterId } = useContext(PosterContext)
+    const { user } = useContext(UserContext)
+    const { setPosterId } = useContext(PosterContext)
     const navigate = useNavigate()
 
     function openUpdate() {
-        setCard ? setCard(id) : null
-        open_update && open_update(true)
+        setCard ? setCard(id.toString()) : null
+        open_update(true)
     }
 
     const detail = () => {
@@ -40,8 +41,8 @@ const Card = ({ id, cover_image, title, description, initial_name, name_profile,
     }
 
     return (
-        <li onClick={detail}  className={styles.card}>
-            
+        <li onClick={detail} className={styles.card}>
+
             <figure>
                 <img src={cover_image} alt={title} />
                 {!findUrl ? <></> : <span className={`heading-7-500`} style={is_active === true ? { backgroundColor: '#4529E6' } : { backgroundColor: '#adb5bd' }}>{is_active === true ? 'Ativo' : 'Inativo'}</span>}

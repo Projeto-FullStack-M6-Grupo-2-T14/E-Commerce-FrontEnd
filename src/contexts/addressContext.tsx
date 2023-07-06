@@ -1,5 +1,5 @@
 import { Context, ReactNode, createContext } from 'react';
-import { iUpdateAddress } from 'src/components/profile/Modals/modalUpdateAddress/modalUpdateAddress.schema';
+import { iUpdateAddress } from 'src/pages/profileSeller/components/Modals/modalUpdateAddress/modalUpdateAddress.schema';
 import { ApiShop } from 'src/services/Api';
 
 interface iAddressProviderProps {

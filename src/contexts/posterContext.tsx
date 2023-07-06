@@ -60,6 +60,7 @@ const posterCardSchema = z.object({
 export type TAllPosterUser = z.infer<typeof allPosterUserSchema>
 
 const allPosterUserSchema = z.object({
+  id: z.number(),
   name: z.string().max(100),
   email: z.string().max(60),
   cpf: z.string().max(11),
@@ -97,9 +98,9 @@ const PosterProvider = ({ children }: IPosterProviderProps) => {
   const [filteredPosters, setFilteredPosters] = useState<TPosterCardList>([])
   const [loadPosters, setLoadPosters] = useState(true)
   const [allPosters, setAllPosters] = useState<TAllPosterList>([])
-  const [ posterData, setPosterData ] = useState<TDetailPoster | null>(null)
-  const [ comments, setComments ] = useState<TComment[]>([])
-  const [ posterId, setPosterId ] = useState<number>(0)
+  const [posterData, setPosterData] = useState<TDetailPoster | null>(null)
+  const [comments, setComments] = useState<TComment[]>([])
+  const [posterId, setPosterId] = useState<number>(0)
 
 
   const getPosters = async (): Promise<void> => {
@@ -122,30 +123,46 @@ const PosterProvider = ({ children }: IPosterProviderProps) => {
     const token = localStorage.getItem('@TOKEN')
 
     try {
-      const posterData = {
-        ...data
+      // const posterData = {
+      //   ...data
+      // }
+      // const dataKeys = Object.keys(data)
+      // const dataValues = Object.values(data)
+
+      // dataKeys.forEach(async (img, index) => {
+      //   if (img.includes('image') && !img.includes('cover_image')) {
+      //     const img = {
+      //       image: dataValues[index]
+      //     }
+
+      //     await ApiShop.post('/image', img, {
+      //       headers: {
+      //         Authorization: `Bearer ${token}`
+      //       },
+      //     });
+      //   }
+      // })
+      const dataPosterUser = {
+        title: data.model,
+        brand: data.brand,
+        model: data.model,
+        year: data.year,
+        fuel: data.fuel,
+        mileage: data.mileage,
+        color: data.color,
+        fipe_price: data.fipe_price,
+        price: data.price,
+        description: data.description,
+        cover_image: data.cover_image,
+        is_active: data.is_active,
       }
-      const dataKeys = Object.keys(data)
-      const dataValues = Object.values(data)
-
-      dataKeys.forEach(async (img, index) => {
-        if (img.includes('image') && !img.includes('cover_image')) {
-          const img = {
-            image: dataValues[index]
-          }
-
-          await ApiShop.post('/image', img, {
-            headers: {
-              Authorization: `Bearer ${token}`
-            },
-          });
-        }
-      })
-      await ApiShop.post('/posters', posterData, {
+      const res = await ApiShop.post('/posters', dataPosterUser, {
         headers: {
           Authorization: `Bearer ${token}`
         },
       });
+      
+      console.log(res.data)
     }
     catch (error) { console.log(error) }
   }
