@@ -41,7 +41,7 @@ const DetailPosterPage = () => {
             }
         }
         getPosterData()
-    },[setPosterData, setComments])
+    },[setPosterData, setComments, navigate, posterId, setPosterId])
 
 
 

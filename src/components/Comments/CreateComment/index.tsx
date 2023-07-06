@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom"
 
 
 const CreateComment = ({posterId }: { posterId: number }) => {
-    const { comments, setComments } = useContext(PosterContext)
+    const { setComments } = useContext(PosterContext)
     const [ loggedUserName, setLoggedUserName ] = useState('')
     const navigate = useNavigate()
     const {
@@ -28,6 +28,19 @@ const CreateComment = ({posterId }: { posterId: number }) => {
         console.log(error)
         }
     }
+    const getComments = useCallback(async () => {
+        try {
+            const token = localStorage.getItem('@TOKEN')
+            const response = await ApiShop.get(`comments/${posterId}`, {
+                headers: {
+                Authorization: `Bearer ${token}`
+                }
+            })
+            setComments(response.data)
+            } catch (error) {
+            console.error(error)
+            }
+        }, [posterId, setComments])
 
     useEffect(() => {
         const userId = localStorage.getItem('@USER_ID')
@@ -48,20 +61,17 @@ const CreateComment = ({posterId }: { posterId: number }) => {
             if(!token){
                 navigate('/')
             }
-            const response = await ApiShop.post(`/comments/${posterId}`, data, {
+            await ApiShop.post(`/comments/${posterId}`, data, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 }
             })
-            setComments([
-                ...comments,
-                response.data
-            ])
+            getComments()
             reset()
         } catch (error) {
             console.error(error)
         }
-    }, [posterId, getValues, comments, reset])
+    }, [posterId, getValues, reset, getComments, navigate])
     function generateColor() {
         const letters = '0123456789ABCDEF'
         let color = '#'
