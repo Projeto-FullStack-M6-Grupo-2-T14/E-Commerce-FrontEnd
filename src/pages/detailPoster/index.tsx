@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import styles from './detailPoster.module.sass'
 import { useContext, useEffect, useState } from 'react'
 import { ApiShop } from 'src/services/Api'
@@ -8,11 +9,10 @@ import { PosterContext } from 'src/contexts/posterContext'
 import photos from './../../assets/images/Frame 41.png'
 import SellerInfo from 'src/components/SellerInfo'
 import { TSellerInfo } from 'src/components/SellerInfo/sellerInfo.schemas'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import Header from 'src/components/Header'
 import Footer from 'src/components/Footer'
 import { UserContext } from 'src/contexts/userContext'
-
 
 const DetailPosterPage = () => {
     const emptySeller = {
