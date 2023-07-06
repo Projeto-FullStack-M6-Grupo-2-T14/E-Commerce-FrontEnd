@@ -32,8 +32,8 @@ const DetailPoster = ({posterData}: {posterData: TDetailPoster}) => {
                                     </div>
                                 </div>
                                 <div>
-                                    <h3 className = 'heading-7-500'>
-                                        R$ {posterData.price}
+                                    <h3 className = 'heading-6-600'>
+                                        R$ {posterData.price},00
                                     </h3>
                                 </div>
                             </div>
