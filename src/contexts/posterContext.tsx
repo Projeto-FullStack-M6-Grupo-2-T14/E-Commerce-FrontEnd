@@ -126,30 +126,46 @@ const PosterProvider = ({ children }: IPosterProviderProps) => {
     const token = localStorage.getItem('@TOKEN')
 
     try {
-      const posterData = {
-        ...data
+      // const posterData = {
+      //   ...data
+      // }
+      // const dataKeys = Object.keys(data)
+      // const dataValues = Object.values(data)
+
+      // dataKeys.forEach(async (img, index) => {
+      //   if (img.includes('image') && !img.includes('cover_image')) {
+      //     const img = {
+      //       image: dataValues[index]
+      //     }
+
+      //     await ApiShop.post('/image', img, {
+      //       headers: {
+      //         Authorization: `Bearer ${token}`
+      //       },
+      //     });
+      //   }
+      // })
+      const dataPosterUser = {
+        title: data.model,
+        brand: data.brand,
+        model: data.model,
+        year: data.year,
+        fuel: data.fuel,
+        mileage: data.mileage,
+        color: data.color,
+        fipe_price: data.fipe_price,
+        price: data.price,
+        description: data.description,
+        cover_image: data.cover_image,
+        is_active: data.is_active,
       }
-      const dataKeys = Object.keys(data)
-      const dataValues = Object.values(data)
-
-      dataKeys.forEach(async (img, index) => {
-        if (img.includes('image') && !img.includes('cover_image')) {
-          const img = {
-            image: dataValues[index]
-          }
-
-          await ApiShop.post('/image', img, {
-            headers: {
-              Authorization: `Bearer ${token}`
-            },
-          });
-        }
-      })
-      await ApiShop.post('/posters', posterData, {
+      const res = await ApiShop.post('/posters', dataPosterUser, {
         headers: {
           Authorization: `Bearer ${token}`
         },
       });
+      
+      console.log(res.data)
     }
     catch (error) { console.log(error) }
   }

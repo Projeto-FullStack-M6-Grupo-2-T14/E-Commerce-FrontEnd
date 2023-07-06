@@ -18,8 +18,8 @@ interface iSectionPosters {
     price: string;
     is_active: boolean;
     user_id: number | undefined;
-    open_update?: Dispatch<SetStateAction<boolean>>;
-    setCard: Dispatch<SetStateAction<number | null | undefined>>;
+    open_update: Dispatch<SetStateAction<boolean>>;
+    setCard: Dispatch<SetStateAction<string | undefined>>;
   }
 
 const Card = ({ id, cover_image, title, description, initial_name, name_profile, mileage, year, price, is_active, user_id, open_update, setCard }: iSectionPosters) => {
@@ -31,8 +31,8 @@ const Card = ({ id, cover_image, title, description, initial_name, name_profile,
     const navigate = useNavigate()
 
     function openUpdate() {
-        setCard ? setCard(id) : null
-        open_update && open_update(true)
+        setCard ? setCard(id.toString()) : null
+        open_update(true)
     }
 
     const detail = () => {
