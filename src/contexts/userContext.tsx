@@ -110,8 +110,8 @@ const UserProvider = ({ children }: IUserProviderProps) => {
       retrieveUser(userId);
     }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [setSeller]);
+
+  }, []);
 
 
   const sellerProfile = async (): Promise<void> => {
