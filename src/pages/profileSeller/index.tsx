@@ -29,7 +29,7 @@ const ProfileSellerPage = () => {
 
     useEffect(() => {
         sellerProfile()
-    }, [])
+    }, [openUpdate])
 
     return (
         <>
