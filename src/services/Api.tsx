@@ -6,7 +6,7 @@ const ApiCars: AxiosInstance = axios.create({
 });
 
 const ApiShop: AxiosInstance = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: 'https://e-commerce-backend-91t3.onrender.com',
   timeout: 5000
 })
 
