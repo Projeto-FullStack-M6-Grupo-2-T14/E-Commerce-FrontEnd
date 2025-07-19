@@ -1,4 +1,4 @@
-@import "../../../../../styles/_colors.sass"
+@use "../../../../../styles/_colors.sass"
 
 .container_modal
     display: flex
@@ -14,7 +14,7 @@
 
 .modal
     position: relative
-    background-color: $white-fixed
+    background-color: colors.$white-fixed
     border-radius: 5px
     width: 520px
     top: 5%
@@ -58,14 +58,14 @@
 .input_med
     height: 35px
     border-radius: 5px
-    border: 3px solid $grey-7
+    border: 3px solid colors.$grey-7
     padding: 5px
     transition: 0.3s ease
     outline: none
 
 .input_med:focus
     transition: 0.3s ease
-    border: 3px solid $grey-2
+    border: 3px solid colors.$grey-2
 
 
 .box_input
@@ -86,11 +86,11 @@
             transition: 0.3s ease
             padding: 5px
             border-radius: 5px
-            border: 3px solid $grey-7
+            border: 3px solid colors.$grey-7
         
         input:focus
             transition: 0.3s ease
-            border: 3px solid $grey-2
+            border: 3px solid colors.$grey-2
 
 
 .box_text
@@ -102,7 +102,7 @@
     textarea
         width: 100%
         height: 70px
-        border: 3px solid $grey-7
+        border: 3px solid colors.$grey-7
         border-radius: 5px
         padding: 5px
         resize: none
@@ -113,17 +113,17 @@
     align-items: center
     max-width: 65%
     height: 36px
-    background-color: $brand-4
+    background-color: colors.$brand-4
     border-radius: 5px
-    color: $brand-1
+    color: colors.$brand-1
     margin-top: 3%
     transition: 0.3s ease
     font-weight: 600
 
 .btn_add:hover
     transition: 0.3s ease
-    background-color: $brand-1
-    color: $white-fixed
+    background-color: colors.$brand-1
+    color: colors.$white-fixed
 
 .box_btns
     display: flex
@@ -141,12 +141,12 @@
         transition: 0.3s ease
     
     button:hover
-        color: $white-fixed
-        background-color: $grey-0
+        color: colors.$white-fixed
+        background-color: colors.$grey-0
         transition: 0.3s ease
 
 .span_error
-    color: $alert-1
+    color: colors.$alert-1
     font-weight: 500
     font-size: 14px
     display: flex

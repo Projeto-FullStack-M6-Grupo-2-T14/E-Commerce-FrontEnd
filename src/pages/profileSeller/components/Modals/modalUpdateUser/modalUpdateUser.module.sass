@@ -1,4 +1,4 @@
-@import "../../../../../styles/_colors.sass"
+@use "../../../../../styles/_colors.sass"
 
 .btn_add
     display: flex
@@ -6,16 +6,16 @@
     justify-content: center
     width: 100%
     height: 36px
-    background-color: $brand-4
+    background-color: colors.$brand-4
     border-radius: 5px
-    color: $brand-1
+    color: colors.$brand-1
     margin-top: 1%
     transition: 0.3s ease
 
 .btn_add:hover
     transition: 0.3s ease
-    background-color: $brand-1
-    color: $white-fixed
+    background-color: colors.$brand-1
+    color: colors.$white-fixed
 
 .box_btns
     display: flex
@@ -33,34 +33,34 @@
         align-items: center
     
     .btn_exclude
-        background-color: $alert-2
-        color: $alert-1
+        background-color: colors.$alert-2
+        color: colors.$alert-1
         transition: 0.3s ease
 
     .btn_exit
-        background-color: $grey-6
-        color: $grey-2
+        background-color: colors.$grey-6
+        color: colors.$grey-2
         transition: 0.3s ease
 
     .btn_save
-        background-color: $brand-3
-        color: $white-fixed
+        background-color: colors.$brand-3
+        color: colors.$white-fixed
         transition: 0.3s ease
         padding: 0
     
     .btn_exclude:hover
-        background-color: $alert-1
-        color: $white-fixed
+        background-color: colors.$alert-1
+        color: colors.$white-fixed
         transition: 0.3s ease
 
     .btn_exit:hover
-        background-color: $grey-2
-        color: $white-fixed
+        background-color: colors.$grey-2
+        color: colors.$white-fixed
         transition: 0.3s ease
 
     .btn_save:hover
-        background-color: $brand-1
-        color: $white-fixed
+        background-color: colors.$brand-1
+        color: colors.$white-fixed
         transition: 0.3s ease
 
 @media (max-width: 800px)

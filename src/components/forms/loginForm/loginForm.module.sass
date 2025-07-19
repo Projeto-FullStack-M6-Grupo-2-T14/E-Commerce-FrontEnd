@@ -1,4 +1,4 @@
-@import "../../../styles/_colors.sass"
+@use "../../../styles/_colors.sass"
     
 form
     display: flex
@@ -9,7 +9,7 @@ form
     margin: 0 auto
     padding: 5rem 3rem
     gap: 12px
-    background: $grey-10
+    background: colors.$grey-10
     border-radius: 4px
 
     h1
@@ -23,7 +23,7 @@ form
 
         .tooltip
             font-size: 1.2rem
-            background-color: $brand-1
+            background-color: colors.$brand-1
 
         .inputBoxContainer
             display: flex
@@ -37,12 +37,12 @@ form
             width: 100%
             height: 48px
             padding: 0 16px
-            border: 1.5px solid $grey-7
+            border: 1.5px solid colors.$grey-7
             border-radius: 4px 
             font-size: 1.6rem
 
             &:hover
-                background-color: $grey-7
+                background-color: colors.$grey-7
 
         .passwordInput
             position: relative
@@ -52,7 +52,7 @@ form
             width: 15px
             right: 10px
             top: 10px
-            color: $grey-2
+            color: colors.$grey-2
             cursor: pointer
 
                 
@@ -66,36 +66,36 @@ form
             justify-content: flex-end
 
             span
-                color: $grey-3
+                color: colors.$grey-3
                 font-size: 1.2rem  
                 &:hover
-                    color: $brand-1
+                    color: colors.$brand-1
 
     .btnLogin
         border-radius: 4px
         padding: 12px 28px 12px 28px
         width: 100%
-        background-color: $brand-1
-        color: $white-fixed
+        background-color: colors.$brand-1
+        color: colors.$white-fixed
         font-weight: 600
         &:hover
-            background-color: $brand-2
+            background-color: colors.$brand-2
 
     .btnRegister
         display: flex
         justify-content: center
         padding: 12px 28px
-        border: 1.5px solid $grey-4
+        border: 1.5px solid colors.$grey-4
         border-radius: 4px
-        color: $grey-0
+        color: colors.$grey-0
         text-decoration: none
         cursor: pointer
         transition: 0.2s
         &:hover
-            background-color: $grey-1
-            color: $white-fixed
+            background-color: colors.$grey-1
+            color: colors.$white-fixed
 
     p
-        color: $grey-3
+        color: colors.$grey-3
         font-size: 1.2rem
         text-align: center

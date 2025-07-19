@@ -1,4 +1,4 @@
-@import "../../styles/_colors.sass"
+@use "../../styles/_colors.sass"
 
 svg
   font-size: 3rem !important
@@ -7,9 +7,9 @@ svg
   display: flex
   justify-content: space-between
   align-items: center
-  background-color: $grey-10
+  background-color: colors.$grey-10
   padding: 0 2rem
-  border-bottom: 2px solid $grey-6
+  border-bottom: 2px solid colors.$grey-6
   width: 100vw
   height: 100px
 
@@ -35,22 +35,22 @@ svg
   transition: 0.3s ease
 
 .linkLogin
-    color: $brand-1
+    color: colors.$brand-1
 
     &:hover
-      color: $brand-3
+      color: colors.$brand-3
 
 .linkRegister
   padding: 1.2rem 2.8rem
   border-radius: 4px
-  border: 2px solid $grey-4
-  color: $grey-1
-  background-color: $grey-9
+  border: 2px solid colors.$grey-4
+  color: colors.$grey-1
+  background-color: colors.$grey-9
 
   &:hover
-    color: $white-fixed
-    background-color: $grey-1
-    border: 2px solid $grey-1
+    color: colors.$white-fixed
+    background-color: colors.$grey-1
+    border: 2px solid colors.$grey-1
 
 
 .buttonContainer, .buttonContainerMobile
@@ -65,14 +65,14 @@ svg
     font-size: 2rem
   
 .logout
-  background-color: $alert-3 
+  background-color: colors.$alert-3 
   padding: 10px
   width: 120px
   border-radius: 5px
   display: flex
   align-items: center
   justify-content: center
-  color: $grey-2
+  color: colors.$grey-2
   font-size: 1.8rem
   font-weight: 500
   transition: 0.3s ease
@@ -88,7 +88,7 @@ svg
     gap: 10px
 
     .hr
-      background-color: $grey-6
+      background-color: colors.$grey-6
       padding: 1.5px
       height: 100px
       margin-right: 20px
@@ -97,8 +97,8 @@ svg
 
     .iconProfile
       padding: 1rem 1.5rem
-      color: $white-fixed
-      background-color: $brand-1
+      color: colors.$white-fixed
+      background-color: colors.$brand-1
       border-radius: 50%
 
     figcaption
@@ -113,7 +113,7 @@ svg
   height: 100px
   top: -100px
   transition: 0.3s ease
-  background-color: $white-fixed
+  background-color: colors.$white-fixed
   z-index: 1
 
   &.open

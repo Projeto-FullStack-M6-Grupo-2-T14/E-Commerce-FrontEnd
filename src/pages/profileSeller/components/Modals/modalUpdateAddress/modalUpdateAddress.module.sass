@@ -1,4 +1,4 @@
-@import "../../../../../styles/_colors.sass"
+@use "../../../../../styles/_colors.sass"
 
 .box_btns
     button
@@ -7,20 +7,20 @@
         transition: 0.3s ease
 
     .btn_exit
-       background-color: $grey-6
-       color: $grey-2    
+       background-color: colors.$grey-6
+       color: colors.$grey-2    
 
     .btn_save
-       background-color: $brand-3
-       color: $white-fixed
+       background-color: colors.$brand-3
+       color: colors.$white-fixed
     
     .btn_exit:hover
-       background-color: $grey-2
-       color: $white-fixed   
+       background-color: colors.$grey-2
+       color: colors.$white-fixed   
 
     .btn_save:hover
-       background-color: $brand-1
-       color: $white-fixed
+       background-color: colors.$brand-1
+       color: colors.$white-fixed
 
 @media (max-width: 800px) 
     .box_btns button

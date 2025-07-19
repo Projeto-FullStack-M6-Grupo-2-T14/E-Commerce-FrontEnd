@@ -1,4 +1,4 @@
-@import './../../styles/_colors'
+@use '../../styles/_colors'
 
 .detpostContainer
     display: flex
@@ -49,21 +49,21 @@
     border-radius: 4px
     padding: 6px 12px
     gap: 10px
-    color: $brand-1
-    background-color: $brand-4
+    color: colors.$brand-1
+    background-color: colors.$brand-4
 
 .detpostBtn
     border-radius: 4px
     padding: 12px 28px 12px 28px
-    background-color: $brand-1
-    color: $white-fixed
+    background-color: colors.$brand-1
+    color: colors.$white-fixed
     margin-top: 10px
     font-weight: 600
     transition: 0.3s
     &:hover
-        background-color: $brand-2
+        background-color: colors.$brand-2
     &:focus
-        background-color: $grey-0
+        background-color: colors.$grey-0
 
 .detpostDescription
     display: flex
